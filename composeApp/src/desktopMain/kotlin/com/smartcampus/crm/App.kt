@@ -1,35 +1,15 @@
 package com.smartcampus.crm
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.dp
 import com.smartcampus.presentationCore.components.TopBar
-import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.painterResource
+import com.smartcampus.presentationCore.theme.SmartCampusTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import smartcampuscrm.composeapp.generated.resources.Res
-import smartcampuscrm.composeapp.generated.resources.icon
-import smartcampuscrm.composeapp.generated.resources.anta_regular
 
 @Preview
 @Composable
 fun App() {
-    MaterialTheme {
+    SmartCampusTheme {
         TopBar()
 //        Row(
 //            modifier = Modifier
