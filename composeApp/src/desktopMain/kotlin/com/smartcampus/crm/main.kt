@@ -37,8 +37,8 @@ fun main() = application {
         state = windowState
     ) {
 
-        WindowDraggableArea {
-            Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            WindowDraggableArea {
                 TopBar(
                     onCloseRequest = ::exitApplication,
                     onMinimiseRequest = { windowState.isMinimized = true },
@@ -74,9 +74,8 @@ fun main() = application {
                     },
                     isWindowMaximized = isManuallyMaximized || windowState.placement == WindowPlacement.Maximized,
                 )
-
-                App()
             }
+            App()
         }
     }
 }
