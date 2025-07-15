@@ -34,11 +34,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.core)
 
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.ktor.client.json)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.serialization)
+            implementation(libs.bundles.ktor.common)
 
         }
         commonTest.dependencies {
