@@ -2,6 +2,7 @@ package com.smartcampus.crm.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -27,15 +28,16 @@ fun RegistrationScreen(
         Button(
             onClick = {
                 navigateToLogin("Входа")
-            },
-            colors = ButtonColors(
-                containerColor = Color(0xFF233255),
-                contentColor = Color(0xFFFDFDF5),
-                disabledContainerColor = Color.LightGray,
-                disabledContentColor = Color.Gray
-            ),
+            }
         ) {
-            Text("Вход", color = Color.White)
+            Text("Вход")
         }
     }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {  }
 }

@@ -73,7 +73,7 @@ fun ColorPreview(name: String, color: Color) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
+            .height(50.dp)
             .background(color)
             .padding(horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically

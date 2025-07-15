@@ -17,13 +17,11 @@ fun MainScreen(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .background(color = lightTheme.onBackground),
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = test,
-            color = Color.White,
             style = MaterialTheme.typography.headlineMedium
         )
     }

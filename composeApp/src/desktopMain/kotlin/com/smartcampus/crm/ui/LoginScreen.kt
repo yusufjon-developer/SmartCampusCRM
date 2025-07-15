@@ -62,7 +62,7 @@ fun LoginScreen(
     ) {
         Text(
             text = "Вход",
-            color = lightTheme.onBackground ,
+            color = lightTheme.onBackground,
             style = MaterialTheme.typography.headlineMedium
         )
 

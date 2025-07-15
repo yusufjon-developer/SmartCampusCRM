@@ -12,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +23,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.smartcampus.presentationCore.theme.lightTheme
 
 @Composable
 fun PasswordField(
@@ -37,60 +35,6 @@ fun PasswordField(
 ) {
     var visibility by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
-    val textFieldColors = TextFieldDefaults.colors(
-        focusedTextColor = lightTheme.onSurface,
-        unfocusedTextColor = lightTheme.onSurface,
-        disabledTextColor = lightTheme.onSurfaceVariant,
-        errorTextColor = lightTheme.onError,
-
-        focusedContainerColor = lightTheme.surface,
-        unfocusedContainerColor = lightTheme.surface,
-        disabledContainerColor = lightTheme.surfaceVariant,
-        errorContainerColor = lightTheme.errorContainer,
-
-        cursorColor = lightTheme.primary,
-        errorCursorColor = lightTheme.error,
-
-        focusedIndicatorColor = lightTheme.primary,
-        unfocusedIndicatorColor = lightTheme.outline,
-        disabledIndicatorColor = lightTheme.outlineVariant,
-        errorIndicatorColor = lightTheme.error,
-
-        focusedLeadingIconColor = lightTheme.primary,
-        unfocusedLeadingIconColor = lightTheme.onSurfaceVariant,
-        disabledLeadingIconColor = lightTheme.outline,
-        errorLeadingIconColor = lightTheme.error,
-
-        focusedTrailingIconColor = lightTheme.primary,
-        unfocusedTrailingIconColor = lightTheme.onSurfaceVariant,
-        disabledTrailingIconColor = lightTheme.outline,
-        errorTrailingIconColor = lightTheme.error,
-
-        focusedLabelColor = lightTheme.primary,
-        unfocusedLabelColor = lightTheme.onSurfaceVariant,
-        disabledLabelColor = lightTheme.outline,
-        errorLabelColor = lightTheme.error,
-
-        focusedPlaceholderColor = lightTheme.onSurfaceVariant,
-        unfocusedPlaceholderColor = lightTheme.onSurfaceVariant,
-        disabledPlaceholderColor = lightTheme.outline,
-        errorPlaceholderColor = lightTheme.error,
-
-        focusedSupportingTextColor = lightTheme.onSurfaceVariant,
-        unfocusedSupportingTextColor = lightTheme.onSurfaceVariant,
-        disabledSupportingTextColor = lightTheme.outlineVariant,
-        errorSupportingTextColor = lightTheme.error,
-
-        focusedPrefixColor = lightTheme.primary,
-        unfocusedPrefixColor = lightTheme.onSurface,
-        disabledPrefixColor = lightTheme.outline,
-        errorPrefixColor = lightTheme.error,
-
-        focusedSuffixColor = lightTheme.primary,
-        unfocusedSuffixColor = lightTheme.onSurface,
-        disabledSuffixColor = lightTheme.outline,
-        errorSuffixColor = lightTheme.error
-    )
 
     OutlinedTextField(
         value = value,
@@ -102,15 +46,13 @@ fun PasswordField(
         label = {
             Text(
                 text = label,
-                style = MaterialTheme.typography.bodySmall,
-                color = lightTheme.onBackground
+                style = MaterialTheme.typography.bodySmall
             )
         },
         placeholder = {
             Text(
                 text = placeholder,
-                style = MaterialTheme.typography.bodyMedium,
-                color = lightTheme.onBackground
+                style = MaterialTheme.typography.bodyMedium
             )
         },
         leadingIcon = {
@@ -135,7 +77,6 @@ fun PasswordField(
         keyboardActions = KeyboardActions(
             onDone = { focusManager.clearFocus() }
         ),
-        singleLine = true,
-        colors = textFieldColors
+        singleLine = true
     )
 }

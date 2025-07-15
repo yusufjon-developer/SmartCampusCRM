@@ -22,61 +22,6 @@ fun UserField(
     label: String = "Имя пользователя",
     placeholder: String = "Введите имя пользователья"
 ) {
-    val textFieldColors = TextFieldDefaults.colors(
-        focusedTextColor = lightTheme.onSurface,
-        unfocusedTextColor = lightTheme.onSurface,
-        disabledTextColor = lightTheme.onSurfaceVariant,
-        errorTextColor = lightTheme.onError,
-
-        focusedContainerColor = lightTheme.surface,
-        unfocusedContainerColor = lightTheme.surface,
-        disabledContainerColor = lightTheme.surfaceVariant,
-        errorContainerColor = lightTheme.errorContainer,
-
-        cursorColor = lightTheme.primary,
-        errorCursorColor = lightTheme.error,
-
-        focusedIndicatorColor = lightTheme.primary,
-        unfocusedIndicatorColor = lightTheme.outline,
-        disabledIndicatorColor = lightTheme.outlineVariant,
-        errorIndicatorColor = lightTheme.error,
-
-        focusedLeadingIconColor = lightTheme.primary,
-        unfocusedLeadingIconColor = lightTheme.onSurfaceVariant,
-        disabledLeadingIconColor = lightTheme.outline,
-        errorLeadingIconColor = lightTheme.error,
-
-        focusedTrailingIconColor = lightTheme.primary,
-        unfocusedTrailingIconColor = lightTheme.onSurfaceVariant,
-        disabledTrailingIconColor = lightTheme.outline,
-        errorTrailingIconColor = lightTheme.error,
-
-        focusedLabelColor = lightTheme.primary,
-        unfocusedLabelColor = lightTheme.onSurfaceVariant,
-        disabledLabelColor = lightTheme.outline,
-        errorLabelColor = lightTheme.error,
-
-        focusedPlaceholderColor = lightTheme.onSurfaceVariant,
-        unfocusedPlaceholderColor = lightTheme.onSurfaceVariant,
-        disabledPlaceholderColor = lightTheme.outline,
-        errorPlaceholderColor = lightTheme.error,
-
-        focusedSupportingTextColor = lightTheme.onSurfaceVariant,
-        unfocusedSupportingTextColor = lightTheme.onSurfaceVariant,
-        disabledSupportingTextColor = lightTheme.outlineVariant,
-        errorSupportingTextColor = lightTheme.error,
-
-        focusedPrefixColor = lightTheme.primary,
-        unfocusedPrefixColor = lightTheme.onSurface,
-        disabledPrefixColor = lightTheme.outline,
-        errorPrefixColor = lightTheme.error,
-
-        focusedSuffixColor = lightTheme.primary,
-        unfocusedSuffixColor = lightTheme.onSurface,
-        disabledSuffixColor = lightTheme.outline,
-        errorSuffixColor = lightTheme.error
-    )
-
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -106,7 +51,6 @@ fun UserField(
             )
         },
         isError = hasError,
-        singleLine = true,
-        colors = textFieldColors
+        singleLine = true
     )
 }
