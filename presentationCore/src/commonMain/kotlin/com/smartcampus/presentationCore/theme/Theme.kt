@@ -8,7 +8,8 @@ fun SmartCampusTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        typography = SmartCampusTypography()
+        typography = SmartCampusTypography(),
+        colorScheme = lightTheme
     ) {
         content()
     }
