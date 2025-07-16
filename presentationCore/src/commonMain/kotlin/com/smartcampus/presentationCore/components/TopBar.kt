@@ -33,17 +33,13 @@ import com.smartcampus.presentationCore.components.buttons.WindowControlButton
 import org.jetbrains.compose.resources.painterResource
 import smartcampuscrm.presentationcore.generated.resources.Res
 import smartcampuscrm.presentationcore.generated.resources.ic_close
-import smartcampuscrm.presentationcore.generated.resources.ic_maximize
 import smartcampuscrm.presentationcore.generated.resources.ic_minimise
-import smartcampuscrm.presentationcore.generated.resources.ic_minimize
 import smartcampuscrm.presentationcore.generated.resources.icon
 
 @Composable
 fun TopBar(
-    onMinMaxRequest: () -> Unit,
     onMinimiseRequest: () -> Unit,
-    onCloseRequest: () -> Unit,
-    isWindowMaximized: Boolean,
+    onCloseRequest: () -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -54,9 +50,11 @@ fun TopBar(
             .fillMaxWidth()
             .height(40.dp)
             .background(Color(0xFF233255))
-            .padding(vertical = 4.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Box {
                 Image(
                     painter = painterResource(Res.drawable.icon),
@@ -89,28 +87,6 @@ fun TopBar(
                                 contentDescription = "Restore",
                                 modifier = Modifier.size(14.dp),
                                 colorFilter = ColorFilter.tint(Color(0xFFFDFDF5)),
-                            )
-                        },
-                        modifier = Modifier.size(width = 124.dp, height = 20.dp)
-                    )
-
-                    val currentMaximizeText = if (isWindowMaximized) "Minimize" else "Maximize"
-
-                    DropdownMenuItem(
-                        text = { Text(currentMaximizeText, fontSize = 14.sp, color = Color.White) },
-                        onClick = {
-                            onMinMaxRequest()
-                            showMenu = false
-                        },
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(
-                                    if (isWindowMaximized) Res.drawable.ic_minimize
-                                    else Res.drawable.ic_maximize,
-                                ),
-                                contentDescription = if (isWindowMaximized) "Minimize" else "Maximize",
-                                modifier = Modifier.size(14.dp),
-                                colorFilter = ColorFilter.tint(Color(0xFFFDFDF5))
                             )
                         },
                         modifier = Modifier.size(width = 124.dp, height = 20.dp)
@@ -149,20 +125,6 @@ fun TopBar(
                     Image(
                         painter = painterResource(Res.drawable.ic_minimise),
                         contentDescription = "Minimise",
-                        colorFilter = ColorFilter.tint(Color(0xFFFDFDF5))
-                    )
-                }
-            )
-
-            WindowControlButton(
-                onClick = onMinMaxRequest,
-                content = {
-                    Image(
-                        painter = painterResource(
-                            if (isWindowMaximized) Res.drawable.ic_minimize
-                            else Res.drawable.ic_maximize
-                        ),
-                        contentDescription = if (isWindowMaximized) "Restore" else "Maximize",
                         colorFilter = ColorFilter.tint(Color(0xFFFDFDF5))
                     )
                 }

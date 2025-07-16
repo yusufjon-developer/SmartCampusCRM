@@ -27,7 +27,7 @@ fun WindowControlButton(
         enabled = enabled,
         colors = ButtonColors(
             containerColor = Color(0xFF233255),
-            contentColor = Color(0xFFFDFDF5),
+            contentColor = Color(0xFFC42B1C),
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.Gray
         ),
