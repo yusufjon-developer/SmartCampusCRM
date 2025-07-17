@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.smartcampus.presentationCore.components.inputs.PasswordField
 import com.smartcampus.presentationCore.components.inputs.UserField
-import com.smartcampus.presentationCore.theme.lightTheme
 
 @Composable
 fun LoginScreen(
@@ -62,7 +61,7 @@ fun LoginScreen(
     ) {
         Text(
             text = "Вход",
-            color = lightTheme.onBackground,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineMedium
         )
 

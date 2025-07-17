@@ -23,11 +23,11 @@ import com.smartcampus.crm.di.AppModule
 import com.smartcampus.crm.di.DataModule
 import com.smartcampus.crm.di.DomainModule
 import com.smartcampus.crm.di.NetworkModule
+import com.smartcampus.presentationCore.ThemeAndComponentPreview
 import com.smartcampus.presentationCore.components.TopBar
 import com.smartcampus.presentationCore.theme.SmartCampusTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
-import org.koin.core.context.startKoin
 import smartcampuscrm.composeapp.generated.resources.Res
 import smartcampuscrm.composeapp.generated.resources.icon
 import java.awt.Insets
@@ -46,8 +46,8 @@ fun main() = application {
 
     val windowState = rememberWindowState()
     var isWindowSetupComplete by remember { mutableStateOf(false) }
-
-    SmartCampusTheme {
+    var isDarkTheme by remember { mutableStateOf(false) }
+    SmartCampusTheme(isDarkTheme) {
         Window(
             onCloseRequest = ::exitApplication,
             title = "SmartCampus CRM",
