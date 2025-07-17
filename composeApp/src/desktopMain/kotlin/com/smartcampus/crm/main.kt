@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +20,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.smartcampus.presentationCore.ThemeAndComponentPreview
 import com.smartcampus.presentationCore.components.TopBar
 import com.smartcampus.presentationCore.theme.SmartCampusTheme
 import kotlinx.coroutines.delay
@@ -31,8 +33,8 @@ import java.awt.Toolkit
 fun main() = application {
     val windowState = rememberWindowState()
     var isWindowSetupComplete by remember { mutableStateOf(false) }
-
-    SmartCampusTheme {
+    var isDarkTheme by remember { mutableStateOf(false) }
+    SmartCampusTheme(isDarkTheme) {
         Window(
             onCloseRequest = ::exitApplication,
             title = "SmartCampus CRM",
@@ -133,13 +135,14 @@ fun main() = application {
                 color = MaterialTheme.colorScheme.background
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
+                    Button(onClick = { isDarkTheme = !isDarkTheme }) {}
                     TopBar(
                         onCloseRequest = ::exitApplication,
                         onMinimiseRequest = { windowState.isMinimized = true }
                     )
 
                     App()
-//                PreviewThemeAndComponents()
+//                    ThemeAndComponentPreview()
                 }
             }
 

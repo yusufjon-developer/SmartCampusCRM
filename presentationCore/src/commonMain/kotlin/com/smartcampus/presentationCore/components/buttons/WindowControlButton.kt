@@ -2,11 +2,10 @@ package com.smartcampus.presentationCore.components.buttons
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 
@@ -19,17 +18,15 @@ fun WindowControlButton(
     content: @Composable () -> Unit
 ) {
     Button(
-        onClick = {
-            onClick()
-        },
+        onClick = onClick,
         shape = RectangleShape,
         modifier = modifier,
         enabled = enabled,
-        colors = ButtonColors(
-            containerColor = Color(0xFF233255),
-            contentColor = Color(0xFFC42B1C),
-            disabledContainerColor = Color.LightGray,
-            disabledContentColor = Color.Gray
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            disabledContainerColor = MaterialTheme.colorScheme.surface,
+            disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
         ),
         elevation = ButtonDefaults.buttonElevation(0.dp),
         border = null,

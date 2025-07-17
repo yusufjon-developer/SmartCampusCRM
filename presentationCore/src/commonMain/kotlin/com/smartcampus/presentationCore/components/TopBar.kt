@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
@@ -43,13 +42,16 @@ fun TopBar(
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
+    val topBarColor = MaterialTheme.colorScheme.surfaceVariant
+    val contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .height(40.dp)
-            .background(Color(0xFF233255))
+            .background(topBarColor)
     ) {
         Row(
             modifier = Modifier.padding(vertical = 4.dp),
@@ -59,7 +61,7 @@ fun TopBar(
                 Image(
                     painter = painterResource(Res.drawable.icon),
                     contentDescription = "Logo",
-                    colorFilter = ColorFilter.tint(Color(0xFFFDFDF5)),
+                    colorFilter = ColorFilter.tint(contentColor),
                     modifier = Modifier
                         .heightIn(max = 32.dp)
                         .fillMaxHeight()
@@ -71,12 +73,12 @@ fun TopBar(
                     onDismissRequest = { showMenu = false },
                     offset = DpOffset(x = 10.dp, y = 0.dp),
                     modifier = Modifier
-                        .background(Color(0xFF233255))
+                        .background(topBarColor)
                         .heightIn(max = 100.dp)
                         .widthIn(max = 124.dp)
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Restore", fontSize = 14.sp, color = Color.White) },
+                        text = { Text("Restore", fontSize = 14.sp, color = contentColor) },
                         onClick = {
                             onMinimiseRequest()
                             showMenu = false
@@ -86,14 +88,14 @@ fun TopBar(
                                 painter = painterResource(Res.drawable.ic_minimise),
                                 contentDescription = "Restore",
                                 modifier = Modifier.size(14.dp),
-                                colorFilter = ColorFilter.tint(Color(0xFFFDFDF5)),
+                                colorFilter = ColorFilter.tint(contentColor),
                             )
                         },
                         modifier = Modifier.size(width = 124.dp, height = 20.dp)
                     )
 
                     DropdownMenuItem(
-                        text = { Text("Close", fontSize = 14.sp, color = Color.White) },
+                        text = { Text("Close", fontSize = 14.sp, color = contentColor) },
                         onClick = {
                             onCloseRequest()
                             showMenu = false
@@ -103,7 +105,7 @@ fun TopBar(
                                 painter = painterResource(Res.drawable.ic_close),
                                 contentDescription = "Close",
                                 modifier = Modifier.size(14.dp),
-                                colorFilter = ColorFilter.tint(Color(0xFFFDFDF5))
+                                colorFilter = ColorFilter.tint(contentColor)
                             )
                         },
                         modifier = Modifier.size(width = 124.dp, height = 20.dp)
@@ -114,7 +116,7 @@ fun TopBar(
             Text(
                 text = "Smart Campus CRM",
                 style = MaterialTheme.typography.titleMedium,
-                color = Color(0xFFFDFDF5)
+                color = contentColor
             )
         }
 
@@ -125,7 +127,7 @@ fun TopBar(
                     Image(
                         painter = painterResource(Res.drawable.ic_minimise),
                         contentDescription = "Minimise",
-                        colorFilter = ColorFilter.tint(Color(0xFFFDFDF5))
+                        colorFilter = ColorFilter.tint(contentColor)
                     )
                 }
             )
@@ -135,8 +137,8 @@ fun TopBar(
                 content = {
                     Image(
                         painter = painterResource(Res.drawable.ic_close),
-                        contentDescription = "Minimise",
-                        colorFilter = ColorFilter.tint(Color(0xFFFDFDF5))
+                        contentDescription = "Close",
+                        colorFilter = ColorFilter.tint(contentColor)
                     )
                 }
             )
