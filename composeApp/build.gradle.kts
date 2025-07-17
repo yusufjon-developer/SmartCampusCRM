@@ -16,7 +16,7 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(projects.data)
+            implementation(projects.domain)
             implementation(projects.presentationCore)
 
             implementation(compose.runtime)

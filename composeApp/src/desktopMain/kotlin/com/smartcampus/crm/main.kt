@@ -19,16 +19,31 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.smartcampus.crm.di.AppModule
+import com.smartcampus.crm.di.DataModule
+import com.smartcampus.crm.di.DomainModule
+import com.smartcampus.crm.di.NetworkModule
 import com.smartcampus.presentationCore.components.TopBar
 import com.smartcampus.presentationCore.theme.SmartCampusTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
+import org.koin.core.context.startKoin
 import smartcampuscrm.composeapp.generated.resources.Res
 import smartcampuscrm.composeapp.generated.resources.icon
 import java.awt.Insets
 import java.awt.Toolkit
 
 fun main() = application {
+
+    startKoin {
+        modules(
+            AppModule,
+            DataModule,
+            DomainModule,
+            NetworkModule
+        )
+    }
+
     val windowState = rememberWindowState()
     var isWindowSetupComplete by remember { mutableStateOf(false) }
 

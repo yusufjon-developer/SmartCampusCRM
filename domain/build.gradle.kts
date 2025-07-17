@@ -11,10 +11,6 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
     dependencies {
-        implementation(projects.domain)
-
-        implementation(libs.bundles.ktor.common)
-
         implementation(libs.kotlinx.coroutinesCore)
         implementation(libs.koin.annotations)
         implementation(libs.koin.ksp.compiler)
