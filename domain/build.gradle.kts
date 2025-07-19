@@ -1,19 +1,26 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlinKsp)
 }
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
+
 kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+
+    jvm("desktop")
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.client.json)
+
+                implementation(libs.kotlinx.coroutinesCore)
+                implementation(libs.koin.annotations)
+                implementation(libs.koin.ksp.compiler)
+                implementation(libs.koin.core)
+                implementation("com.github.oshi:oshi-core:6.4.0")
+            }
+        }
     }
-    dependencies {
-        implementation(libs.kotlinx.coroutinesCore)
-        implementation(libs.koin.annotations)
-        implementation(libs.koin.ksp.compiler)
-        implementation(libs.koin.core)
-    }
+
 }
