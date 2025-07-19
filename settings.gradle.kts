@@ -1,4 +1,3 @@
-rootProject.name = "SmartCampusCRM"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -31,7 +30,10 @@ dependencyResolutionManagement {
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
+rootProject.name = "SmartCampusCRM"
 
 include(":composeApp")
 include(":data")
-include(":presentationCore")
+include(":presentation")
+include(":domain")
+include(":di")

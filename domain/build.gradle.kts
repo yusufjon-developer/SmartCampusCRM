@@ -11,20 +11,16 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(projects.domain)
-
-                implementation(libs.bundles.ktor.common)
+                implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.client.json)
 
                 implementation(libs.kotlinx.coroutinesCore)
                 implementation(libs.koin.annotations)
                 implementation(libs.koin.ksp.compiler)
                 implementation(libs.koin.core)
-
-                implementation(libs.multiplatform.setting)
-                implementation(libs.multiplatform.setting.coroutines)
+                implementation("com.github.oshi:oshi-core:6.4.0")
             }
         }
     }
 
 }
-

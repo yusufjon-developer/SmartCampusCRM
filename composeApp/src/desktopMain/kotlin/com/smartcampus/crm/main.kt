@@ -4,7 +4,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
@@ -20,24 +19,29 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.smartcampus.presentationCore.ThemeAndComponentPreview
-import com.smartcampus.presentationCore.components.TopBar
-import com.smartcampus.presentationCore.theme.SmartCampusTheme
+import com.smartcampus.crm.di.AppModule
+import com.smartcampus.crm.domain.core.AppConfig
+import com.smartcampus.presentation.core.components.TopBar
+import com.smartcampus.presentation.core.theme.SmartCampusTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
+import org.koin.core.context.startKoin
 import smartcampuscrm.composeapp.generated.resources.Res
 import smartcampuscrm.composeapp.generated.resources.icon
 import java.awt.Insets
 import java.awt.Toolkit
 
 fun main() = application {
+
+    startKoin { modules(AppModule) }
+
     val windowState = rememberWindowState()
     var isWindowSetupComplete by remember { mutableStateOf(false) }
     var isDarkTheme by remember { mutableStateOf(false) }
     SmartCampusTheme(isDarkTheme) {
         Window(
             onCloseRequest = ::exitApplication,
-            title = "SmartCampus CRM",
+            title = AppConfig.APP_NAME,
             icon = painterResource(Res.drawable.icon),
             undecorated = true,
             state = windowState,
@@ -135,7 +139,6 @@ fun main() = application {
                 color = MaterialTheme.colorScheme.background
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
-                    Button(onClick = { isDarkTheme = !isDarkTheme }) {}
                     TopBar(
                         onCloseRequest = ::exitApplication,
                         onMinimiseRequest = { windowState.isMinimized = true }

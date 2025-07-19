@@ -1,5 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
@@ -10,19 +8,19 @@ plugins {
 }
 
 kotlin {
+
     jvm("desktop")
 
     sourceSets {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(projects.di)
             implementation(projects.domain)
-            implementation(projects.presentation)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -41,19 +39,6 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
-        }
-    }
-}
-
-
-compose.desktop {
-    application {
-        mainClass = "com.smartcampus.crm.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.smartcampus.crm"
-            packageVersion = "1.0.0"
         }
     }
 }
