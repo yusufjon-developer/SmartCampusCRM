@@ -16,9 +16,9 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(projects.di)
-            implementation(projects.domain)
             implementation(projects.presentation)
+            implementation(projects.domain)
+            implementation(projects.data)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -31,9 +31,19 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.material3.windowsSizeClass)
 
+            implementation(libs.bundles.ktor.common)
+
+            implementation(libs.kotlinx.coroutinesCore)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.annotations)
+            implementation(libs.koin.ksp.compiler)
             implementation(libs.koin.core)
+
+            implementation(libs.multiplatform.setting)
+            implementation(libs.multiplatform.setting.coroutines)
+
+            implementation(libs.slf4j.simple)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
