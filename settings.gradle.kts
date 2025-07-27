@@ -33,7 +33,6 @@ plugins {
 rootProject.name = "SmartCampusCRM"
 
 include(":composeApp")
-include(":data")
 include(":presentation")
 include(":domain")
-include(":di")
+include(":data")
