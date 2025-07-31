@@ -1,6 +1,6 @@
 package com.smartcampus.crm.di
 
-import com.smartcampus.crm.domain.core.AppConfig
+import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.crm.domain.repositories.SessionManager
 import com.smartcampus.crm.domain.repositories.TokenManager
 import io.ktor.client.HttpClient

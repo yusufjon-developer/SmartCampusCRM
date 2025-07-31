@@ -4,10 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,19 +26,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.InputMode.Companion.Keyboard
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.smartcampus.crm.domain.models.student.StudentInfo
-import com.smartcampus.presentation.core.components.tabs.VerticalProfileTabItem
+import com.smartcampus.presentation.core.components.tabs.TabStrip
+import com.smartcampus.presentation.core.components.texts.TabItem
 import com.smartcampus.presentationCore.components.texts.InfoItem
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+import smartcampuscrm.presentation.generated.resources.Res
+import smartcampuscrm.presentation.generated.resources.additional_information
+import smartcampuscrm.presentation.generated.resources.basic_information
+import smartcampuscrm.presentation.generated.resources.education_information
 
 // Модель для данных вкладки
 private data class ProfileTabData(
@@ -88,107 +94,39 @@ fun ProfileHeader(
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
             )
         }
+    }
+}
 
-        Button(
-            onClick = { },
-            shape = RoundedCornerShape(8.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            Text("Edit")
+@Composable
+fun StudentProfileScreen(
+    id: Int,
+    navigateToEdit: (id: Int) -> Unit,
+    viewModel: StudentProfileViewModel = koinViewModel(),
+    studentInfo: StudentInfo
+) {
+    LaunchedEffect(id) {
+        viewModel.setEvent(StudentProfileContract.Event.GetStudentInfo(id))
+    }
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when(effect) {
+                is StudentProfileContract.Effect.NavigateToEdit -> navigateToEdit(effect.id)
+            }
         }
     }
-}
 
-@Composable
-fun BasicInfoTabContent(
-    studentInfo: StudentInfo,
-    scrollState: androidx.compose.foundation.ScrollState
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(top = 8.dp)
-    ) {
-        InfoItem(label = "Имя", value = studentInfo.students.name)
-        InfoItem(label = "Фамилия", value = studentInfo.students.surname)
-        InfoItem(label = "Отчество", value = studentInfo.students.lastname)
-        InfoItem(label = "Номер телефона", value = studentInfo.students.phoneNumber)
-        InfoItem(label = "Электронная почта", value = studentInfo.students.email)
-        InfoItem(label = "Группа", value = studentInfo.students.groups.id.toString())
-        InfoItem(label = "Направление", value = studentInfo.students.groups.name)
-        InfoItem(label = "Курс", value = studentInfo.students.groups.course.toString())
-        InfoItem(label = "Форма обучения", value = studentInfo.studyForm)
-        InfoItem(label = "Тип обучения", value = studentInfo.studyType)
-        InfoItem(label = "Статус", value = studentInfo.status)
-        InfoItem(label = "Номер студ. карты", value = studentInfo.studentCardNumber)
-    }
-}
-
-@Composable
-fun EducationTabContent(
-    studentInfo: StudentInfo,
-    scrollState: androidx.compose.foundation.ScrollState
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(top = 8.dp)
-    ) {
-        InfoItem(label = "Школа", value = studentInfo.school)
-        InfoItem(label = "Номер аттестата", value = studentInfo.documentNumber)
-    }
-}
-
-@Composable
-fun AdditionalInfoTabContent(
-    studentInfo: StudentInfo,
-    scrollState: androidx.compose.foundation.ScrollState
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(top = 8.dp)
-    ) {
-        InfoItem(label = "Адрес", value = studentInfo.address)
-        InfoItem(label = "Военное положение", value = studentInfo.military)
-        InfoItem(label = "День рождения", value = studentInfo.students.birthday)
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        InfoItem(label = "Отец (ФИО)", value = studentInfo.fatherFIO)
-        InfoItem(label = "Отец (Телефон)", value = studentInfo.fatherPhone)
-        InfoItem(label = "Отец (Адрес)", value = studentInfo.fatherAddress)
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        InfoItem(label = "Мать (ФИО)", value = studentInfo.motherFIO)
-        InfoItem(label = "Мать (Телефон)", value = studentInfo.motherPhone)
-        InfoItem(label = "Мать (Адрес)", value = studentInfo.motherAddress)
-    }
-}
-
-
-@Composable
-fun StudentProfileScreen(studentInfo: StudentInfo) {
-
+    val profileTabs = listOf(
+        ProfileTabData(stringResource(Res.string.basic_information)) { info ->
+            BasicInfoTabContent(info)
+        },
+        ProfileTabData(stringResource(Res.string.education_information)) { info ->
+            EducationTabContent(info)
+        },
+        ProfileTabData(stringResource(Res.string.additional_information)) { info ->
+            AdditionalInfoTabContent(info)
+        }
+    )
     val scrollState = rememberScrollState()
-
-
-    // Определение вкладок и их контента
-    val profileTabs = remember(studentInfo) {
-        listOf(
-            ProfileTabData("Основная информация") { info ->
-                BasicInfoTabContent(info, scrollState)
-            },
-            ProfileTabData("Образование") { info -> EducationTabContent(info, scrollState) },
-            ProfileTabData("Дополнительная информация") { info ->
-                AdditionalInfoTabContent(info, scrollState)
-            }
-        )
-    }
 
     var selectedTabIndex by remember { mutableStateOf(0) }
 
@@ -197,6 +135,7 @@ fun StudentProfileScreen(studentInfo: StudentInfo) {
             modifier = Modifier
                 .padding(16.dp)
                 .clip(RoundedCornerShape(16.dp))
+                .verticalScroll(scrollState)
                 .background(MaterialTheme.colorScheme.background)
         ) {
 
@@ -221,40 +160,40 @@ fun StudentProfileScreen(studentInfo: StudentInfo) {
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Row(modifier = Modifier.fillMaxSize()) {
-                        Column(
+                    Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                        TabStrip(
+                            tabs = profileTabs.map { it.title },
+                            selectedTab = profileTabs[selectedTabIndex].title,
+                            onTabSelected = { tabTitle ->
+                                selectedTabIndex = profileTabs.indexOfFirst { it.title == tabTitle }
+                            },
                             modifier = Modifier
-                                .fillMaxHeight()
-                                .width(300.dp)
-                                .padding(vertical = 8.dp, horizontal = 8.dp)
-                        ) {
-                            profileTabs.forEachIndexed { index, tabData ->
-                                VerticalProfileTabItem(
-                                    title = tabData.title,
-                                    isSelected = selectedTabIndex == index,
-                                    onClick = { selectedTabIndex = index },
-                                    cornerRadius = 12.dp,
-                                    indicatorHeight = 3.dp
-                                )
-                            }
+                                .fillMaxWidth()
+                                .align(Alignment.CenterHorizontally),
+                        ) { tab, isSelected, onClick ->
+                            TabItem(
+                                text = tab,
+                                isSelected = isSelected,
+                                onClick = { onClick() },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(horizontal = 4.dp)
+                            )
                         }
 
-                        // Область для отображения контента выбранной вкладки
-                        Box(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .weight(1f)
-                        ) {
-                            profileTabs[selectedTabIndex].content(studentInfo)
-                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        profileTabs[selectedTabIndex].content(studentInfo)
                     }
+
+
                 }
             }
 
             Button(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(16.dp),
+                    .padding(24.dp),
                 onClick = { },
                 shape = RoundedCornerShape(9999.dp),
             ) {
@@ -262,5 +201,70 @@ fun StudentProfileScreen(studentInfo: StudentInfo) {
                 Text("Изменить")
             }
         }
+    }
+}
+
+@Composable
+fun BasicInfoTabContent(
+    studentInfo: StudentInfo
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 8.dp)
+    ) {
+        InfoItem(label = "Имя", value = studentInfo.students.name)
+        InfoItem(label = "Фамилия", value = studentInfo.students.surname)
+        InfoItem(label = "Отчество", value = studentInfo.students.lastname)
+        InfoItem(label = "Номер телефона", value = studentInfo.students.phoneNumber)
+        InfoItem(label = "Электронная почта", value = studentInfo.students.email)
+        InfoItem(label = "Группа", value = studentInfo.students.groups.id.toString())
+        InfoItem(label = "Направление", value = studentInfo.students.groups.name)
+        InfoItem(label = "Курс", value = studentInfo.students.groups.course.toString())
+        InfoItem(label = "Форма обучения", value = studentInfo.studyForm)
+        InfoItem(label = "Тип обучения", value = studentInfo.studyType)
+        InfoItem(label = "Статус", value = studentInfo.status)
+        InfoItem(label = "Номер студ. карты", value = studentInfo.studentCardNumber)
+    }
+}
+
+@Composable
+fun EducationTabContent(
+    studentInfo: StudentInfo
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 8.dp)
+    ) {
+        InfoItem(label = "Школа", value = studentInfo.school)
+        InfoItem(label = "Номер аттестата", value = studentInfo.documentNumber)
+    }
+}
+
+@Composable
+fun AdditionalInfoTabContent(
+    studentInfo: StudentInfo
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 8.dp)
+    ) {
+        InfoItem(label = "Адрес", value = studentInfo.address)
+        InfoItem(label = "Военное положение", value = studentInfo.military)
+        InfoItem(label = "День рождения", value = studentInfo.students.birthday)
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        InfoItem(label = "Отец (ФИО)", value = studentInfo.fatherFIO)
+        InfoItem(label = "Отец (Телефон)", value = studentInfo.fatherPhone)
+        InfoItem(label = "Отец (Адрес)", value = studentInfo.fatherAddress)
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        InfoItem(label = "Мать (ФИО)", value = studentInfo.motherFIO)
+        InfoItem(label = "Мать (Телефон)", value = studentInfo.motherPhone)
+        InfoItem(label = "Мать (Адрес)", value = studentInfo.motherAddress)
     }
 }

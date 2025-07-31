@@ -1,5 +1,8 @@
 package com.smartcampus.crm.domain.models.student
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class StudentInfo(
     val students: Student,
     val address: String = "г. Душанбе улица Пушкина дом Колотушкина",

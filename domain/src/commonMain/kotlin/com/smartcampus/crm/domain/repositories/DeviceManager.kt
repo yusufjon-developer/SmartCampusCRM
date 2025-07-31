@@ -1,6 +1,6 @@
 package com.smartcampus.crm.domain.repositories
 
-import com.smartcampus.crm.domain.core.AppConfig
+import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.crm.domain.models.Device
 import oshi.SystemInfo
 import oshi.hardware.ComputerSystem

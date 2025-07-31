@@ -12,6 +12,7 @@ import com.smartcampus.crm.data.repositories.TokenManagerImpl
 import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.SessionManager
 import com.smartcampus.crm.domain.repositories.SettingsManager
+import com.smartcampus.crm.domain.repositories.StudentRepository
 import com.smartcampus.crm.domain.repositories.TokenManager
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -34,4 +35,5 @@ val DataModule = module {
     singleOf(::SessionManagerImpl) bind SessionManager::class
 
     singleOf(::LoginRepositoryImpl) bind LoginRepository::class
+    singleOf(::LoginRepositoryImpl) bind StudentRepository::class
 }
