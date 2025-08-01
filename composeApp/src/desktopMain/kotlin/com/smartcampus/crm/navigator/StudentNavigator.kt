@@ -1,18 +1,19 @@
-package com.smartcampus.crm
+package com.smartcampus.crm.navigator
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.smartcampus.crm.domain.models.Groups
 import com.smartcampus.crm.domain.models.Specialities
 import com.smartcampus.crm.domain.models.student.Student
+import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.presentation.ui.screen.studentProfile.StudentProfileScreen
 
 @Composable
-fun Student(navController: NavController) {
+fun StudentNavigator(navController: NavController) {
     StudentProfileScreen(
         id = 0,
         navigateToEdit = {_ ->},
-        studentInfo = com.smartcampus.crm.domain.models.student.StudentInfo(Student(
+        studentInfo = StudentInfo(Student(
             groups = Groups(
                 1,
                 "group",

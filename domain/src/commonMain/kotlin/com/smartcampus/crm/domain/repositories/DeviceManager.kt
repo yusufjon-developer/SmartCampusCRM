@@ -1,7 +1,7 @@
 package com.smartcampus.crm.domain.repositories
 
-import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.crm.domain.models.Device
+import com.smartcampus.crm.domain.utils.AppConfig
 import oshi.SystemInfo
 import oshi.hardware.ComputerSystem
 import java.nio.file.Files.createDirectories

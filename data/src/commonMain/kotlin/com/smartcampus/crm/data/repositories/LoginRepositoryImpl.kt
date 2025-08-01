@@ -11,8 +11,6 @@ import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
 import com.smartcampus.crm.domain.utils.Either
-import com.smartcampus.crm.domain.utils.RemoteWrapper
-import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.flow
 
 class LoginRepositoryImpl(
