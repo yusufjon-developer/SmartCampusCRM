@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,8 +36,8 @@ fun LoginScreen(
     var user by remember { mutableStateOf(UserRequest("", "")) }
 
     LaunchedEffect(Unit) {
-        viewModel.effect.collect {
-            when (it) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
                 is LoginContract.Effect.Error -> {
                     navigateToMain("Ошибка входа!")
                 }
@@ -60,12 +59,6 @@ fun LoginScreen(
             onClick = {
                 navigateToRegistration("Окно зарегистрирования")
             },
-            colors = ButtonColors(
-                containerColor = Color(0xFF233255),
-                contentColor = Color(0xFFFDFDF5),
-                disabledContainerColor = Color.LightGray,
-                disabledContentColor = Color.Gray
-            ),
         ) {
             Text("Зарегистрироватся", color = Color.White)
         }
@@ -79,7 +72,6 @@ fun LoginScreen(
     ) {
         Text(
             text = "Вход",
-            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineMedium
         )
 
@@ -108,13 +100,7 @@ fun LoginScreen(
         Button(
             onClick = {
                 viewModel.setEvent(LoginContract.Event.Login(user))
-            },
-            colors = ButtonColors(
-                containerColor = Color(0xFF233255),
-                contentColor = Color(0xFFFDFDF5),
-                disabledContainerColor = Color.LightGray,
-                disabledContentColor = Color.Gray
-            )
+            }
         ) {
             Text("Войти", color = Color.White)
         }

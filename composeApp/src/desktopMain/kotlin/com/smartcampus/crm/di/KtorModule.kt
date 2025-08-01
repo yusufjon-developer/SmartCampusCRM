@@ -1,8 +1,8 @@
 package com.smartcampus.crm.di
 
-import com.smartcampus.crm.domain.core.AppConfig
 import com.smartcampus.crm.domain.repositories.SessionManager
 import com.smartcampus.crm.domain.repositories.TokenManager
+import com.smartcampus.crm.domain.utils.AppConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.ClientRequestException

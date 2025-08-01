@@ -1,54 +1,54 @@
 package com.smartcampus.crm
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.smartcampus.crm.navigation.Route
-import com.smartcampus.presentation.core.ThemeAndComponentPreview
-import com.smartcampus.presentation.ui.screen.MainScreen
-import com.smartcampus.presentation.ui.screen.login.LoginScreen
-import com.smartcampus.presentation.ui.screen.registration.RegistrationScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.smartcampus.crm.navigation.menu.DrawerContent
+import com.smartcampus.crm.navigation.menu.MainDrawerMenu
+import com.smartcampus.crm.navigator.StudentNavigator
 
-@Preview
 @Composable
 fun App() {
-    val navController = rememberNavController()
+    val homeNavController = rememberNavController()
+    val settingsNavController = rememberNavController()
+    val profileNavController = rememberNavController()
+    val timetableNavController = rememberNavController()
+    val employeesNavController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = Route.SignIn
-    ) {
-        composable<Route.SignIn> {
-            LoginScreen(
-                navigateToMain = { test ->
-                    navController.navigate(Route.Main(test = test))
-                },
+    var selectedTab by rememberSaveable { mutableStateOf<MainDrawerMenu>(MainDrawerMenu.Home) }
 
-                navigateToRegistration = {
-                    navController.navigate(Route.SignUp)
-                }
-            )
-        }
-
-        composable<Route.SignUp> {
-            RegistrationScreen(
-                navigateToLogin = {
-                    navController.navigate(Route.SignIn)
-                }
-            )
-        }
-
-        composable<Route.Main> { entry ->
-            val args = entry.toRoute<Route.Main>()
-            MainScreen(args.test)
-        }
+    val navController = when (selectedTab) {
+        MainDrawerMenu.Home -> homeNavController
+        MainDrawerMenu.Settings -> settingsNavController
+        MainDrawerMenu.Profile -> profileNavController
+        MainDrawerMenu.Timetable -> timetableNavController
+        MainDrawerMenu.Employees -> employeesNavController
     }
 
-    ThemeAndComponentPreview()
+    val stateHolder = rememberSaveableStateHolder()
+
+    PermanentNavigationDrawer(
+        drawerContent = {
+            DrawerContent(
+                selectedTab = selectedTab,
+                onTabSelected = { tab -> tab?.let { selectedTab = it } },
+                onBackClick = navController::popBackStack
+            )
+        },
+        modifier = Modifier.fillMaxSize()
+    ) {
+        stateHolder.SaveableStateProvider(key = selectedTab) {
+            when (selectedTab) {
+                MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
+                else -> { }
+            }
+        }
+    }
 }
-
-
-

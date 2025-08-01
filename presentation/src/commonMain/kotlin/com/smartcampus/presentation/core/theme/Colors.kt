@@ -1,89 +1,51 @@
 package com.smartcampus.presentation.core.theme
 
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-val Primary = Color(0xFFFF6358)               // primary
+val Primary = Color(0xFF2B6CB0)
 val OnPrimary = Color(0xFFFFFFFF)
-val PrimaryContainer = Color(0xFFFFECEB)      // primary-subtle
-val OnPrimaryContainer = Color(0xFF5C201C)
-
-val Secondary = Color(0xFF666666)
+val PrimaryContainer = Color(0xFFAEC9E6)
+val OnPrimaryContainer = Color(0xFF0C1F33)
+val Secondary = Color(0xFF718096)
 val OnSecondary = Color(0xFFFFFFFF)
-val SecondaryContainer = Color(0xFFFAFAFA)
-val OnSecondaryContainer = Color(0xFF141414)
-
-val Tertiary = Color(0xFF03A9F4)
+val SecondaryContainer = Color(0xFFD3DBE6)
+val OnSecondaryContainer = Color(0xFF262B33)
+val Tertiary = Color(0xFF38A169)
 val OnTertiary = Color(0xFFFFFFFF)
-val TertiaryContainer = Color(0xFFD8F1FD)
-val OnTertiaryContainer = Color(0xFF023F5C)
-
-val Success = Color(0xFF37B400)
-val OnSuccess = Color(0xFFFFFFFF)
-
-val Warning = Color(0xFFFFC000)
-val OnWarning = Color(0xFF3D3D3D)
-
-val Error = Color(0xFFF31700)
+val TertiaryContainer = Color(0xFFB6E6CC)
+val OnTertiaryContainer = Color(0xFF123321)
+val Error = Color(0xFFE53E3E)
 val OnError = Color(0xFFFFFFFF)
+val ErrorContainer = Color(0xFFE6B1B1)
+val OnErrorContainer = Color(0xFF330E0E)
+val Background = Color(0xFFfbfcfc)
+val OnBackground = Color(0xFF313233)
+val Surface = Color(0xFFfbfcfc)
+val OnSurface = Color(0xFF313233)
+val SurfaceVariant = Color(0xFFdae0e6)
+val OnSurfaceVariant = Color(0xFF565e66)
+val Outline = Color(0xFF828d99)
 
-val Background = Color(0xFFF5F5F5)            // base
-val OnBackground = Color(0xFF3D3D3D)
-
-val Surface = Color(0xFFFFFFFF)               // surface
-val OnSurface = Color(0xFF3D3D3D)
-
-val Outline = Color(0xFFADADAD)               // gray 8
-
-// При необходимости: info, subtle и др.
-
-
-val LightColors = lightColorScheme(
-    primary = Primary,
-    onPrimary = OnPrimary,
-    primaryContainer = PrimaryContainer,
-    onPrimaryContainer = OnPrimaryContainer,
-    secondary = Secondary,
-    onSecondary = OnSecondary,
-    secondaryContainer = SecondaryContainer,
-    onSecondaryContainer = OnSecondaryContainer,
-    tertiary = Tertiary,
-    onTertiary = OnTertiary,
-    tertiaryContainer = TertiaryContainer,
-    onTertiaryContainer = OnTertiaryContainer,
-    error = Error,
-    onError = OnError,
-    background = Background,
-    onBackground = OnBackground,
-    surface = Surface,
-    onSurface = OnSurface,
-    outline = Outline
-)
-
-val DarkColors = darkColorScheme(
-    primary = Color(0xFFFF6358),
-    onPrimary = Color(0xFFFFFFFF),
-    primaryContainer = Color(0xFF5C201C),
-    onPrimaryContainer = Color(0xFFFFECEB),
-
-    secondary = Secondary,
-    onSecondary = OnSecondary,
-    secondaryContainer = Color(0xFF666666),
-    onSecondaryContainer = Color(0xFFFFFFFF),
-
-    tertiary = Tertiary,
-    onTertiary = OnTertiary,
-    tertiaryContainer = Color(0xFF03A9F4),
-    onTertiaryContainer = Color(0xFFFFFFFF),
-
-    error = Color(0xFFF31700),
-    onError = Color(0xFFFFFFFF),
-    background = Color(0xFF292929),
-    onBackground = Color(0xFFF5F5F5),
-    surface = Color(0xFF292929),
-    onSurface = Color(0xFFF5F5F5),
-
-    outline = Color(0xFF525252)
-)
-
+val PrimaryDark = Color(0xFF97BDE6)
+val OnPrimaryDark = Color(0xFF122F4C)
+val PrimaryContainerDark = Color(0xFF183E66)
+val OnPrimaryContainerDark = Color(0xFFAEC9E6)
+val SecondaryDark = Color(0xFFCCD6E6)
+val OnSecondaryDark = Color(0xFF39414C)
+val SecondaryContainerDark = Color(0xFF4D5766)
+val OnSecondaryContainerDark = Color(0xFFD3DBE6)
+val TertiaryDark = Color(0xFFA3E6C2)
+val OnTertiaryDark = Color(0xFF1B4C32)
+val TertiaryContainerDark = Color(0xFF246642)
+val OnTertiaryContainerDark = Color(0xFFB6E6CC)
+val ErrorDark = Color(0xFFE69B9B)
+val OnErrorDark = Color(0xFF4C1515)
+val ErrorContainerDark = Color(0xFF661C1C)
+val OnErrorContainerDark = Color(0xFFE6B1B1)
+val BackgroundDark = Color(0xFF313233)
+val OnBackgroundDark = Color(0xFFe3e4e6)
+val SurfaceDark = Color(0xFF313233)
+val OnSurfaceDark = Color(0xFFe3e4e6)
+val SurfaceVariantDark = Color(0xFF565e66)
+val OnSurfaceVariantDark = Color(0xFFd6dde6)
+val OutlineDark = Color(0xFFa1aab3)
