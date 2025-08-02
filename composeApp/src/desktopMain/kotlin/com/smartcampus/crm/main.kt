@@ -2,6 +2,7 @@ package com.smartcampus.crm
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -20,25 +21,41 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.smartcampus.crm.di.AppModule
+import com.smartcampus.crm.domain.models.Theme
+import com.smartcampus.crm.domain.useCases.GetThemeUseCase
 import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.presentation.core.components.TopBar
 import com.smartcampus.presentation.core.theme.SmartCampusTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.painterResource
 import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.java.KoinJavaComponent.get
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.logo
 import java.awt.Insets
 import java.awt.Toolkit
 
 fun main() = application {
-
+    stopKoin()
     startKoin { modules(AppModule) }
+
+    val getThemeUseCase: GetThemeUseCase = get(GetThemeUseCase::class.java)
 
     val windowState = rememberWindowState()
     var isWindowSetupComplete by remember { mutableStateOf(false) }
-    var isDarkTheme by remember { mutableStateOf(false) }
-    SmartCampusTheme(isDarkTheme) {
+    var isDarkTheme: Boolean? by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        getThemeUseCase().collectLatest {
+            when (it) {
+                Theme.SYSTEM -> isDarkTheme = null
+                Theme.DARK -> isDarkTheme = true
+                Theme.LIGHT -> isDarkTheme = false
+            }
+        }
+    }
+    SmartCampusTheme(isDarkTheme ?: isSystemInDarkTheme()) {
         Window(
             onCloseRequest = ::exitApplication,
             title = AppConfig.APP_NAME,
