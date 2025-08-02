@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.smartcampus.crm.navigation.menu.DrawerContent
 import com.smartcampus.crm.navigation.menu.MainDrawerMenu
+import com.smartcampus.crm.navigator.SettingsNavigator
 import com.smartcampus.crm.navigator.StudentNavigator
 
 @Composable
@@ -47,6 +48,7 @@ fun App() {
         stateHolder.SaveableStateProvider(key = selectedTab) {
             when (selectedTab) {
                 MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
+                MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
                 else -> { }
             }
         }
