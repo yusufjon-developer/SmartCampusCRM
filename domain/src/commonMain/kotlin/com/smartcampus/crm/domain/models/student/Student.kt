@@ -1,7 +1,9 @@
 package com.smartcampus.crm.domain.models.student
 
 import com.smartcampus.crm.domain.models.Groups
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Student(
     val id: Int = 0,
     val surname: String = "Абдушахидов",

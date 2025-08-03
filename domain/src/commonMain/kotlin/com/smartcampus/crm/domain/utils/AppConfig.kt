@@ -1,4 +1,4 @@
-package com.smartcampus.crm.domain.core
+package com.smartcampus.crm.domain.utils
 
 object AppConfig {
     const val APP_NAME = "SmartCampus CRM"

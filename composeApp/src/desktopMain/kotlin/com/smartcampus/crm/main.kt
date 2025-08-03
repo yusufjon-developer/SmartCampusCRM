@@ -20,19 +20,14 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.smartcampus.crm.di.AppModule
-import com.smartcampus.crm.domain.core.AppConfig
+import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.presentation.core.components.TopBar
 import com.smartcampus.presentation.core.theme.SmartCampusTheme
-import com.smartcampus.crm.domain.models.Groups
-import com.smartcampus.crm.domain.models.Specialities
-import com.smartcampus.crm.domain.models.student.Student
-import com.smartcampus.crm.domain.models.student.StudentInfo
-import com.smartcampus.presentation.ui.screen.studentProfile.StudentProfileScreen
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.koin.core.context.startKoin
-import smartcampuscrm.composeapp.generated.resources.Res
-import smartcampuscrm.composeapp.generated.resources.icon
+import smartcampuscrm.presentation.generated.resources.Res
+import smartcampuscrm.presentation.generated.resources.logo
 import java.awt.Insets
 import java.awt.Toolkit
 
@@ -47,7 +42,7 @@ fun main() = application {
         Window(
             onCloseRequest = ::exitApplication,
             title = AppConfig.APP_NAME,
-            icon = painterResource(Res.drawable.icon),
+            icon = painterResource(Res.drawable.logo),
             undecorated = true,
             state = windowState,
             transparent = true
@@ -139,34 +134,21 @@ fun main() = application {
             }
 
 
+
             Surface(
                 modifier = Modifier.fillMaxSize().alpha(contentAlpha),
                 color = MaterialTheme.colorScheme.background
             ) {
+
                 Column(modifier = Modifier.fillMaxSize()) {
-//                    Button(onClick = { isDarkTheme = !isDarkTheme }) {}
                     TopBar(
                         onCloseRequest = ::exitApplication,
                         onMinimiseRequest = { windowState.isMinimized = true }
                     )
 
-//                    App()
+                    App()
 //                    ThemeAndComponentPreview()
-                    StudentProfileScreen(
-                        studentInfo = StudentInfo(
-                            Student(
-                                groups = Groups(
-                                    1,
-                                    "group",
-                                    Specialities(
-                                        1,
-                                        "spec"
-                                    ),
-                                    2
-                                )
-                            )
-                        )
-                    )
+
                 }
             }
 
