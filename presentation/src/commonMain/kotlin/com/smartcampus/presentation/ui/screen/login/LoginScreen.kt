@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.smartcampus.crm.domain.models.LoginRequest
-import com.smartcampus.presentation.core.components.inputs.PasswordField
-import com.smartcampus.presentation.core.components.inputs.UserField
+import com.smartcampus.presentation.core.components.form.PasswordField
+import com.smartcampus.presentation.core.components.form.UserField
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

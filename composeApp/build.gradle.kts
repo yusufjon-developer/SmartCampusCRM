@@ -32,6 +32,8 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.material3.windowsSizeClass)
 
+            implementation(libs.coil.network.ktor)
+
             implementation(libs.bundles.ktor.common)
 
             implementation(libs.kotlinx.coroutinesCore)

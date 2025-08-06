@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.core.components.texts
+package com.smartcampus.presentation.core.components.tabs
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background

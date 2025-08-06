@@ -38,7 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.presentation.core.components.tabs.TabStrip
-import com.smartcampus.presentation.core.components.texts.TabItem
+import com.smartcampus.presentation.core.components.tabs.TabItem
 import com.smartcampus.presentationCore.components.texts.InfoItem
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
