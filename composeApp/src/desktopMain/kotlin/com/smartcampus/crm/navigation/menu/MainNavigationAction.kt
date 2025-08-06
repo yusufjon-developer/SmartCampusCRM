@@ -7,6 +7,7 @@ import smartcampuscrm.presentation.generated.resources.employees
 import smartcampuscrm.presentation.generated.resources.home
 import smartcampuscrm.presentation.generated.resources.ic_home
 import smartcampuscrm.presentation.generated.resources.ic_settings
+import smartcampuscrm.presentation.generated.resources.ic_student
 import smartcampuscrm.presentation.generated.resources.ic_teacher
 import smartcampuscrm.presentation.generated.resources.ic_timetable
 import smartcampuscrm.presentation.generated.resources.profile
@@ -36,8 +37,8 @@ val settingsNavBar = NavBarItem(
 
 val profileNavBar = NavBarItem(
     route = MainDrawerMenu.Profile,
-    icon = Res.drawable.ic_teacher,
-    selectedIcon = Res.drawable.ic_teacher,
+    icon = Res.drawable.ic_student,
+    selectedIcon = Res.drawable.ic_student,
     label = Res.string.profile
 )
 

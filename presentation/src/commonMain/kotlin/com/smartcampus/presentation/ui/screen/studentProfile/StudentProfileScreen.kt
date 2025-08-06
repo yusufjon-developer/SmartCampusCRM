@@ -2,6 +2,7 @@ package com.smartcampus.presentation.ui.screen.studentProfile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,17 +13,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,23 +37,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.smartcampus.crm.domain.models.student.StudentInfo
-import com.smartcampus.presentation.core.components.tabs.TabStrip
-import com.smartcampus.presentation.core.components.tabs.TabItem
-import com.smartcampus.presentationCore.components.texts.InfoItem
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.additional_information
+import smartcampuscrm.presentation.generated.resources.address
 import smartcampuscrm.presentation.generated.resources.basic_information
+import smartcampuscrm.presentation.generated.resources.course
+import smartcampuscrm.presentation.generated.resources.document_number
 import smartcampuscrm.presentation.generated.resources.education_information
-
-// Модель для данных вкладки
-private data class ProfileTabData(
-    val title: String,
-    val content: @Composable (studentInfo: StudentInfo) -> Unit
-)
+import smartcampuscrm.presentation.generated.resources.email
+import smartcampuscrm.presentation.generated.resources.father_address
+import smartcampuscrm.presentation.generated.resources.father_full_name
+import smartcampuscrm.presentation.generated.resources.father_phone
+import smartcampuscrm.presentation.generated.resources.groups
+import smartcampuscrm.presentation.generated.resources.lastname
+import smartcampuscrm.presentation.generated.resources.military
+import smartcampuscrm.presentation.generated.resources.mother_address
+import smartcampuscrm.presentation.generated.resources.mother_full_name
+import smartcampuscrm.presentation.generated.resources.mother_phone
+import smartcampuscrm.presentation.generated.resources.name
+import smartcampuscrm.presentation.generated.resources.phone_number
+import smartcampuscrm.presentation.generated.resources.school
+import smartcampuscrm.presentation.generated.resources.speciality
+import smartcampuscrm.presentation.generated.resources.status
+import smartcampuscrm.presentation.generated.resources.student_card_number
+import smartcampuscrm.presentation.generated.resources.study_form
+import smartcampuscrm.presentation.generated.resources.study_type
+import smartcampuscrm.presentation.generated.resources.surname
 
 @Composable
 fun ProfileHeader(
@@ -114,31 +130,18 @@ fun StudentProfileScreen(
         }
     }
 
-    val profileTabs = listOf(
-        ProfileTabData(stringResource(Res.string.basic_information)) { info ->
-            BasicInfoTabContent(info)
-        },
-        ProfileTabData(stringResource(Res.string.education_information)) { info ->
-            EducationTabContent(info)
-        },
-        ProfileTabData(stringResource(Res.string.additional_information)) { info ->
-            AdditionalInfoTabContent(info)
-        }
-    )
-    val scrollState = rememberScrollState()
+    var readOnly by remember { mutableStateOf(true) }
 
-    var selectedTabIndex by remember { mutableStateOf(0) }
-
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         Box(
             modifier = Modifier
                 .padding(16.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .verticalScroll(scrollState)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-
-
             Card(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -151,41 +154,44 @@ fun StudentProfileScreen(
                         .fillMaxSize()
                         .padding(24.dp)
                 ) {
-                    // Верхняя секция с фото и основной информацией
-                    ProfileHeader(
-                        studentInfo = studentInfo,
-                        modifier = Modifier.padding(horizontal = 24.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-                        TabStrip(
-                            tabs = profileTabs.map { it.title },
-                            selectedTab = profileTabs[selectedTabIndex].title,
-                            onTabSelected = { tabTitle ->
-                                selectedTabIndex = profileTabs.indexOfFirst { it.title == tabTitle }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.CenterHorizontally),
-                        ) { tab, isSelected, onClick ->
-                            TabItem(
-                                text = tab,
-                                isSelected = isSelected,
-                                onClick = { onClick() },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .padding(horizontal = 4.dp)
-                            )
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(24.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        item {
+                            ProfileHeader(studentInfo = studentInfo, modifier = Modifier.padding(horizontal = 24.dp))
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(24.dp))
                         }
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                        item {
+                            SectionTitle(stringResource(Res.string.basic_information))
+                        }
+                        item {
+                            GridSection(BasicInfoFields(studentInfo), readOnly)
+                        }
 
-                        profileTabs[selectedTabIndex].content(studentInfo)
+                        item {
+                            SectionTitle(stringResource(Res.string.education_information))
+                        }
+                        item {
+                            GridSection(EducationFields(studentInfo), readOnly)
+                        }
+
+                        item {
+                            SectionTitle(stringResource(Res.string.additional_information))
+                        }
+                        item {
+                            GridSection(AdditionalFields(studentInfo), readOnly)
+                        }
                     }
 
-
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
 
@@ -193,77 +199,94 @@ fun StudentProfileScreen(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(24.dp),
-                onClick = { },
+                onClick = {
+                    readOnly = if (readOnly) false else true
+                },
                 shape = RoundedCornerShape(9999.dp),
             ) {
-                Icon(Icons.Filled.Edit, "Изменить", modifier = Modifier.padding(end = 16.dp))
-                Text("Изменить")
+                Icon(
+                    imageVector = if (readOnly) Icons.Filled.Edit else Icons.Filled.Save,
+                    contentDescription = if (readOnly) "Изменить" else "Сохранить",
+                    modifier = Modifier.padding(end = 16.dp)
+                )
+                Text(text = if (readOnly) "Изменить" else "Сохранить")
             }
         }
     }
 }
 
 @Composable
-fun BasicInfoTabContent(
-    studentInfo: StudentInfo
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 8.dp)
-    ) {
-        InfoItem(label = "Имя", value = studentInfo.students.name)
-        InfoItem(label = "Фамилия", value = studentInfo.students.surname)
-        InfoItem(label = "Отчество", value = studentInfo.students.lastname)
-        InfoItem(label = "Номер телефона", value = studentInfo.students.phoneNumber)
-        InfoItem(label = "Электронная почта", value = studentInfo.students.email)
-        InfoItem(label = "Группа", value = studentInfo.students.groups.id.toString())
-        InfoItem(label = "Направление", value = studentInfo.students.groups.name)
-        InfoItem(label = "Курс", value = studentInfo.students.groups.course.toString())
-        InfoItem(label = "Форма обучения", value = studentInfo.studyForm)
-        InfoItem(label = "Тип обучения", value = studentInfo.studyType)
-        InfoItem(label = "Статус", value = studentInfo.status)
-        InfoItem(label = "Номер студ. карты", value = studentInfo.studentCardNumber)
+fun SectionTitle(text: String) {
+    Text(
+        text = text,
+        modifier = Modifier.fillMaxWidth(),
+        style = MaterialTheme.typography.titleLarge,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+fun GridSection(fields: List<Pair<String, String>>, readOnly: Boolean) {
+    Column {
+        for (i in fields.indices step 2) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    label = { Text(fields[i].first) },
+                    value = fields[i].second,
+                    onValueChange = {},
+                    readOnly = readOnly,
+                    modifier = Modifier.weight(1f)
+                )
+                if (i + 1 < fields.size) {
+                    OutlinedTextField(
+                        label = { Text(fields[i + 1].first) },
+                        value = fields[i + 1].second,
+                        onValueChange = {},
+                        readOnly = readOnly,
+                        modifier = Modifier.weight(1f)
+                    )
+                } else {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
     }
 }
 
 @Composable
-fun EducationTabContent(
-    studentInfo: StudentInfo
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 8.dp)
-    ) {
-        InfoItem(label = "Школа", value = studentInfo.school)
-        InfoItem(label = "Номер аттестата", value = studentInfo.documentNumber)
-    }
-}
+fun BasicInfoFields(studentInfo: StudentInfo) = listOf(
+    stringResource(Res.string.name) to studentInfo.students.name,
+    stringResource(Res.string.surname) to studentInfo.students.surname,
+    stringResource(Res.string.lastname) to studentInfo.students.lastname,
+    stringResource(Res.string.phone_number) to studentInfo.students.phoneNumber,
+    stringResource(Res.string.email) to studentInfo.students.email,
+    stringResource(Res.string.groups) to studentInfo.students.groups.name,
+    stringResource(Res.string.speciality) to studentInfo.students.groups.specialities.name,
+    stringResource(Res.string.course) to studentInfo.students.groups.course.toString(),
+    stringResource(Res.string.study_form) to studentInfo.studyForm,
+    stringResource(Res.string.study_type) to studentInfo.studyType,
+    stringResource(Res.string.status) to studentInfo.status,
+    stringResource(Res.string.student_card_number) to studentInfo.studentCardNumber
+)
 
 @Composable
-fun AdditionalInfoTabContent(
-    studentInfo: StudentInfo
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 8.dp)
-    ) {
-        InfoItem(label = "Адрес", value = studentInfo.address)
-        InfoItem(label = "Военное положение", value = studentInfo.military)
-        InfoItem(label = "День рождения", value = studentInfo.students.birthday)
+fun EducationFields(studentInfo: StudentInfo) = listOf(
+    stringResource(Res.string.school) to studentInfo.school,
+    stringResource(Res.string.document_number) to studentInfo.documentNumber
+)
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        InfoItem(label = "Отец (ФИО)", value = studentInfo.fatherFIO)
-        InfoItem(label = "Отец (Телефон)", value = studentInfo.fatherPhone)
-        InfoItem(label = "Отец (Адрес)", value = studentInfo.fatherAddress)
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        InfoItem(label = "Мать (ФИО)", value = studentInfo.motherFIO)
-        InfoItem(label = "Мать (Телефон)", value = studentInfo.motherPhone)
-        InfoItem(label = "Мать (Адрес)", value = studentInfo.motherAddress)
-    }
-}
+@Composable
+fun AdditionalFields(studentInfo: StudentInfo) = listOf(
+    stringResource(Res.string.address) to studentInfo.address,
+    stringResource(Res.string.military) to studentInfo.military,
+    stringResource(Res.string.father_full_name) to studentInfo.fatherFIO,
+    stringResource(Res.string.father_phone) to studentInfo.fatherPhone,
+    stringResource(Res.string.father_address) to studentInfo.fatherAddress,
+    stringResource(Res.string.mother_full_name) to studentInfo.motherFIO,
+    stringResource(Res.string.mother_phone) to studentInfo.motherPhone,
+    stringResource(Res.string.mother_address) to studentInfo.motherAddress
+)
