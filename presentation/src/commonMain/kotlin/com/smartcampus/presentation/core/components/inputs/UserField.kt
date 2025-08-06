@@ -1,6 +1,7 @@
 package com.smartcampus.presentation.core.components.inputs
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
@@ -9,7 +10,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import smartcampuscrm.presentation.generated.resources.Res
+import smartcampuscrm.presentation.generated.resources.enter_email
+import smartcampuscrm.presentation.generated.resources.username
 
 @Composable
 fun UserField(
@@ -17,9 +23,11 @@ fun UserField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hasError: Boolean = false,
-    label: String = "Имя пользователя",
-    placeholder: String = "Введите имя пользователья"
+    label: String = stringResource(Res.string.username),
+    placeholder: String = stringResource(Res.string.enter_email)
 ) {
+    val focusManager = LocalFocusManager.current
+
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -30,8 +38,7 @@ fun UserField(
         label = {
             Text(
                 text = label,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onBackground
+                style = MaterialTheme.typography.bodySmall
             )
         },
         placeholder = {
@@ -49,6 +56,9 @@ fun UserField(
             )
         },
         isError = hasError,
-        singleLine = true
+        singleLine = true,
+        keyboardActions = KeyboardActions(
+            onDone = { focusManager.clearFocus() }
+        )
     )
 }

@@ -3,6 +3,8 @@ package com.smartcampus.crm.domain.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginResponse(
-    val token: String
+data class LoginRequest(
+    val email: String,
+    val password: String,
+    val uuid: String
 )

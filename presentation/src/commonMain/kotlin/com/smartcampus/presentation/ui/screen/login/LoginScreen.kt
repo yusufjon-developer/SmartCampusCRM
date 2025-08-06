@@ -4,9 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -21,46 +19,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.smartcampus.crm.domain.models.UserRequest
+import com.smartcampus.crm.domain.models.LoginRequest
 import com.smartcampus.presentation.core.components.inputs.PasswordField
 import com.smartcampus.presentation.core.components.inputs.UserField
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    navigateToMain: (String) -> Unit,
-    navigateToRegistration: (String) -> Unit,
+    onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = koinViewModel()
 ) {
 
-    var user by remember { mutableStateOf(UserRequest("", "")) }
+    var user by remember { mutableStateOf(LoginRequest("", "", "device-uuid-for-teacher01")) }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is LoginContract.Effect.Error -> {
-                    navigateToMain("Ошибка входа!")
+
                 }
+
                 LoginContract.Effect.Success -> {
-                    navigateToMain("Успешный вход!")
+                    onLoginSuccess()
                 }
             }
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.End
-    ) {
-        Button(
-            onClick = {
-                navigateToRegistration("Окно зарегистрирования")
-            },
-        ) {
-            Text("Зарегистрироватся", color = Color.White)
         }
     }
 
@@ -78,9 +60,9 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         UserField(
-            value = user.username,
+            value = user.email,
             onValueChange = { newUsername ->
-                user = user.copy(username = newUsername)
+                user = user.copy(email = newUsername)
             },
             modifier = Modifier.width(300.dp),
         )

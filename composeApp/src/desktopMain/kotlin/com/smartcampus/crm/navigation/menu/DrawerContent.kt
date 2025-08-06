@@ -31,6 +31,8 @@ fun DrawerContent(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val iconSize = 20.dp
+    val iconPadding = 2.dp
     Column(
         modifier = modifier.padding(16.dp).width(IntrinsicSize.Min).fillMaxHeight(),
         verticalArrangement = Arrangement.SpaceBetween
@@ -49,8 +51,8 @@ fun DrawerContent(
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
-                            .padding(4.dp)
-                            .size(24.dp)
+                            .padding(iconPadding)
+                            .size(iconSize)
                     )
                 },
                 onClick = onBackClick,
@@ -78,8 +80,8 @@ fun DrawerContent(
                                 contentDescription = stringResource(item.label),
                                 tint = NavIconColor(selectedTab == item.route),
                                 modifier = Modifier
-                                    .padding(4.dp)
-                                    .size(24.dp)
+                                    .padding(iconPadding)
+                                    .size(iconSize)
                             )
                         }
                     },
@@ -106,8 +108,8 @@ fun DrawerContent(
                         contentDescription = stringResource(settingsNavBar.label),
                         tint = NavIconColor(selectedTab == MainDrawerMenu.Settings),
                         modifier = Modifier
-                            .padding(4.dp)
-                            .size(24.dp)
+                            .padding(iconPadding)
+                            .size(iconSize)
                     )
                 },
                 onClick = {
