@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.core.components
+package com.smartcampus.presentation.core.components.window
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.smartcampus.presentation.core.components.buttons.WindowControlButton
 import org.jetbrains.compose.resources.painterResource
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.ic_close

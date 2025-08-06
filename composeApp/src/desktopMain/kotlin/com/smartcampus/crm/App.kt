@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.smartcampus.crm.navigation.menu.DrawerContent
 import com.smartcampus.crm.navigation.menu.MainDrawerMenu
 import com.smartcampus.crm.navigation.safelyPopBackStack
+import com.smartcampus.crm.navigator.HomeNavigator
 import com.smartcampus.crm.navigator.SettingsNavigator
 import com.smartcampus.crm.navigator.StudentNavigator
 
@@ -51,6 +52,7 @@ fun App() {
             val currentBackStackEntry = navController.currentBackStackEntryAsState()
             println(currentBackStackEntry.value)
             when (selectedTab) {
+                MainDrawerMenu.Home -> HomeNavigator(homeNavController)
                 MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
                 MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
                 else -> {}

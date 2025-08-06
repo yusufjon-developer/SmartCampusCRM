@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.core.components.buttons
+package com.smartcampus.presentation.core.components.window
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Button

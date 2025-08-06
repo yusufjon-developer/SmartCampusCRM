@@ -26,7 +26,7 @@ import com.smartcampus.crm.domain.repositories.SessionManager
 import com.smartcampus.crm.domain.repositories.TokenManager
 import com.smartcampus.crm.domain.useCases.GetThemeUseCase
 import com.smartcampus.crm.domain.utils.AppConfig
-import com.smartcampus.presentation.core.components.TopBar
+import com.smartcampus.presentation.core.components.window.TopBar
 import com.smartcampus.presentation.core.theme.SmartCampusTheme
 import com.smartcampus.presentation.ui.screen.login.LoginScreen
 import kotlinx.coroutines.delay

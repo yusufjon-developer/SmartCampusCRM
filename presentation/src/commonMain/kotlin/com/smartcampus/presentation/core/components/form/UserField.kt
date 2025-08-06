@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.core.components.inputs
+package com.smartcampus.presentation.core.components.form
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions

@@ -33,17 +33,17 @@ fun DrawerContent(
 ) {
     val iconSize = 20.dp
     val iconPadding = 2.dp
-    Column(
+    Card(
         modifier = modifier.padding(16.dp).width(IntrinsicSize.Min).fillMaxHeight(),
-        verticalArrangement = Arrangement.SpaceBetween
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.elevatedCardElevation(8.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
-
-        Card(
-            modifier = Modifier,
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
+
             NavigationDrawerItem(
                 label = {
                     Icon(
@@ -59,48 +59,36 @@ fun DrawerContent(
                 selected = false,
                 modifier = Modifier.padding(8.dp)
             )
-        }
 
 
-        Card(
-            modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
-        ) {
-            TOP_DESTINATIONS.forEach { item ->
-                NavigationDrawerItem(
-                    label = {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(item.icon),
-                                contentDescription = stringResource(item.label),
-                                tint = NavIconColor(selectedTab == item.route),
-                                modifier = Modifier
-                                    .padding(iconPadding)
-                                    .size(iconSize)
-                            )
-                        }
-                    },
-                    selected = selectedTab == item.route,
-                    onClick = {
-                        onTabSelected(item.route)
-                    },
-                    modifier = Modifier.padding(8.dp)
-                )
+            Column {
+                TOP_DESTINATIONS.forEach { item ->
+                    NavigationDrawerItem(
+                        label = {
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    painter = painterResource(item.icon),
+                                    contentDescription = stringResource(item.label),
+                                    tint = NavIconColor(selectedTab == item.route),
+                                    modifier = Modifier
+                                        .padding(iconPadding)
+                                        .size(iconSize)
+                                )
+                            }
+                        },
+                        selected = selectedTab == item.route,
+                        onClick = {
+                            onTabSelected(item.route)
+                        },
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+
             }
 
-        }
-
-        Card(
-            modifier = Modifier,
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
-        ) {
             NavigationDrawerItem(
                 label = {
                     Icon(
