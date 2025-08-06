@@ -9,9 +9,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.smartcampus.crm.navigation.menu.DrawerContent
 import com.smartcampus.crm.navigation.menu.MainDrawerMenu
+import com.smartcampus.crm.navigation.safelyPopBackStack
 import com.smartcampus.crm.navigator.SettingsNavigator
 import com.smartcampus.crm.navigator.StudentNavigator
 
@@ -40,16 +42,18 @@ fun App() {
             DrawerContent(
                 selectedTab = selectedTab,
                 onTabSelected = { tab -> tab?.let { selectedTab = it } },
-                onBackClick = navController::popBackStack
+                onBackClick = navController::safelyPopBackStack
             )
         },
         modifier = Modifier.fillMaxSize()
     ) {
         stateHolder.SaveableStateProvider(key = selectedTab) {
+            val currentBackStackEntry = navController.currentBackStackEntryAsState()
+            println(currentBackStackEntry.value)
             when (selectedTab) {
                 MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
                 MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
-                else -> { }
+                else -> {}
             }
         }
     }
