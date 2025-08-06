@@ -5,7 +5,6 @@ import com.smartcampus.crm.domain.repositories.TokenManager
 import com.smartcampus.crm.domain.useCases.LoginUseCase
 import com.smartcampus.crm.domain.utils.Either
 import com.smartcampus.presentation.core.base.BaseViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -32,7 +31,6 @@ class LoginViewModel(
 
                                 is Either.Right -> {
                                     tokenManager.saveAccessToken(response.value.token)
-                                    delay(3000)
                                     setState { copy(isLoading = false) }
                                     setEffect { LoginContract.Effect.Success }
                                 }

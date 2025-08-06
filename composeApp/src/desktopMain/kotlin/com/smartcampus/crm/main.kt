@@ -58,7 +58,6 @@ fun main() {
         var isDarkTheme: Boolean? by remember { mutableStateOf(true) }
 
         LaunchedEffect(Unit) {
-            tokenManager.deleteAccessToken()
             val token = tokenManager.getAccessToken().firstOrNull()
             isLoggedIn = !token.isNullOrBlank()
         }
