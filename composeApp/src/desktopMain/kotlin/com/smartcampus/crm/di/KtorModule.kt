@@ -60,7 +60,7 @@ val KtorModule = module {
         // Создаем OkHttpClient с доверенным SSL
         val okHttpClient = OkHttpClient.Builder()
             .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            .hostnameVerifier { _, _ -> true } // доверять любым hostname
+            .hostnameVerifier { _, _ -> true }
             .build()
 
         HttpClient(OkHttp) {
@@ -85,7 +85,7 @@ val KtorModule = module {
                     loadTokens {
                         tokenManager.getAccessToken().firstOrNull()
                             ?.takeIf { it.isNotBlank() }
-                            ?.let { BearerTokens(it, "") }
+                            ?.let { BearerTokens(it, null) }
                     }
 
                     sendWithoutRequest { request ->

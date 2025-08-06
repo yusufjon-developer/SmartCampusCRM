@@ -11,4 +11,11 @@
     <string name="timetable">Расписание</string>
     <string name="employees">Сотрудники</string>
 
+    <string name="username">Имя пользователя</string>
+    <string name="enter_email">Введите почту</string>
+    <string name="password">Пароль</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="login">Войти</string>
+    <string name="logout">Выйти</string>
+
 </resources>

@@ -7,7 +7,7 @@ import com.smartcampus.presentation.ui.screen.studentProfile.StudentProfileViewM
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
-val ViewModels = module {
+val ViewModelsModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::StudentProfileViewModel)
     viewModelOf(::SettingsViewModel)

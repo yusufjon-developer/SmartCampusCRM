@@ -23,6 +23,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import smartcampuscrm.presentation.generated.resources.Res
+import smartcampuscrm.presentation.generated.resources.enter_password
+import smartcampuscrm.presentation.generated.resources.password
 
 @Composable
 fun PasswordField(
@@ -30,8 +34,8 @@ fun PasswordField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hasError: Boolean = false,
-    label: String = "Пароль",
-    placeholder: String = "Введите пароль"
+    label: String = stringResource(Res.string.password),
+    placeholder: String = stringResource(Res.string.enter_password)
 ) {
     var visibility by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
