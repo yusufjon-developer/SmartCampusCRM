@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -25,8 +27,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FeatureCard(
     modifier: Modifier = Modifier,
-    icon: Painter,
+    background: Color = MaterialTheme.colorScheme.primary,
+    iconPainter: Painter,
     title: String,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     onClick: () -> Unit
 ) {
     Card(
@@ -38,18 +42,19 @@ fun FeatureCard(
     ) {
         Column(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.primary)
+                .background(background)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = icon,
-                contentDescription = "Avatar",
+                painter = iconPainter,
+                contentDescription = title,
                 modifier = Modifier
                     .padding(48.dp)
                     .size(96.dp)
                     .clip(RoundedCornerShape(12.dp)),
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.FillWidth,
+                colorFilter = ColorFilter.tint(contentColor)
             )
 
 
@@ -59,7 +64,7 @@ fun FeatureCard(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = contentColor
             )
         }
     }

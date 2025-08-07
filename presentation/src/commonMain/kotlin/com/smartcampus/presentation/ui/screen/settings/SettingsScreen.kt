@@ -1,16 +1,22 @@
 package com.smartcampus.presentation.ui.screen.settings
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.smartcampus.presentation.core.components.cards.FeatureCard
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import smartcampuscrm.presentation.generated.resources.Res
+import smartcampuscrm.presentation.generated.resources.ic_logout
+import smartcampuscrm.presentation.generated.resources.ic_theme
+import smartcampuscrm.presentation.generated.resources.theme
+import smartcampuscrm.presentation.generated.resources.logout
 
 @Composable
 fun SettingsScreen(
@@ -25,15 +31,29 @@ fun SettingsScreen(
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    LazyVerticalGrid(
+        modifier = Modifier.padding(8.dp),
+        columns = GridCells.Adaptive(minSize = 196.dp)
     ) {
-        Button(
-            onClick = navigateToTheme
-        ) {
-            Text("Тема", style = MaterialTheme.typography.headlineMedium)
+        item {
+            FeatureCard(
+                iconPainter = painterResource(Res.drawable.ic_theme),
+                title = stringResource(Res.string.theme),
+                onClick = {
+                    viewModel.setEvent(SettingsContract.Event.NavigateToTheme)
+                }
+            )
+        }
+        item {
+            FeatureCard(
+                background = MaterialTheme.colorScheme.surfaceVariant,
+                iconPainter = painterResource(Res.drawable.ic_logout),
+                contentColor = MaterialTheme.colorScheme.error,
+                title = stringResource(Res.string.logout),
+                onClick = {
+                    viewModel.setEvent(SettingsContract.Event.Logout)
+                }
+            )
         }
     }
 }
