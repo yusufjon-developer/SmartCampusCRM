@@ -186,7 +186,7 @@ fun main() {
                             onMinimiseRequest = { windowState.isMinimized = true }
                         )
 
-                        if (isLoggedIn) {
+                        if (!isLoggedIn) {
                             LoginScreen(
                                 onLoginSuccess = { isLoggedIn = true }
                             )
