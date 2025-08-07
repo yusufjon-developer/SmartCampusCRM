@@ -6,7 +6,8 @@ import com.smartcampus.presentation.core.base.contract.UiState
 
 sealed interface SettingsContract {
     sealed interface Event : UiEvent {
-        data object GoToTheme : Event
+        data object NavigateToTheme : Event
+        data object Logout : Event
     }
 
     sealed interface Effect : UiEffect {

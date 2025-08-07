@@ -16,9 +16,9 @@
     <string name="password">Пароль</string>
     <string name="enter_password">Введите пароль</string>
     <string name="login">Войти</string>
-    <string name="logout">Выйти</string>
 
     <string name="theme">Тема</string>
+    <string name="logout">Выйти</string>
 
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
