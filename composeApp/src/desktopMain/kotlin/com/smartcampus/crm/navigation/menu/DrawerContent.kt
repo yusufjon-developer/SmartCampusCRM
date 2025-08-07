@@ -33,6 +33,7 @@ fun DrawerContent(
 ) {
     val iconSize = 20.dp
     val iconPadding = 2.dp
+
     Card(
         modifier = modifier.padding(16.dp).width(IntrinsicSize.Min).fillMaxHeight(),
         shape = RoundedCornerShape(16.dp),
@@ -57,7 +58,7 @@ fun DrawerContent(
                 },
                 onClick = onBackClick,
                 selected = false,
-                modifier = Modifier.padding(8.dp)
+                shape = RoundedCornerShape(16.dp)
             )
 
 
@@ -83,7 +84,7 @@ fun DrawerContent(
                         onClick = {
                             onTabSelected(item.route)
                         },
-                        modifier = Modifier.padding(8.dp)
+                        shape = RoundedCornerShape(16.dp)
                     )
                 }
 
@@ -104,7 +105,7 @@ fun DrawerContent(
                     onTabSelected(MainDrawerMenu.Settings)
                 },
                 selected = selectedTab == MainDrawerMenu.Settings,
-                modifier = Modifier.padding(8.dp)
+                shape = RoundedCornerShape(16.dp)
             )
         }
     }

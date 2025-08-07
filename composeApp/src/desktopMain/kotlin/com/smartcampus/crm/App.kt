@@ -9,7 +9,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.smartcampus.crm.navigation.menu.DrawerContent
 import com.smartcampus.crm.navigation.menu.MainDrawerMenu
@@ -49,8 +48,6 @@ fun App() {
         modifier = Modifier.fillMaxSize()
     ) {
         stateHolder.SaveableStateProvider(key = selectedTab) {
-            val currentBackStackEntry = navController.currentBackStackEntryAsState()
-            println(currentBackStackEntry.value)
             when (selectedTab) {
                 MainDrawerMenu.Home -> HomeNavigator(homeNavController)
                 MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
