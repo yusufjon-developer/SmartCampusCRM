@@ -10,9 +10,11 @@ import smartcampuscrm.presentation.generated.resources.ic_settings
 import smartcampuscrm.presentation.generated.resources.ic_student
 import smartcampuscrm.presentation.generated.resources.ic_teacher
 import smartcampuscrm.presentation.generated.resources.ic_timetable
+import smartcampuscrm.presentation.generated.resources.ic_security
 import smartcampuscrm.presentation.generated.resources.profile
 import smartcampuscrm.presentation.generated.resources.settings
 import smartcampuscrm.presentation.generated.resources.timetable
+import smartcampuscrm.presentation.generated.resources.security
 
 data class NavBarItem(
     val route: MainDrawerMenu,
@@ -56,9 +58,17 @@ val employeesNavBar = NavBarItem(
     label = Res.string.employees
 )
 
+val securityNavBar = NavBarItem(
+    route = MainDrawerMenu.Security,
+    icon = Res.drawable.ic_security,
+    selectedIcon = Res.drawable.ic_security,
+    label = Res.string.security
+)
+
 val TOP_DESTINATIONS = listOf(
     homeNavBar,
     timetableNavBar,
     employeesNavBar,
     profileNavBar,
+    securityNavBar
 )

@@ -9,7 +9,7 @@ import com.smartcampus.crm.domain.models.Specialities
 import com.smartcampus.crm.domain.models.student.Student
 import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.crm.navigation.route.ProfileRoute
-import com.smartcampus.presentation.ui.screen.studentProfile.StudentProfileScreen
+import com.smartcampus.presentation.ui.screen.employee.studentProfile.StudentProfileScreen
 
 @Composable
 fun StudentNavigator(navController: NavHostController) {

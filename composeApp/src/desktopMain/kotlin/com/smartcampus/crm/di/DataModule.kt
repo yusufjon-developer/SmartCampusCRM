@@ -6,10 +6,12 @@ import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.coroutines.toFlowSettings
 import com.smartcampus.crm.data.preferencesKeys.PREFERENCE_STORE
 import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
+import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
 import com.smartcampus.crm.data.repositories.SessionManagerImpl
 import com.smartcampus.crm.data.repositories.SettingsManagerImpl
 import com.smartcampus.crm.data.repositories.TokenManagerImpl
 import com.smartcampus.crm.domain.repositories.LoginRepository
+import com.smartcampus.crm.domain.repositories.SecurityRepository
 import com.smartcampus.crm.domain.repositories.SessionManager
 import com.smartcampus.crm.domain.repositories.SettingsManager
 import com.smartcampus.crm.domain.repositories.StudentRepository
@@ -36,4 +38,6 @@ val DataModule = module {
 
     singleOf(::LoginRepositoryImpl) bind LoginRepository::class
     singleOf(::LoginRepositoryImpl) bind StudentRepository::class
+
+    singleOf(::SecurityRepositoryImpl) bind SecurityRepository::class
 }

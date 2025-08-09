@@ -30,7 +30,9 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel()
 ) {
 
-    var user by remember { mutableStateOf(LoginRequest("", "", "device-uuid-for-teacher01")) }
+    var user by remember {
+        mutableStateOf(LoginRequest(email = "", password = "", ""))
+    }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->

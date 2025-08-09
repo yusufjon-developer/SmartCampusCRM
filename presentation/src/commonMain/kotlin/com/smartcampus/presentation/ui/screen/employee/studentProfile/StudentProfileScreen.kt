@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.screen.studentProfile
+package com.smartcampus.presentation.ui.screen.employee.studentProfile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.coil.network.ktor)
 
             implementation(libs.bundles.ktor.common)
+            implementation(libs.paging.common)
 
             implementation(libs.kotlinx.coroutinesCore)
             implementation(libs.koin.compose)

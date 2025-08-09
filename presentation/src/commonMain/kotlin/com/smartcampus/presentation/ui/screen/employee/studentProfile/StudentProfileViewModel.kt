@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.screen.studentProfile
+package com.smartcampus.presentation.ui.screen.employee.studentProfile
 
 import androidx.lifecycle.viewModelScope
 import com.smartcampus.crm.domain.useCases.GetStudentInfoUseCase

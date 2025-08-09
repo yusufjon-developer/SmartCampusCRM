@@ -10,6 +10,7 @@
     <string name="profile">Профиль</string>
     <string name="timetable">Расписание</string>
     <string name="employees">Сотрудники</string>
+    <string name="security">Безопасность</string>
 
     <string name="username">Имя пользователя</string>
     <string name="enter_email">Введите почту</string>

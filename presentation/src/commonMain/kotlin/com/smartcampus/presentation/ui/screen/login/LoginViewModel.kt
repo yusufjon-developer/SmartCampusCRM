@@ -1,6 +1,7 @@
 package com.smartcampus.presentation.ui.screen.login
 
 import androidx.lifecycle.viewModelScope
+import com.smartcampus.crm.domain.repositories.HardwareManager
 import com.smartcampus.crm.domain.repositories.TokenManager
 import com.smartcampus.crm.domain.useCases.LoginUseCase
 import com.smartcampus.crm.domain.utils.Either
@@ -20,7 +21,7 @@ class LoginViewModel(
         viewModelScope.launch {
             when (event) {
                 is LoginContract.Event.Login -> {
-                    loginUseCase(event.request)
+                    loginUseCase(event.request.copy(uuid = HardwareManager.Default.getDeviceUuid()))
                         .onStart { setState { copy(isLoading = true) } }
                         .onEach { response ->
                             when (response) {
