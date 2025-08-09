@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.smartcampus.crm.navigation.route.SecurityRoute
 import com.smartcampus.presentation.ui.screen.security.SecurityScreen
+import com.smartcampus.presentation.ui.screen.security.permission.PermissionScreen
+import com.smartcampus.presentation.ui.screen.security.role.RoleScreen
 
 @Composable
 fun SecurityNavigator(
@@ -27,11 +29,11 @@ fun SecurityNavigator(
         }
 
         composable<SecurityRoute.Role> {
-            Text("Роль", modifier = Modifier.fillMaxSize(), textAlign = TextAlign.Center)
+            RoleScreen()
         }
 
         composable<SecurityRoute.Permission> {
-            Text("Доступы", modifier = Modifier.fillMaxSize(), textAlign = TextAlign.Center)
+            PermissionScreen()
         }
     }
 }

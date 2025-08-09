@@ -14,6 +14,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.ic_permission
 import smartcampuscrm.presentation.generated.resources.ic_role
+import smartcampuscrm.presentation.generated.resources.permission
+import smartcampuscrm.presentation.generated.resources.role
 import smartcampuscrm.presentation.generated.resources.theme
 
 @Composable
@@ -38,7 +40,7 @@ fun SecurityScreen(
         item {
             FeatureCard(
                 iconPainter = painterResource(Res.drawable.ic_role),
-                title = stringResource(Res.string.theme),
+                title = stringResource(Res.string.role),
                 onClick = {
                     viewModel.setEvent(SecurityContract.Event.NavigateToRole)
                 }
@@ -47,7 +49,7 @@ fun SecurityScreen(
         item {
             FeatureCard(
                 iconPainter = painterResource(Res.drawable.ic_permission),
-                title = stringResource(Res.string.theme),
+                title = stringResource(Res.string.permission),
                 onClick = {
                     viewModel.setEvent(SecurityContract.Event.NavigateToPermission)
                 }

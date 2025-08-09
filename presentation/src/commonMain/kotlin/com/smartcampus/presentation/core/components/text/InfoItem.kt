@@ -44,7 +44,7 @@ fun InfoItem(
     modifier: Modifier = Modifier,
     infoName: String,
     infoDescription: String,
-    onDeleteClick: () -> Unit,
+    onDeleteClick: @Composable () -> Unit,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit
 ) {

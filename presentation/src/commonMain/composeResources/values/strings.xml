@@ -45,4 +45,8 @@
     <string name="mother_phone">Мать (Телефон)</string>
     <string name="mother_address">Мать (Адрес)</string>
 
+    <string name="role">Роль</string>
+    <string name="permission">Доступы</string>
+    <string name="delete">Удалить</string>
+
 </resources>
