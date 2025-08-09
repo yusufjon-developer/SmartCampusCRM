@@ -38,13 +38,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import smartcampuscrm.presentation.generated.resources.Res
+import smartcampuscrm.presentation.generated.resources.delete
 
 @Composable
 fun InfoItem(
     modifier: Modifier = Modifier,
     infoName: String,
     infoDescription: String,
-    onDeleteClick: @Composable () -> Unit,
+    onDeleteClick: () -> Unit,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit
 ) {
@@ -154,7 +157,7 @@ private fun DeleteButton(
     ) {
         Icon(
             imageVector = Icons.Filled.Delete,
-            contentDescription = "Удалить",
+            contentDescription = stringResource(Res.string.delete),
             tint = MaterialTheme.colorScheme.error,
             modifier = Modifier.size(20.dp)
         )
