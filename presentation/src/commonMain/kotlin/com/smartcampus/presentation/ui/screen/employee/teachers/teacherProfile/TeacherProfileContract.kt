@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.screen.employee.teacherProfile
+package com.smartcampus.presentation.ui.screen.employee.teachers.teacherProfile
 
 import com.smartcampus.crm.domain.models.teacher.TeacherInfo
 import com.smartcampus.presentation.core.base.contract.UiEffect
@@ -7,8 +7,8 @@ import com.smartcampus.presentation.core.base.contract.UiState
 
 sealed interface TeacherProfileContract {
     sealed interface Event : UiEvent {
-        data class GetTeacherInfo(val id: Int) : Event
-        data class EditTeacherInfo(val id: Int) : Event
+        data class GetTeacherProfileInfo(val id: Int) : Event
+        data class EditTeacherProfileInfo(val id: Int) : Event
     }
 
     sealed interface Effect : UiEffect {
@@ -17,7 +17,7 @@ sealed interface TeacherProfileContract {
 
     data class State(
         val isLoading: Boolean = true,
-        val teacherInfo: TeacherInfo? = null,
+        val teacherProfileInfo: TeacherInfo? = null,
         val error: String? = null
     ) : UiState
 }

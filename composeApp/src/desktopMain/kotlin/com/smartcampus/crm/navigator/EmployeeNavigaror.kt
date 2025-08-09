@@ -6,6 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.smartcampus.crm.navigation.route.EmployeeRoute
 import com.smartcampus.presentation.ui.screen.employee.EmployeeScreen
+import com.smartcampus.presentation.ui.screen.employee.administration.AdministrationScreen
+import com.smartcampus.presentation.ui.screen.employee.itDepartment.ITDeportmentScreen
+import com.smartcampus.presentation.ui.screen.employee.teachers.TeachersScreen
 
 @Composable
 fun EmployeeNavigator(
@@ -18,11 +21,22 @@ fun EmployeeNavigator(
         composable<EmployeeRoute.Employee> {
             EmployeeScreen(
                 navigateToTeacher = {
-                    navController.navigate(EmployeeRoute.Teacher)
+                    navController.navigate(EmployeeRoute.Teachers)
                 }
             )
         }
 
-        composable<EmployeeRoute.Teacher> { }
+        composable<EmployeeRoute.Teachers> {
+            TeachersScreen()
+        }
+
+        composable<EmployeeRoute.Administration> {
+            AdministrationScreen()
+        }
+
+        composable<EmployeeRoute.ITDepartment> {
+            ITDeportmentScreen()
+        }
+
     }
 }

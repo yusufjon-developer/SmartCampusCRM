@@ -44,4 +44,8 @@
     <string name="mother_phone">Мать (Телефон)</string>
     <string name="mother_address">Мать (Адрес)</string>
 
+    <string name="teachers">Преподаватели</string>
+    <string name="administration">Администрация</string>
+    <string name="it_department">IT отдел</string>
+
 </resources>

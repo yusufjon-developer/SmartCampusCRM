@@ -5,6 +5,7 @@ import org.jetbrains.compose.resources.StringResource
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.employees
 import smartcampuscrm.presentation.generated.resources.home
+import smartcampuscrm.presentation.generated.resources.ic_employees
 import smartcampuscrm.presentation.generated.resources.ic_home
 import smartcampuscrm.presentation.generated.resources.ic_settings
 import smartcampuscrm.presentation.generated.resources.ic_student
@@ -51,8 +52,8 @@ val timetableNavBar = NavBarItem(
 
 val employeesNavBar = NavBarItem(
     route = MainDrawerMenu.Employees,
-    icon = Res.drawable.ic_teacher,
-    selectedIcon = Res.drawable.ic_teacher,
+    icon = Res.drawable.ic_employees,
+    selectedIcon = Res.drawable.ic_employees,
     label = Res.string.employees
 )
 
