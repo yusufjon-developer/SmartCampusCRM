@@ -17,7 +17,11 @@ class RoleViewModel(
     override fun createInitialState(): RoleContract.State = RoleContract.State()
 
     init {
-        loadRoles()
+        viewModelScope.launch {
+            setState { copy(isLoading = true) }
+            loadRoles()
+        }
+
     }
 
     override fun handleEvent(event: RoleContract.Event) {
@@ -26,6 +30,7 @@ class RoleViewModel(
                 is RoleContract.Event.LoadRoles -> {
                     loadRoles()
                 }
+
                 is RoleContract.Event.DeleteRole -> {
                     deleteRole(event.roleId)
                 }
@@ -47,13 +52,13 @@ class RoleViewModel(
             is Either.Right -> {
                 if (result.value) {
                     setEffect { RoleContract.Effect.ShowSuccessMessage("Роль успешно удалена") }
-                } else {
-                    setEffect { RoleContract.Effect.ShowError(NetworkError.Unexpected("Не удалось удалить роль")) }
                 }
             }
+
             is Either.Left -> {
                 setEffect { RoleContract.Effect.ShowError(result.value) }
             }
+
             null -> {
                 setEffect { RoleContract.Effect.ShowError(NetworkError.Unexpected("Ошибка при удалении роли: нет ответа")) }
             }

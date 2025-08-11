@@ -27,6 +27,7 @@ import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.components.form.ErrorDialog
 import com.smartcampus.presentation.core.components.form.LoadingIndicatorDialog
 import com.smartcampus.presentation.core.components.text.InfoItem
+import com.smartcampus.presentation.core.extensions.pagingLoadStateIndicator
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -46,12 +47,7 @@ fun RoleScreen(
         viewModel.effect.collect { effect ->
             when (effect) {
                 is RoleContract.Effect.ShowError -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = effect.error.toString(),
-                            duration = SnackbarDuration.Short
-                        )
-                    }
+                    showErrorDialog = effect.error
                 }
                 is RoleContract.Effect.ShowSuccessMessage -> {
                     scope.launch {
@@ -60,6 +56,7 @@ fun RoleScreen(
                             duration = SnackbarDuration.Short
                         )
                     }
+                    roles.refresh()
                 }
             }
         }
@@ -101,6 +98,8 @@ fun RoleScreen(
                             )
                         }
                     }
+
+                    pagingLoadStateIndicator(roles)
                 }
             }
 
@@ -109,7 +108,7 @@ fun RoleScreen(
                     title = "Ошибка",
                     message = error.toString(),
                     onDismiss = { showErrorDialog = null },
-                    onCopy = { /* ... */ }
+                    onCopy = {  }
                 )
             }
         }
