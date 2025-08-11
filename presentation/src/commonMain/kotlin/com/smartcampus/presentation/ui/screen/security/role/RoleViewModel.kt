@@ -2,10 +2,12 @@ package com.smartcampus.presentation.ui.screen.security.role
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.useCases.RoleUseCases
 import com.smartcampus.crm.domain.utils.Either
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.BaseViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
@@ -34,6 +36,10 @@ class RoleViewModel(
                 is RoleContract.Event.DeleteRole -> {
                     deleteRole(event.roleId)
                 }
+
+                is RoleContract.Event.AddRole -> {
+                    createRole(event.request)
+                }
             }
         }
     }
@@ -61,6 +67,18 @@ class RoleViewModel(
 
             null -> {
                 setEffect { RoleContract.Effect.ShowError(NetworkError.Unexpected("Ошибка при удалении роли: нет ответа")) }
+            }
+        }
+    }
+
+    private suspend fun createRole(request: RoleRequest) {
+        when (val result = roleUseCases.createRole(request).first()) {
+            is Either.Right -> {
+                setEffect { RoleContract.Effect.ShowSuccessMessage("Роль успешно создана") }
+            }
+
+            is Either.Left -> {
+                setEffect { RoleContract.Effect.ShowError(result.value) }
             }
         }
     }

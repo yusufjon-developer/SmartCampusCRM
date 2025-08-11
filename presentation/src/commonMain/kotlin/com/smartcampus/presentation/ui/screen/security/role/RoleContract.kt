@@ -2,6 +2,7 @@ package com.smartcampus.presentation.ui.screen.security.role
 
 import app.cash.paging.PagingData
 import com.smartcampus.crm.domain.models.security.Role
+import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
@@ -13,6 +14,7 @@ sealed interface RoleContract {
     sealed interface Event : UiEvent {
         data object LoadRoles : Event
         data class DeleteRole(val roleId: Int) : Event
+        data class AddRole(val request: RoleRequest) : Event
     }
 
     sealed interface Effect : UiEffect {
