@@ -32,7 +32,7 @@ import org.jetbrains.compose.resources.painterResource
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.ic_close
 import smartcampuscrm.presentation.generated.resources.ic_minimise
-import smartcampuscrm.presentation.generated.resources.logo
+import smartcampuscrm.presentation.generated.resources.icon
 
 @Composable
 fun TopBar(
@@ -58,7 +58,7 @@ fun TopBar(
         ) {
             Box {
                 Image(
-                    painter = painterResource(Res.drawable.logo),
+                    painter = painterResource(Res.drawable.icon),
                     contentDescription = "Logo",
                     colorFilter = ColorFilter.tint(contentColor),
                     modifier = Modifier
