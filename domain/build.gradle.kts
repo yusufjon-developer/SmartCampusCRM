@@ -13,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.serialization)
                 implementation(libs.ktor.client.json)
+                implementation(libs.paging.common)
 
                 implementation(libs.kotlinx.coroutinesCore)
                 implementation(libs.koin.annotations)

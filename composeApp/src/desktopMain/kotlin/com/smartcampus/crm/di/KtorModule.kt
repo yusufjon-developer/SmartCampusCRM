@@ -94,7 +94,7 @@ val KtorModule = module {
                 }
             }
 
-            expectSuccess = false
+            expectSuccess = true
 
             HttpResponseValidator {
                 handleResponseExceptionWithRequest { cause, _ ->

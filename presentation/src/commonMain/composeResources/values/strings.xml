@@ -10,6 +10,7 @@
     <string name="profile">Профиль</string>
     <string name="timetable">Расписание</string>
     <string name="employees">Сотрудники</string>
+    <string name="security">Безопасность</string>
 
     <string name="username">Имя пользователя</string>
     <string name="enter_email">Введите почту</string>
@@ -43,5 +44,9 @@
     <string name="mother_full_name">Мать (ФИО)</string>
     <string name="mother_phone">Мать (Телефон)</string>
     <string name="mother_address">Мать (Адрес)</string>
+
+    <string name="role">Роль</string>
+    <string name="permission">Доступы</string>
+    <string name="delete">Удалить</string>
 
 </resources>

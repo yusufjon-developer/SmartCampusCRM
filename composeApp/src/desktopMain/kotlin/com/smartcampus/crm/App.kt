@@ -15,6 +15,7 @@ import com.smartcampus.crm.navigation.menu.MainDrawerMenu
 import com.smartcampus.crm.navigation.safelyPopBackStack
 import com.smartcampus.crm.navigator.HomeNavigator
 import com.smartcampus.crm.navigator.EmployeeNavigator
+import com.smartcampus.crm.navigator.SecurityNavigator
 import com.smartcampus.crm.navigator.SettingsNavigator
 import com.smartcampus.crm.navigator.StudentNavigator
 
@@ -25,6 +26,7 @@ fun App() {
     val profileNavController = rememberNavController()
     val timetableNavController = rememberNavController()
     val employeesNavController = rememberNavController()
+    val securityNavController = rememberNavController()
 
     var selectedTab by rememberSaveable { mutableStateOf<MainDrawerMenu>(MainDrawerMenu.Home) }
 
@@ -34,6 +36,7 @@ fun App() {
         MainDrawerMenu.Profile -> profileNavController
         MainDrawerMenu.Timetable -> timetableNavController
         MainDrawerMenu.Employees -> employeesNavController
+        MainDrawerMenu.Security -> securityNavController
     }
 
     val stateHolder = rememberSaveableStateHolder()
@@ -54,6 +57,7 @@ fun App() {
                 MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
                 MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
                 MainDrawerMenu.Employees -> EmployeeNavigator(employeesNavController)
+                MainDrawerMenu.Security -> SecurityNavigator(securityNavController)
                 else -> {}
             }
         }

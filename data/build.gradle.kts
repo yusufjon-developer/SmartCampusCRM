@@ -13,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(projects.domain)
 
+                implementation(libs.paging.common)
                 implementation(libs.bundles.ktor.common)
 
                 implementation(libs.kotlinx.coroutinesCore)
