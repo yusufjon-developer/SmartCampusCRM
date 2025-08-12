@@ -1,6 +1,8 @@
 package com.smartcampus.crm.domain.repositories
 
 import app.cash.paging.PagingData
+import com.smartcampus.crm.domain.models.security.Permission
+import com.smartcampus.crm.domain.models.security.PermissionRequest
 import com.smartcampus.crm.domain.models.security.Role
 import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.utils.RemoteWrapper
@@ -11,4 +13,9 @@ interface SecurityRepository {
     suspend fun createRole(request: RoleRequest): RemoteWrapper<Role>
     suspend fun deleteRoleById(id: Int): RemoteWrapper<Boolean>
     suspend fun getRoleById(id: Int): RemoteWrapper<Role>
+
+    suspend fun getPermissionList(sortBy: String? = null): Flow<PagingData<Permission>>
+    suspend fun createPermission(request: PermissionRequest): RemoteWrapper<Permission>
+    suspend fun deletePermissionById(id: Int): RemoteWrapper<Boolean>
+    suspend fun getPermissionById(id: Int): RemoteWrapper<Permission>
 }

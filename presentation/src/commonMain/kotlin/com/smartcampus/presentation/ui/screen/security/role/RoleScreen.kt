@@ -53,6 +53,7 @@ fun RoleScreen(
     var newRoleDescription by remember { mutableStateOf("") }
     var nameError by remember { mutableStateOf<String?>(null) }
 
+    var expandedStates by remember { mutableStateOf<Map<Int, Boolean>>(emptyMap()) }
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var showErrorDialog by remember { mutableStateOf<NetworkError?>(null) }
@@ -77,13 +78,15 @@ fun RoleScreen(
                     newRoleName = ""
                     newRoleDescription = ""
                     nameError = null
-                    showAddDialog = false
+                }
+
+                is RoleContract.Effect.ShowAddDialog -> {
+                    showAddDialog = effect.show
                 }
             }
         }
     }
 
-    var expandedStates by remember { mutableStateOf<Map<Int, Boolean>>(emptyMap()) }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -125,7 +128,9 @@ fun RoleScreen(
                         addButtonEnabled = true,
                     ) {
                         AddButton(
-                            onClick = { showAddDialog = true },
+                            onClick = {
+                                viewModel.setEvent(RoleContract.Event.ShowAddDialog(true))
+                            },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
                         )
@@ -145,9 +150,8 @@ fun RoleScreen(
             if (showAddDialog) {
                 AlertDialog(
                     onDismissRequest = {
-                        // Действие при закрытии диалога (например, свайпом или кнопкой "Назад")
-                        showAddDialog = false
-                        newRoleName = "" // Очистка полей
+                        viewModel.setEvent(RoleContract.Event.ShowAddDialog(false))
+                        newRoleName = ""
                         newRoleDescription = ""
                         nameError = null
                     },
@@ -158,9 +162,9 @@ fun RoleScreen(
                                 value = newRoleName,
                                 onValueChange = {
                                     newRoleName = it
-                                    if (nameError != null) nameError = null // Сброс ошибки при вводе
+                                    if (nameError != null) nameError = null
                                 },
-                                label = { Text("Название роли*") },
+                                label = { Text("Название роли") },
                                 singleLine = true,
                                 isError = nameError != null,
                                 supportingText = {
@@ -173,7 +177,7 @@ fun RoleScreen(
                                 value = newRoleDescription,
                                 onValueChange = { newRoleDescription = it },
                                 label = { Text("Описание роли") },
-                                modifier = Modifier.heightIn(min = 80.dp) // Для многострочного ввода
+                                modifier = Modifier.heightIn(min = 80.dp)
                             )
                         }
                     },
@@ -189,8 +193,6 @@ fun RoleScreen(
                                         description = newRoleDescription.trim()
                                     )
                                     viewModel.setEvent(RoleContract.Event.AddRole(roleRequest))
-                                    // Не закрываем диалог здесь, ждем ответа от ViewModel (успех/ошибка)
-                                    // Диалог закроется в LaunchedEffect при RoleContract.Effect.ShowSuccessMessage
                                 }
                             }
                         ) {
@@ -200,16 +202,15 @@ fun RoleScreen(
                     dismissButton = {
                         TextButton(
                             onClick = {
-                                showAddDialog = false
-                                newRoleName = "" // Очистка полей
+                                viewModel.setEvent(RoleContract.Event.ShowAddDialog(false))
+                                newRoleName = ""
                                 newRoleDescription = ""
                                 nameError = null
                             }
                         ) {
                             Text("Отмена")
                         }
-                    },
-                    // modifier = Modifier.padding(16.dp) // Можно добавить отступы, если нужно
+                    }
                 )
             }
         }

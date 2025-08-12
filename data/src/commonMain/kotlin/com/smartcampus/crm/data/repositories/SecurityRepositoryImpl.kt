@@ -6,6 +6,8 @@ import com.smartcampus.crm.data.base.BaseRepository
 import com.smartcampus.crm.data.base.pagination.BasePagingSource
 import com.smartcampus.crm.data.base.pagination.PagingResponse
 import com.smartcampus.crm.data.remote.apiServices.SecurityApiService
+import com.smartcampus.crm.domain.models.security.Permission
+import com.smartcampus.crm.domain.models.security.PermissionRequest
 import com.smartcampus.crm.domain.models.security.Role
 import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.repositories.SecurityRepository
@@ -27,7 +29,6 @@ class SecurityRepositoryImpl(
                     },
                     mapper = { it }
                 )
-
             }
         }
     ).flow
@@ -44,6 +45,40 @@ class SecurityRepositoryImpl(
 
     override suspend fun getRoleById(id: Int) = doRequest<Role, Role>(
         request = { apiService.getRole(id) },
+        mapper = { it }
+    )
+
+
+    override suspend fun getPermissionList(sortBy: String?) = Pager(
+        config = PagingConfig(pageSize = 20, initialLoadSize = 20, prefetchDistance = 10),
+        pagingSourceFactory = {
+            BasePagingSource { pageNumber ->
+                doRequest<PagingResponse<Permission>, PagingResponse<Permission>>(
+                    request = {
+                        apiService.getPermissionList(
+                            page = pageNumber,
+                            size = 20,
+                            sortedBy = sortBy
+                        )
+                    },
+                    mapper = { it }
+                )
+            }
+        }
+    ).flow
+
+    override suspend fun createPermission(request: PermissionRequest) = doRequest<Permission, Permission>(
+        request = { apiService.createPermission(request) },
+        mapper = { it }
+    )
+
+    override suspend fun deletePermissionById(id: Int) = doRequest<Any, Boolean>(
+        request = { apiService.deletePermission(id = id) },
+        mapper = { true }
+    )
+
+    override suspend fun getPermissionById(id: Int) = doRequest<Permission, Permission>(
+        request = { apiService.getPermission(id) },
         mapper = { it }
     )
 }

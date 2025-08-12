@@ -29,17 +29,13 @@ class RoleViewModel(
     override fun handleEvent(event: RoleContract.Event) {
         viewModelScope.launch {
             when (event) {
-                is RoleContract.Event.LoadRoles -> {
-                    loadRoles()
-                }
+                is RoleContract.Event.LoadRoles -> loadRoles()
 
-                is RoleContract.Event.DeleteRole -> {
-                    deleteRole(event.roleId)
-                }
+                is RoleContract.Event.DeleteRole -> deleteRole(event.roleId)
 
-                is RoleContract.Event.AddRole -> {
-                    createRole(event.request)
-                }
+                is RoleContract.Event.AddRole -> createRole(event.request)
+
+                is RoleContract.Event.ShowAddDialog -> setEffect { RoleContract.Effect.ShowAddDialog(event.show) }
             }
         }
     }

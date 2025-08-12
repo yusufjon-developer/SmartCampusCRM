@@ -34,8 +34,8 @@ import androidx.paging.compose.LazyPagingItems
 fun <T : Any> LazyListScope.pagingLoadStateIndicator(
     lazyPagingItems: LazyPagingItems<T>,
     emptyListMessage: String? = null,
-    addButtonEnabled: Boolean = false, // Заменили onAddClicked
-    onErrorAddClicked: (() -> Unit)? = null, // Отдельный обработчик для кнопки в PagingErrorIndicator
+    addButtonEnabled: Boolean = false,
+    onErrorAddClicked: (() -> Unit)? = null,
     addContent: @Composable (() -> Unit) = {},
 ) {
     val loadState = lazyPagingItems.loadState
@@ -62,7 +62,7 @@ fun <T : Any> LazyListScope.pagingLoadStateIndicator(
                     onRetry = { lazyPagingItems.retry() },
                     modifier = Modifier.fillParentMaxSize(),
                     showAddButton = showErrorIndicatorAddButton,
-                    onAddClicked = onErrorAddClicked ?: {} // Используем новый onErrorAddClicked
+                    onAddClicked = onErrorAddClicked ?: {}
                 )
             }
         }
@@ -80,7 +80,6 @@ fun <T : Any> LazyListScope.pagingLoadStateIndicator(
                     }
                 }
             }
-            // Если addButtonEnabled == true, то addContent ниже позаботится об отображении кнопки "Добавить" или чего-то еще.
         }
 
         // APPEND states
@@ -98,13 +97,12 @@ fun <T : Any> LazyListScope.pagingLoadStateIndicator(
                     errorMessage = "Ошибка: ${errorState.error.localizedMessage ?: "Unknown error"}",
                     onRetry = { lazyPagingItems.retry() },
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-                    showAddButton = false // Обычно здесь кнопка "Добавить" не нужна
+                    showAddButton = false
                 )
             }
         }
     }
 
-    // Вызываем addContent, ЕСЛИ addButtonEnabled истинно.
     if (addButtonEnabled) {
         item("custom_add_content_container") {
             addContent()
@@ -134,7 +132,7 @@ fun PagingErrorIndicator(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
     showAddButton: Boolean = false,
-    onAddClicked: () -> Unit = {} // Этот onAddClicked теперь используется для onErrorAddClicked
+    onAddClicked: () -> Unit = {}
 ) {
     Column(
         modifier = modifier.padding(16.dp),
@@ -152,7 +150,7 @@ fun PagingErrorIndicator(
                 Text("Повторить")
             }
             if (showAddButton) {
-                FilledTonalButton(onClick = onAddClicked) { // Используем переданный onAddClicked
+                FilledTonalButton(onClick = onAddClicked) {
                     Icon(Icons.Filled.Add, contentDescription = "Добавить")
                     Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                     Text("Добавить")

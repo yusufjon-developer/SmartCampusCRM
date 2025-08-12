@@ -15,11 +15,13 @@ sealed interface RoleContract {
         data object LoadRoles : Event
         data class DeleteRole(val roleId: Int) : Event
         data class AddRole(val request: RoleRequest) : Event
+        data class ShowAddDialog(val show: Boolean) : Event
     }
 
     sealed interface Effect : UiEffect {
         data class ShowError(val error: NetworkError) : Effect
         data class ShowSuccessMessage(val message: String) : Effect
+        data class ShowAddDialog(val show: Boolean) : Effect
     }
 
     data class State(
