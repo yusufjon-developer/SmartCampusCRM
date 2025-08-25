@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.screen.employee.studentProfile
+package com.smartcampus.presentation.ui.screen.student.studentProfile
 
 import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.presentation.core.base.contract.UiEffect

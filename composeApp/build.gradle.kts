@@ -65,9 +65,18 @@ compose.desktop {
         mainClass = "com.smartcampus.crm.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.smartcampus.crm"
+            targetFormats(
+                TargetFormat.Msi,
+                TargetFormat.Exe
+            )
+            packageName = "Smart Campus CRM"
             packageVersion = "1.0.0"
+
+            windows {
+                iconFile.set(project.file("icon.ico"))
+                menuGroup = ""
+                shortcut = true
+            }
         }
     }
 }
