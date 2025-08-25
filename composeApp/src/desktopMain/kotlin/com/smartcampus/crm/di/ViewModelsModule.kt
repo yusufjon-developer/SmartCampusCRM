@@ -9,8 +9,6 @@ import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
 import com.smartcampus.presentation.ui.screen.security.permission.PermissionViewModel
 import com.smartcampus.presentation.ui.screen.security.role.RoleViewModel
 import com.smartcampus.presentation.ui.screen.security.roleItem.RoleItemViewModel
-import com.smartcampus.presentation.ui.screen.settings.SettingsViewModel
-import com.smartcampus.presentation.ui.screen.settings.theme.ThemeViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
