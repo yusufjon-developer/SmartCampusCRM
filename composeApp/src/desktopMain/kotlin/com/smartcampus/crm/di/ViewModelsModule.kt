@@ -8,6 +8,7 @@ import com.smartcampus.presentation.ui.screen.student.studentProfile.StudentProf
 import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
 import com.smartcampus.presentation.ui.screen.security.permission.PermissionViewModel
 import com.smartcampus.presentation.ui.screen.security.role.RoleViewModel
+import com.smartcampus.presentation.ui.screen.security.roleItem.RoleItemViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -19,5 +20,6 @@ val ViewModelsModule = module {
     viewModelOf(::ThemeViewModel)
     viewModelOf(::EmployeeViewModel)
     viewModelOf(::RoleViewModel)
+    viewModelOf(::RoleItemViewModel)
     viewModelOf(::PermissionViewModel)
 }

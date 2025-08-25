@@ -1,10 +1,10 @@
-package com.smartcampus.crm.data.repositories
+package com.smartcampus.crm.data.manager
 
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.smartcampus.crm.data.preferencesKeys.THEME_KEY
 import com.smartcampus.crm.domain.models.Theme
-import com.smartcampus.crm.domain.repositories.SettingsManager
+import com.smartcampus.crm.domain.models.managers.SettingsManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

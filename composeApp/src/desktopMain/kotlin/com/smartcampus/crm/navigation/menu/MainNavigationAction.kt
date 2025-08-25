@@ -6,15 +6,15 @@ import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.employees
 import smartcampuscrm.presentation.generated.resources.home
 import smartcampuscrm.presentation.generated.resources.ic_home
+import smartcampuscrm.presentation.generated.resources.ic_security
 import smartcampuscrm.presentation.generated.resources.ic_settings
 import smartcampuscrm.presentation.generated.resources.ic_student
 import smartcampuscrm.presentation.generated.resources.ic_teacher
 import smartcampuscrm.presentation.generated.resources.ic_timetable
-import smartcampuscrm.presentation.generated.resources.ic_security
 import smartcampuscrm.presentation.generated.resources.profile
+import smartcampuscrm.presentation.generated.resources.security
 import smartcampuscrm.presentation.generated.resources.settings
 import smartcampuscrm.presentation.generated.resources.timetable
-import smartcampuscrm.presentation.generated.resources.security
 
 data class NavBarItem(
     val route: MainDrawerMenu,

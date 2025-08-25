@@ -1,4 +1,4 @@
-package com.smartcampus.crm.domain.repositories
+package com.smartcampus.crm.domain.models.managers
 
 import com.smartcampus.crm.domain.models.Device
 import com.smartcampus.crm.domain.utils.AppConfig

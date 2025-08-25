@@ -13,15 +13,15 @@ import kotlinx.coroutines.flow.emptyFlow
 sealed interface RoleContract {
     sealed interface Event : UiEvent {
         data object LoadRoles : Event
-        data class DeleteRole(val roleId: Int) : Event
         data class AddRole(val request: RoleRequest) : Event
         data class ShowAddDialog(val show: Boolean) : Event
+        data class NavigateToRoleItemScreen(val roleId: Int) : Event
     }
 
     sealed interface Effect : UiEffect {
         data class ShowError(val error: NetworkError) : Effect
-        data class ShowSuccessMessage(val message: String) : Effect
         data class ShowAddDialog(val show: Boolean) : Effect
+        data class NavigateToRoleItemScreen(val roleId: Int) : Effect
     }
 
     data class State(

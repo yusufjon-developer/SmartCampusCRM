@@ -1,4 +1,4 @@
-package com.smartcampus.crm.domain.repositories
+package com.smartcampus.crm.domain.models.managers
 
 interface HardwareManager {
     fun getDeviceUuid(): String

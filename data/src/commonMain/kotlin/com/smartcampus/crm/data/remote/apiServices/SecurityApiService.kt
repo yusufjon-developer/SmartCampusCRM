@@ -1,6 +1,5 @@
 package com.smartcampus.crm.data.remote.apiServices
 
-import com.smartcampus.crm.domain.models.security.PermissionRequest
 import com.smartcampus.crm.domain.models.security.RoleRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.request.delete
@@ -42,15 +41,5 @@ class SecurityApiService(private val httpClient: HttpClient) {
 
     suspend fun getPermission(id: Int): HttpResponse {
         return httpClient.get("/crm/system-admin/permissions/$id")
-    }
-
-    suspend fun createPermission(permission: PermissionRequest): HttpResponse {
-        return httpClient.post("/crm/system-admin/permissions") {
-            setBody(permission)
-        }
-    }
-
-    suspend fun deletePermission(id: Int): HttpResponse {
-        return httpClient.delete("/crm/system-admin/permissions/$id")
     }
 }

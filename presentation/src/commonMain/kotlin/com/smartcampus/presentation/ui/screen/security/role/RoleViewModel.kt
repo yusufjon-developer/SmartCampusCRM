@@ -3,17 +3,15 @@ package com.smartcampus.presentation.ui.screen.security.role
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.smartcampus.crm.domain.models.security.RoleRequest
-import com.smartcampus.crm.domain.useCases.RoleUseCases
+import com.smartcampus.crm.domain.repositories.RoleRepository
 import com.smartcampus.crm.domain.utils.Either
-import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 
 class RoleViewModel(
-    private val roleUseCases: RoleUseCases
+    private val repository: RoleRepository
 ) : BaseViewModel<RoleContract.Event, RoleContract.Effect, RoleContract.State>() {
 
     override fun createInitialState(): RoleContract.State = RoleContract.State()
@@ -31,11 +29,13 @@ class RoleViewModel(
             when (event) {
                 is RoleContract.Event.LoadRoles -> loadRoles()
 
-                is RoleContract.Event.DeleteRole -> deleteRole(event.roleId)
-
                 is RoleContract.Event.AddRole -> createRole(event.request)
 
                 is RoleContract.Event.ShowAddDialog -> setEffect { RoleContract.Effect.ShowAddDialog(event.show) }
+
+                is RoleContract.Event.NavigateToRoleItemScreen -> setEffect {
+                    RoleContract.Effect.NavigateToRoleItemScreen(event.roleId)
+                }
             }
         }
     }
@@ -43,34 +43,16 @@ class RoleViewModel(
     private fun loadRoles() {
         viewModelScope.launch {
             setState { copy(isLoading = true) }
-            val rolesFlow = roleUseCases.getRoleList(sortedBy = null)
+            val rolesFlow = repository.getRoleList(sortBy = null)
                 .cachedIn(viewModelScope)
             setState { copy(roles = rolesFlow, isLoading = false) }
         }
     }
 
-    private suspend fun deleteRole(roleId: Int) {
-        when (val result = roleUseCases.deleteRoleById(id = roleId).firstOrNull()) {
-            is Either.Right -> {
-                if (result.value) {
-                    setEffect { RoleContract.Effect.ShowSuccessMessage("Роль успешно удалена") }
-                }
-            }
-
-            is Either.Left -> {
-                setEffect { RoleContract.Effect.ShowError(result.value) }
-            }
-
-            null -> {
-                setEffect { RoleContract.Effect.ShowError(NetworkError.Unexpected("Ошибка при удалении роли: нет ответа")) }
-            }
-        }
-    }
-
     private suspend fun createRole(request: RoleRequest) {
-        when (val result = roleUseCases.createRole(request).first()) {
+        when (val result = repository.createRole(request).first()) {
             is Either.Right -> {
-                setEffect { RoleContract.Effect.ShowSuccessMessage("Роль успешно создана") }
+                setEffect { RoleContract.Effect.NavigateToRoleItemScreen(result.value.id) }
             }
 
             is Either.Left -> {
