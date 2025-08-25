@@ -7,7 +7,6 @@ import com.smartcampus.crm.data.base.pagination.BasePagingSource
 import com.smartcampus.crm.data.base.pagination.PagingResponse
 import com.smartcampus.crm.data.remote.apiServices.SecurityApiService
 import com.smartcampus.crm.domain.models.security.Permission
-import com.smartcampus.crm.domain.models.security.PermissionRequest
 import com.smartcampus.crm.domain.models.security.Role
 import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.repositories.SecurityRepository
@@ -66,16 +65,6 @@ class SecurityRepositoryImpl(
             }
         }
     ).flow
-
-    override suspend fun createPermission(request: PermissionRequest) = doRequest<Permission, Permission>(
-        request = { apiService.createPermission(request) },
-        mapper = { it }
-    )
-
-    override suspend fun deletePermissionById(id: Int) = doRequest<Any, Boolean>(
-        request = { apiService.deletePermission(id = id) },
-        mapper = { true }
-    )
 
     override suspend fun getPermissionById(id: Int) = doRequest<Permission, Permission>(
         request = { apiService.getPermission(id) },

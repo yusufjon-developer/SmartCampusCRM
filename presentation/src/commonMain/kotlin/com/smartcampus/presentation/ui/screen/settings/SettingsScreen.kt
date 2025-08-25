@@ -15,8 +15,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.ic_logout
 import smartcampuscrm.presentation.generated.resources.ic_theme
-import smartcampuscrm.presentation.generated.resources.theme
 import smartcampuscrm.presentation.generated.resources.logout
+import smartcampuscrm.presentation.generated.resources.theme
 
 @Composable
 fun SettingsScreen(

@@ -16,7 +16,6 @@ import smartcampuscrm.presentation.generated.resources.ic_permission
 import smartcampuscrm.presentation.generated.resources.ic_role
 import smartcampuscrm.presentation.generated.resources.permission
 import smartcampuscrm.presentation.generated.resources.role
-import smartcampuscrm.presentation.generated.resources.theme
 
 @Composable
 fun SecurityScreen(

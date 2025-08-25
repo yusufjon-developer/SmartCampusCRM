@@ -13,7 +13,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -24,7 +23,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -39,11 +37,11 @@ import com.smartcampus.presentation.core.components.form.ErrorDialog
 import com.smartcampus.presentation.core.components.form.LoadingIndicatorDialog
 import com.smartcampus.presentation.core.components.text.InfoItem
 import com.smartcampus.presentation.core.extensions.pagingLoadStateIndicator
-import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RoleScreen(
+    navigateToRoleItemScreen: (Int) -> Unit,
     viewModel: RoleViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -53,9 +51,7 @@ fun RoleScreen(
     var newRoleDescription by remember { mutableStateOf("") }
     var nameError by remember { mutableStateOf<String?>(null) }
 
-    var expandedStates by remember { mutableStateOf<Map<Int, Boolean>>(emptyMap()) }
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
     var showErrorDialog by remember { mutableStateOf<NetworkError?>(null) }
     var showAddDialog by remember { mutableStateOf(false) }
 
@@ -67,13 +63,8 @@ fun RoleScreen(
                     showErrorDialog = effect.error
                 }
 
-                is RoleContract.Effect.ShowSuccessMessage -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = effect.message,
-                            duration = SnackbarDuration.Short
-                        )
-                    }
+                is RoleContract.Effect.NavigateToRoleItemScreen -> {
+                    navigateToRoleItemScreen(effect.roleId)
                     roles.refresh()
                     newRoleName = ""
                     newRoleDescription = ""
@@ -110,14 +101,9 @@ fun RoleScreen(
                             InfoItem(
                                 infoName = role.name,
                                 infoDescription = role.description,
-                                expanded = expandedStates[role.id] ?: false,
-                                onExpandedChange = { newValue ->
-                                    expandedStates = expandedStates.toMutableMap().also {
-                                        it[role.id] = newValue
-                                    }
-                                },
-                                onDeleteClick = {
-                                    viewModel.setEvent(RoleContract.Event.DeleteRole(role.id))
+                                expanded = false,
+                                onExpandedChange = {
+                                    navigateToRoleItemScreen(role.id)
                                 }
                             )
                         }
@@ -150,6 +136,9 @@ fun RoleScreen(
             if (showAddDialog) {
                 AlertDialog(
                     onDismissRequest = {
+                        // Действие при закрытии диалога (например, свайпом или кнопкой "Назад")
+                        showAddDialog = false
+                        newRoleName = "" // Очистка полей
                         viewModel.setEvent(RoleContract.Event.ShowAddDialog(false))
                         newRoleName = ""
                         newRoleDescription = ""
@@ -169,7 +158,10 @@ fun RoleScreen(
                                 isError = nameError != null,
                                 supportingText = {
                                     if (nameError != null) {
-                                        Text(text = nameError!!, color = MaterialTheme.colorScheme.error)
+                                        Text(
+                                            text = nameError!!,
+                                            color = MaterialTheme.colorScheme.error
+                                        )
                                     }
                                 }
                             )
@@ -193,6 +185,8 @@ fun RoleScreen(
                                         description = newRoleDescription.trim()
                                     )
                                     viewModel.setEvent(RoleContract.Event.AddRole(roleRequest))
+                                    // Не закрываем диалог здесь, ждем ответа от ViewModel (успех/ошибка)
+                                    // Диалог закроется в LaunchedEffect при RoleContract.Effect.ShowSuccessMessage
                                 }
                             }
                         ) {
@@ -202,6 +196,8 @@ fun RoleScreen(
                     dismissButton = {
                         TextButton(
                             onClick = {
+                                showAddDialog = false
+                                newRoleName = "" // Очистка полей
                                 viewModel.setEvent(RoleContract.Event.ShowAddDialog(false))
                                 newRoleName = ""
                                 newRoleDescription = ""
