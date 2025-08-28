@@ -46,7 +46,6 @@ import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.additional_information
 import smartcampuscrm.presentation.generated.resources.address
 import smartcampuscrm.presentation.generated.resources.basic_information
-import smartcampuscrm.presentation.generated.resources.course
 import smartcampuscrm.presentation.generated.resources.document_number
 import smartcampuscrm.presentation.generated.resources.education_information
 import smartcampuscrm.presentation.generated.resources.email
@@ -62,7 +61,6 @@ import smartcampuscrm.presentation.generated.resources.mother_phone
 import smartcampuscrm.presentation.generated.resources.name
 import smartcampuscrm.presentation.generated.resources.phone_number
 import smartcampuscrm.presentation.generated.resources.school
-import smartcampuscrm.presentation.generated.resources.speciality
 import smartcampuscrm.presentation.generated.resources.status
 import smartcampuscrm.presentation.generated.resources.student_card_number
 import smartcampuscrm.presentation.generated.resources.study_form
@@ -173,7 +171,7 @@ fun StudentProfileScreen(
                             SectionTitle(stringResource(Res.string.basic_information))
                         }
                         item {
-                            GridSection(BasicInfoFields(studentInfo), readOnly)
+                            GridSection(BasicInfoFields(studentInfo).map { it.first to it.second.toString() }, readOnly)
                         }
 
                         item {
@@ -264,9 +262,10 @@ fun BasicInfoFields(studentInfo: StudentInfo) = listOf(
     stringResource(Res.string.lastname) to studentInfo.students.lastname,
     stringResource(Res.string.phone_number) to studentInfo.students.phoneNumber,
     stringResource(Res.string.email) to studentInfo.students.email,
-    stringResource(Res.string.groups) to studentInfo.students.groups.name,
-    stringResource(Res.string.speciality) to studentInfo.students.groups.specialities.name,
-    stringResource(Res.string.course) to studentInfo.students.groups.course.toString(),
+    stringResource(Res.string.groups) to studentInfo.students.groupId,
+//    stringResource(Res.string.groups) to studentInfo.students.groups.name,
+//    stringResource(Res.string.speciality) to studentInfo.students.groups.specialities.name,
+//    stringResource(Res.string.course) to studentInfo.students.groups.course.toString(),
     stringResource(Res.string.study_form) to studentInfo.studyForm,
     stringResource(Res.string.study_type) to studentInfo.studyType,
     stringResource(Res.string.status) to studentInfo.status,

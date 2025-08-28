@@ -1,6 +1,5 @@
 package com.smartcampus.crm.di
 
-import com.smartcampus.crm.domain.useCases.GetStudentInfoUseCase
 import com.smartcampus.crm.domain.useCases.GetThemeUseCase
 import com.smartcampus.crm.domain.useCases.LoginUseCase
 import com.smartcampus.crm.domain.useCases.PermissionUseCases
@@ -11,7 +10,6 @@ import org.koin.dsl.module
 
 val DomainModule = module {
     singleOf(::LoginUseCase)
-    singleOf(::GetStudentInfoUseCase)
     singleOf(::GetThemeUseCase)
     singleOf(::SetThemeUseCase)
     singleOf(::RoleUseCases)

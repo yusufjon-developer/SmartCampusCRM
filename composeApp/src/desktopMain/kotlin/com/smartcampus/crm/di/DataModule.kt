@@ -11,6 +11,7 @@ import com.smartcampus.crm.data.preferencesKeys.PREFERENCE_STORE
 import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
 import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
 import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
 import com.smartcampus.crm.domain.models.managers.SessionManager
 import com.smartcampus.crm.domain.models.managers.SettingsManager
 import com.smartcampus.crm.domain.models.managers.TokenManager
@@ -39,9 +40,10 @@ val DataModule = module {
     singleOf(::SessionManagerImpl) bind SessionManager::class
 
     singleOf(::LoginRepositoryImpl) bind LoginRepository::class
-    singleOf(::LoginRepositoryImpl) bind StudentRepository::class
 
     singleOf(::SecurityRepositoryImpl) bind SecurityRepository::class
 
     singleOf(::RoleRepositoryImpl) bind RoleRepository::class
+
+    singleOf(::StudentRepositoryImpl) bind StudentRepository::class
 }
