@@ -12,6 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.smartcampus.crm.navigation.menu.DrawerContent
 import com.smartcampus.crm.navigation.menu.MainDrawerMenu
+import com.smartcampus.crm.navigation.safelyPopBackStack
+import com.smartcampus.crm.navigator.EmployeeNavigator
+import com.smartcampus.crm.navigator.HomeNavigator
+import com.smartcampus.crm.navigator.SecurityNavigator
+import com.smartcampus.crm.navigator.SettingsNavigator
 import com.smartcampus.crm.navigator.StudentNavigator
 
 @Composable
@@ -21,6 +26,7 @@ fun App() {
     val profileNavController = rememberNavController()
     val timetableNavController = rememberNavController()
     val employeesNavController = rememberNavController()
+    val securityNavController = rememberNavController()
 
     var selectedTab by rememberSaveable { mutableStateOf<MainDrawerMenu>(MainDrawerMenu.Home) }
 
@@ -30,6 +36,7 @@ fun App() {
         MainDrawerMenu.Profile -> profileNavController
         MainDrawerMenu.Timetable -> timetableNavController
         MainDrawerMenu.Employees -> employeesNavController
+        MainDrawerMenu.Security -> securityNavController
     }
 
     val stateHolder = rememberSaveableStateHolder()
@@ -39,15 +46,19 @@ fun App() {
             DrawerContent(
                 selectedTab = selectedTab,
                 onTabSelected = { tab -> tab?.let { selectedTab = it } },
-                onBackClick = navController::popBackStack
+                onBackClick = navController::safelyPopBackStack
             )
         },
         modifier = Modifier.fillMaxSize()
     ) {
         stateHolder.SaveableStateProvider(key = selectedTab) {
             when (selectedTab) {
+                MainDrawerMenu.Home -> HomeNavigator(homeNavController)
                 MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
-                else -> { }
+                MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
+                MainDrawerMenu.Employees -> EmployeeNavigator(employeesNavController)
+                MainDrawerMenu.Security -> SecurityNavigator(securityNavController)
+                else -> {}
             }
         }
     }

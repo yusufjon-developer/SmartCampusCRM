@@ -9,4 +9,5 @@ sealed interface MainDrawerMenu {
     @Serializable data object Profile : MainDrawerMenu
     @Serializable data object Timetable : MainDrawerMenu
     @Serializable data object Employees : MainDrawerMenu
+    @Serializable data object Security : MainDrawerMenu
 }

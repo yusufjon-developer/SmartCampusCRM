@@ -32,7 +32,10 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.material3.windowsSizeClass)
 
+            implementation(libs.coil.network.ktor)
+
             implementation(libs.bundles.ktor.common)
+            implementation(libs.paging.common)
 
             implementation(libs.kotlinx.coroutinesCore)
             implementation(libs.koin.compose)
@@ -62,9 +65,18 @@ compose.desktop {
         mainClass = "com.smartcampus.crm.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.smartcampus.crm"
+            targetFormats(
+                TargetFormat.Msi,
+                TargetFormat.Exe
+            )
+            packageName = "Smart Campus CRM"
             packageVersion = "1.0.0"
+
+            windows {
+                iconFile.set(project.file("icon.ico"))
+                menuGroup = ""
+                shortcut = true
+            }
         }
     }
 }

@@ -31,17 +31,20 @@ fun DrawerContent(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.padding(16.dp).width(IntrinsicSize.Min).fillMaxHeight(),
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
+    val iconSize = 20.dp
+    val iconPadding = 2.dp
 
-        Card(
-            modifier = Modifier,
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+    Card(
+        modifier = modifier.padding(16.dp).width(IntrinsicSize.Min).fillMaxHeight(),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.elevatedCardElevation(8.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
+
             NavigationDrawerItem(
                 label = {
                     Icon(
@@ -49,56 +52,44 @@ fun DrawerContent(
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
-                            .padding(4.dp)
-                            .size(24.dp)
+                            .padding(iconPadding)
+                            .size(iconSize)
                     )
                 },
                 onClick = onBackClick,
                 selected = false,
-                modifier = Modifier.padding(8.dp)
+                shape = RoundedCornerShape(16.dp)
             )
-        }
 
 
-        Card(
-            modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
-        ) {
-            TOP_DESTINATIONS.forEach { item ->
-                NavigationDrawerItem(
-                    label = {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(item.icon),
-                                contentDescription = stringResource(item.label),
-                                tint = NavIconColor(selectedTab == item.route),
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .size(24.dp)
-                            )
-                        }
-                    },
-                    selected = selectedTab == item.route,
-                    onClick = {
-                        onTabSelected(item.route)
-                    },
-                    modifier = Modifier.padding(8.dp)
-                )
+            Column {
+                TOP_DESTINATIONS.forEach { item ->
+                    NavigationDrawerItem(
+                        label = {
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    painter = painterResource(item.icon),
+                                    contentDescription = stringResource(item.label),
+                                    tint = NavIconColor(selectedTab == item.route),
+                                    modifier = Modifier
+                                        .padding(iconPadding)
+                                        .size(iconSize)
+                                )
+                            }
+                        },
+                        selected = selectedTab == item.route,
+                        onClick = {
+                            onTabSelected(item.route)
+                        },
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                }
+
             }
 
-        }
-
-        Card(
-            modifier = Modifier,
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
-        ) {
             NavigationDrawerItem(
                 label = {
                     Icon(
@@ -106,15 +97,15 @@ fun DrawerContent(
                         contentDescription = stringResource(settingsNavBar.label),
                         tint = NavIconColor(selectedTab == MainDrawerMenu.Settings),
                         modifier = Modifier
-                            .padding(4.dp)
-                            .size(24.dp)
+                            .padding(iconPadding)
+                            .size(iconSize)
                     )
                 },
                 onClick = {
                     onTabSelected(MainDrawerMenu.Settings)
                 },
                 selected = selectedTab == MainDrawerMenu.Settings,
-                modifier = Modifier.padding(8.dp)
+                shape = RoundedCornerShape(16.dp)
             )
         }
     }

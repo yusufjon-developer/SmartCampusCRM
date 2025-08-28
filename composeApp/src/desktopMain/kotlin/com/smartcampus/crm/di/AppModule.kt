@@ -5,5 +5,5 @@ val AppModule = listOf(
     DomainModule,
     KtorModule,
     NetworkModule,
-    ViewModels
+    ViewModelsModule
 )

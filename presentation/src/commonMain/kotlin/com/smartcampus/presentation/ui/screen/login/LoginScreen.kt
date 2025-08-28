@@ -4,15 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,46 +20,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.smartcampus.crm.domain.models.UserRequest
-import com.smartcampus.presentation.core.components.inputs.PasswordField
-import com.smartcampus.presentation.core.components.inputs.UserField
+import com.smartcampus.presentation.core.components.form.ErrorDialog
+import com.smartcampus.presentation.core.components.form.LoadingIndicatorDialog
+import com.smartcampus.presentation.core.components.form.PasswordField
+import com.smartcampus.presentation.core.components.form.UserField
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    navigateToMain: (String) -> Unit,
-    navigateToRegistration: (String) -> Unit,
+    onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = koinViewModel()
 ) {
-
-    var user by remember { mutableStateOf(UserRequest("", "")) }
-
+    val state by viewModel.uiState.collectAsState()
+    var showError by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is LoginContract.Effect.Error -> {
-                    navigateToMain("Ошибка входа!")
+                    showError = true
                 }
+
                 LoginContract.Effect.Success -> {
-                    navigateToMain("Успешный вход!")
+                    onLoginSuccess()
                 }
             }
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.End
-    ) {
-        Button(
-            onClick = {
-                navigateToRegistration("Окно зарегистрирования")
-            },
-        ) {
-            Text("Зарегистрироватся", color = Color.White)
         }
     }
 
@@ -78,9 +61,9 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         UserField(
-            value = user.username,
-            onValueChange = { newUsername ->
-                user = user.copy(username = newUsername)
+            value = state.request.email,
+            onValueChange = { newEmail ->
+                viewModel.setEvent(LoginContract.Event.EmailChanged(newEmail))
             },
             modifier = Modifier.width(300.dp),
         )
@@ -88,9 +71,9 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         PasswordField(
-            value = user.password,
+            value = state.request.password,
             onValueChange = { newPassword ->
-                user = user.copy(password = newPassword)
+                viewModel.setEvent(LoginContract.Event.PasswordChanged(newPassword))
             },
             modifier = Modifier.width(300.dp),
         )
@@ -99,10 +82,19 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                viewModel.setEvent(LoginContract.Event.Login(user))
+                viewModel.setEvent(LoginContract.Event.Login)
             }
         ) {
             Text("Войти", color = Color.White)
+        }
+
+        LoadingIndicatorDialog(isLoading = state.isLoading)
+        if (showError) {
+            ErrorDialog(
+                title = state.error!!::class.simpleName!!,
+                message = state.error!!,
+                onDismiss = { showError = false }
+            )
         }
     }
 }

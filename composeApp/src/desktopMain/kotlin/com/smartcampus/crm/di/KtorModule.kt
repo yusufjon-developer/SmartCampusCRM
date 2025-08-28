@@ -1,7 +1,7 @@
 package com.smartcampus.crm.di
 
-import com.smartcampus.crm.domain.repositories.SessionManager
-import com.smartcampus.crm.domain.repositories.TokenManager
+import com.smartcampus.crm.domain.models.managers.SessionManager
+import com.smartcampus.crm.domain.models.managers.TokenManager
 import com.smartcampus.crm.domain.utils.AppConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -60,7 +60,7 @@ val KtorModule = module {
         // Создаем OkHttpClient с доверенным SSL
         val okHttpClient = OkHttpClient.Builder()
             .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            .hostnameVerifier { _, _ -> true } // доверять любым hostname
+            .hostnameVerifier { _, _ -> true }
             .build()
 
         HttpClient(OkHttp) {
@@ -85,7 +85,7 @@ val KtorModule = module {
                     loadTokens {
                         tokenManager.getAccessToken().firstOrNull()
                             ?.takeIf { it.isNotBlank() }
-                            ?.let { BearerTokens(it, "") }
+                            ?.let { BearerTokens(it, null) }
                     }
 
                     sendWithoutRequest { request ->
@@ -94,7 +94,7 @@ val KtorModule = module {
                 }
             }
 
-            expectSuccess = false
+            expectSuccess = true
 
             HttpResponseValidator {
                 handleResponseExceptionWithRequest { cause, _ ->

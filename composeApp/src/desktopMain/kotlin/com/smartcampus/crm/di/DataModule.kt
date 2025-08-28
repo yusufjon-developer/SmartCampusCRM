@@ -4,16 +4,21 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.coroutines.toFlowSettings
+import com.smartcampus.crm.data.manager.SessionManagerImpl
+import com.smartcampus.crm.data.manager.SettingsManagerImpl
+import com.smartcampus.crm.data.manager.TokenManagerImpl
 import com.smartcampus.crm.data.preferencesKeys.PREFERENCE_STORE
 import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
-import com.smartcampus.crm.data.repositories.SessionManagerImpl
-import com.smartcampus.crm.data.repositories.SettingsManagerImpl
-import com.smartcampus.crm.data.repositories.TokenManagerImpl
+import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
+import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
+import com.smartcampus.crm.domain.models.managers.SessionManager
+import com.smartcampus.crm.domain.models.managers.SettingsManager
+import com.smartcampus.crm.domain.models.managers.TokenManager
 import com.smartcampus.crm.domain.repositories.LoginRepository
-import com.smartcampus.crm.domain.repositories.SessionManager
-import com.smartcampus.crm.domain.repositories.SettingsManager
+import com.smartcampus.crm.domain.repositories.RoleRepository
+import com.smartcampus.crm.domain.repositories.SecurityRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
-import com.smartcampus.crm.domain.repositories.TokenManager
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -35,5 +40,10 @@ val DataModule = module {
     singleOf(::SessionManagerImpl) bind SessionManager::class
 
     singleOf(::LoginRepositoryImpl) bind LoginRepository::class
-    singleOf(::LoginRepositoryImpl) bind StudentRepository::class
+
+    singleOf(::SecurityRepositoryImpl) bind SecurityRepository::class
+
+    singleOf(::RoleRepositoryImpl) bind RoleRepository::class
+
+    singleOf(::StudentRepositoryImpl) bind StudentRepository::class
 }

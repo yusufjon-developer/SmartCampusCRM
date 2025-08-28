@@ -29,6 +29,9 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.material3.windowsSizeClass)
 
+            implementation(libs.coil.compose)
+            implementation(libs.paging.compose)
+
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.core)

@@ -1,38 +1,52 @@
 package com.smartcampus.presentation.ui.screen.login
 
 import androidx.lifecycle.viewModelScope
+import com.smartcampus.crm.domain.models.managers.HardwareManager
+import com.smartcampus.crm.domain.models.managers.TokenManager
 import com.smartcampus.crm.domain.useCases.LoginUseCase
 import com.smartcampus.crm.domain.utils.Either
 import com.smartcampus.presentation.core.base.BaseViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val tokenManager: TokenManager
 ) : BaseViewModel<LoginContract.Event, LoginContract.Effect, LoginContract.State>() {
-    override fun createInitialState() = LoginContract.State(false)
+    override fun createInitialState() = LoginContract.State()
 
     override fun handleEvent(event: LoginContract.Event) {
         viewModelScope.launch {
-            when(event) {
+            when (event) {
                 is LoginContract.Event.Login -> {
-                    loginUseCase(event.user)
+                    loginUseCase(uiState.first().request.copy(uuid = HardwareManager.Default.getDeviceUuid()))
                         .onStart { setState { copy(isLoading = true) } }
                         .onEach { response ->
-                            when(response) {
+                            when (response) {
                                 is Either.Left -> {
-                                    setState { copy(isLoading = false) }
-                                    setEffect { LoginContract.Effect.Error(response.value.toString()) }
+                                    setState { copy(isLoading = false, error = response.value) }
+                                    setEffect { LoginContract.Effect.Error }
                                 }
+
                                 is Either.Right -> {
+                                    tokenManager.saveAccessToken(response.value.token)
                                     setState { copy(isLoading = false) }
                                     setEffect { LoginContract.Effect.Success }
                                 }
                             }
                         }
                         .launchIn(viewModelScope)
+                }
+
+                is LoginContract.Event.EmailChanged -> {
+                    setState { copy(request = request.copy(email = event.email)) }
+                }
+
+                is LoginContract.Event.PasswordChanged -> {
+                    setState { copy(request = request.copy(password =  event.password)) }
                 }
             }
         }
