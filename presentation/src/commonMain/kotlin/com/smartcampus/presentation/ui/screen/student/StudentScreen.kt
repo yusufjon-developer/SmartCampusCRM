@@ -1,10 +1,13 @@
 package com.smartcampus.presentation.ui.screen.student
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -39,6 +42,7 @@ fun StudentScreen(
             when (effect) {
                 is StudentContract.Effect.NavigateToStudentProfile ->
                     navigateToStudentProfile(effect.id)
+
                 is StudentContract.Effect.NavigateToAddStudent ->
                     navigateToAddStudent()
             }
@@ -48,7 +52,7 @@ fun StudentScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
-        Box(
+        Column (
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -57,11 +61,17 @@ fun StudentScreen(
             if (uiState.isLoading) {
                 LoadingIndicatorDialog(isLoading = true)
             } else {
-                LazyColumn(
+                AddButton(
+                    onClick = { navigateToAddStudent },
+                    modifier = Modifier.fillMaxWidth().padding(8.dp),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                LazyVerticalGrid(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    columns = GridCells.Adaptive(minSize = 160.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     items(
                         count = students.itemCount,
@@ -82,12 +92,9 @@ fun StudentScreen(
 
                     pagingLoadStateIndicator(
                         lazyPagingItems = students,
-                        addButtonEnabled = true,
                         emptyListMessage = "Студенты не найдены",
                         onErrorAddClicked = { students.retry() }
-                    ) {
-                        AddButton(onClick = { navigateToAddStudent })
-                    }
+                    )
                 }
             }
         }

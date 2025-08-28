@@ -32,9 +32,9 @@ fun StudentNavigator(navController: NavHostController) {
             val args = backStackEntry.toRoute<ProfileRoute.StudentProfile>()
             StudentProfileScreen(
                 id = args.studentId,
-                navigateToEdit = { _ -> },
                 studentInfo = StudentInfo(Student(
-                    groupId = 1
+                    groupId = 1,
+                    groups = null
                 ))
             )
         }
