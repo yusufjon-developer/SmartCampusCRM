@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.screen.security.roleItem
+package com.smartcampus.presentation.ui.screen.security.rolePermission
 
 import androidx.lifecycle.viewModelScope
 import com.smartcampus.crm.domain.models.security.UpdatePermissionStatus
@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 
-class RoleItemViewModel(
+class RolePermissionViewModel(
     private val repository: RoleRepository,
-) : BaseViewModel<RoleItemContract.Event, RoleItemContract.Effect, RoleItemContract.State>() {
+) : BaseViewModel<RolePermissionContract.Event, RolePermissionContract.Effect, RolePermissionContract.State>() {
 
-    override fun createInitialState(): RoleItemContract.State = RoleItemContract.State()
+    override fun createInitialState(): RolePermissionContract.State = RolePermissionContract.State()
     private val scope get() = viewModelScope
 
     init {
@@ -23,18 +23,17 @@ class RoleItemViewModel(
 
     }
 
-    override fun handleEvent(event: RoleItemContract.Event) {
-
+    override fun handleEvent(event: RolePermissionContract.Event) {
         when (event) {
-            is RoleItemContract.Event.LoadRole -> scope.launch {
+            is RolePermissionContract.Event.LoadRole -> scope.launch {
                 getRole(event.roleId)
             }
 
-            is RoleItemContract.Event.DeleteRole -> scope.launch {
+            is RolePermissionContract.Event.DeleteRole -> scope.launch {
                 deleteRole(event.roleId)
             }
 
-            is RoleItemContract.Event.UpdateRolePermission -> scope.launch {
+            is RolePermissionContract.Event.UpdateRolePermission -> scope.launch {
                 updatePermission(event.request)
             }
         }
@@ -47,7 +46,7 @@ class RoleItemViewModel(
             }
 
             is Either.Left -> {
-                setEffect { RoleItemContract.Effect.ShowError(result.value) }
+                setEffect { RolePermissionContract.Effect.ShowError(result.value) }
             }
         }
     }
@@ -56,12 +55,12 @@ class RoleItemViewModel(
         when (val result = repository.deleteRole(id = roleId).first()) {
             is Either.Right -> {
                 if (result.value) {
-                    setEffect { RoleItemContract.Effect.ShowSuccessMessage("Роль успешно удалена") }
+                    setEffect { RolePermissionContract.Effect.ShowSuccessMessage("Роль успешно удалена") }
                 }
             }
 
             is Either.Left -> {
-                setEffect { RoleItemContract.Effect.ShowError(result.value) }
+                setEffect { RolePermissionContract.Effect.ShowError(result.value) }
             }
         }
     }
@@ -70,11 +69,11 @@ class RoleItemViewModel(
         when (val result =
             repository.updateRolePermissions(uiState.value.role.roleId, request).first()) {
             is Either.Right -> {
-                setEffect { RoleItemContract.Effect.ShowSuccessMessage("Роль успешно обновлена") }
+                setEffect { RolePermissionContract.Effect.ShowSuccessMessage("Роль успешно обновлена") }
             }
 
             is Either.Left -> {
-                setEffect { RoleItemContract.Effect.ShowError(result.value) }
+                setEffect { RolePermissionContract.Effect.ShowError(result.value) }
             }
         }
     }

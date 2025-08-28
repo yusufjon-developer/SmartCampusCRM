@@ -6,7 +6,7 @@ import com.smartcampus.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class SecurityViewModel(
-    private val roleUseCases: RoleUseCases
+
 ) : BaseViewModel<SecurityContract.Event, SecurityContract.Effect, SecurityContract.State>() {
     override fun createInitialState() = SecurityContract.State
 
@@ -19,6 +19,10 @@ class SecurityViewModel(
 
                 SecurityContract.Event.NavigateToPermission -> {
                     setEffect { SecurityContract.Effect.NavigateToPermission }
+                }
+
+                SecurityContract.Event.NavigateToUser -> {
+                    setEffect { SecurityContract.Effect.NavigateToUser }
                 }
             }
         }

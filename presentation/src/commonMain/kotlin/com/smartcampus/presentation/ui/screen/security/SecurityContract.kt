@@ -8,11 +8,13 @@ sealed interface SecurityContract {
     sealed interface Event : UiEvent {
         data object NavigateToRole : Event
         data object NavigateToPermission : Event
+        data object NavigateToUser : Event
     }
 
     sealed interface Effect : UiEffect {
         data object NavigateToRole : Effect
         data object NavigateToPermission : Effect
+        data object NavigateToUser : Effect
     }
 
     data object State: UiState

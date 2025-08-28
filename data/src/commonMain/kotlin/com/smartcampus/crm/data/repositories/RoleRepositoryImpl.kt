@@ -7,7 +7,7 @@ import com.smartcampus.crm.data.base.pagination.BasePagingSource
 import com.smartcampus.crm.data.base.pagination.PagingResponse
 import com.smartcampus.crm.data.remote.apiServices.RoleApiService
 import com.smartcampus.crm.domain.models.security.Role
-import com.smartcampus.crm.domain.models.security.RoleItem
+import com.smartcampus.crm.domain.models.security.RolePermission
 import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.models.security.UpdatePermissionStatus
 import com.smartcampus.crm.domain.repositories.RoleRepository
@@ -38,9 +38,9 @@ class RoleRepositoryImpl(
         }
     ).flow
 
-    override suspend fun getRoleById(id: Int) = doRequest<RoleItem> { apiService.getRoleById(id) }
+    override suspend fun getRoleById(id: Int) = doRequest<RolePermission> { apiService.getRoleById(id) }
 
-    override suspend fun updateRolePermissions(id: Int, request: UpdatePermissionStatus) = doRequest<RoleItem, RoleItem>(
+    override suspend fun updateRolePermissions(id: Int, request: UpdatePermissionStatus) = doRequest<RolePermission, RolePermission>(
         request = { apiService.updatePermissions(id, request) },
         mapper = { it }
     )
