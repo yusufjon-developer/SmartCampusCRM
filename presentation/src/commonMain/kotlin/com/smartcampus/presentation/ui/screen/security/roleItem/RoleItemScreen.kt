@@ -90,34 +90,34 @@ fun RoleItemScreen(
                 )
             }
         }
-    }
 
-    OutlinedButton(
-        onClick = {
-            viewModel.setEvent(
-                RoleItemContract.Event.UpdateRolePermission(
-                    UpdatePermissionStatus(
-                        grantedPermission.toSet(),
-                        revokedPermission.toSet()
+        OutlinedButton(
+            onClick = {
+                viewModel.setEvent(
+                    RoleItemContract.Event.UpdateRolePermission(
+                        UpdatePermissionStatus(
+                            grantedPermission.toSet(),
+                            revokedPermission.toSet()
+                        )
                     )
                 )
-            )
-        },
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)),
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
-    ) {
-        Text(text = "Сохранить", color = MaterialTheme.colorScheme.tertiary)
-    }
+            },
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)),
+            modifier = Modifier.padding(16.dp).fillMaxWidth()
+        ) {
+            Text(text = "Сохранить", color = MaterialTheme.colorScheme.tertiary)
+        }
 
-    OutlinedButton(
-        onClick = {
-            viewModel.setEvent(
-                RoleItemContract.Event.DeleteRole(roleId)
-            )
-        },
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f)),
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
-    ) {
-        Text(text = "Удалить", color = MaterialTheme.colorScheme.error)
+        OutlinedButton(
+            onClick = {
+                viewModel.setEvent(
+                    RoleItemContract.Event.DeleteRole(roleId)
+                )
+            },
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f)),
+            modifier = Modifier.padding(16.dp).fillMaxWidth()
+        ) {
+            Text(text = "Удалить", color = MaterialTheme.colorScheme.error)
+        }
     }
 }
