@@ -75,6 +75,8 @@ abstract class BaseRepository {
                     }
 
                 }
+                responseCode == 403 ->
+                    emit(Either.Left(NetworkError.AccessDenied))
                 responseCode >= 500 ->
                     emit(Either.Left(NetworkError.ServerIsNotAvailable))
                 else ->
