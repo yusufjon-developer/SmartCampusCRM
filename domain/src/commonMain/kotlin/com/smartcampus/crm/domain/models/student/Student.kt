@@ -1,5 +1,6 @@
 package com.smartcampus.crm.domain.models.student
 
+import com.smartcampus.crm.domain.models.Groups
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,6 +10,7 @@ data class Student(
     val name: String = "Юсуфджон",
     val lastname: String = "Шарафджонович",
     val birthday: String = "02.01.2004",
+    val groups: Groups? = null,
     val groupId: Int? = null,
     val email: String = "abdushakhidov@gmail.com",
     val phoneNumber: String = "+992-919-19-19-19",

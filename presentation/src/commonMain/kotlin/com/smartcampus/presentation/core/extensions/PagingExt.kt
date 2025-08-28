@@ -1,18 +1,15 @@
 package com.smartcampus.presentation.core.extensions
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -136,8 +133,107 @@ fun PagingLoadingIndicator(modifier: Modifier = Modifier) {
     }
 }
 
+
 /**
- * Composable for displaying an error message and a retry button, and optionally an "Add" button.
+ * Paging load state handler for LazyVerticalGrid.
+ * Works similarly to the LazyListScope version but uses full-width grid items via GridItemSpan.
+ */
+fun <T : Any> LazyGridScope.pagingLoadStateIndicator(
+    lazyPagingItems: LazyPagingItems<T>,
+    emptyListMessage: String? = null,
+    addButtonEnabled: Boolean = false,
+    onErrorAddClicked: (() -> Unit)? = null,
+    addContent: @Composable (() -> Unit) = {}
+) {
+    val loadState = lazyPagingItems.loadState
+    val itemCount = lazyPagingItems.itemCount
+
+    val showErrorIndicatorAddButton = onErrorAddClicked != null && loadState.refresh is LoadState.Error && itemCount == 0
+
+    when {
+        // REFRESH loading
+        loadState.refresh is LoadState.Loading -> {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+        }
+
+        // REFRESH error
+        loadState.refresh is LoadState.Error -> {
+            val errorState = loadState.refresh as LoadState.Error
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                PagingErrorIndicator(
+                    errorMessage = errorState.error.localizedMessage ?: "Unknown error",
+                    onRetry = { lazyPagingItems.retry() },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    showAddButton = showErrorIndicatorAddButton,
+                    onAddClicked = onErrorAddClicked ?: {}
+                )
+            }
+        }
+
+        // REFRESH success but empty
+        loadState.refresh is LoadState.NotLoading && itemCount == 0 && loadState.append.endOfPaginationReached -> {
+            if (!addButtonEnabled && emptyListMessage != null) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(emptyListMessage, style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
+            }
+        }
+
+        // APPEND loading
+        loadState.append is LoadState.Loading -> {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+        }
+
+        // APPEND error
+        loadState.append is LoadState.Error -> {
+            val errorState = loadState.append as LoadState.Error
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                PagingErrorIndicator(
+                    errorMessage = "Ошибка: ${errorState.error.localizedMessage ?: "Unknown error"}",
+                    onRetry = { lazyPagingItems.retry() },
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                    showAddButton = false
+                )
+            }
+        }
+    }
+
+    if (addButtonEnabled) {
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            addContent()
+        }
+    }
+}
+
+/**
+ * Reuse your existing PagingErrorIndicator / PagingLoadingIndicator composables.
+ * If you don't want to reuse them, include local implementations (simple ones below).
  */
 @Composable
 fun PagingErrorIndicator(
@@ -147,28 +243,23 @@ fun PagingErrorIndicator(
     showAddButton: Boolean = false,
     onAddClicked: () -> Unit = {}
 ) {
-    Column(
+    androidx.compose.foundation.layout.Column(
         modifier = modifier.padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = errorMessage,
-            color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Button(onClick = onRetry) {
-                Text("Повторить")
-            }
+        Text(text = errorMessage, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.titleMedium)
+        androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(8.dp))
+        androidx.compose.foundation.layout.Row {
+            Button(onClick = onRetry) { Text("Повторить") }
             if (showAddButton) {
+                androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(8.dp))
                 FilledTonalButton(onClick = onAddClicked) {
                     Icon(Icons.Filled.Add, contentDescription = "Добавить")
-                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(4.dp))
                     Text("Добавить")
                 }
             }
         }
     }
 }
+
