@@ -39,6 +39,15 @@ private val apiService: StudentApiService
             }
         ).flow
 
-    override fun getStudentInfo(id: Int): RemoteWrapper<StudentInfo> =
+    override fun getStudent(id: Int): RemoteWrapper<Student> =
         doRequest { apiService.getStudentById(id) }
+
+    override fun getStudentInfo(id: Int): RemoteWrapper<StudentInfo> =
+        doRequest { apiService.getStudentInfoById(id) }
+
+    override fun updateStudent(student: Student): RemoteWrapper<String> =
+        doRequest { apiService.updateStudent(student) }
+
+    override fun updateStudentInfo(studentInfo: StudentInfo): RemoteWrapper<String> =
+        doRequest { apiService.updateStrudentInfo(studentInfo) }
 }

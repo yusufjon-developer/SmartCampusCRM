@@ -16,6 +16,40 @@ class StudentProfileViewModel(
     override fun handleEvent(event: StudentProfileContract.Event) {
 
         when (event) {
+            StudentProfileContract.Event.AddStudent ->
+                setEffect { StudentProfileContract.Effect.AddStudent }
+
+            is StudentProfileContract.Event.GetStudent -> {
+                repository.getStudent(event.id)
+                    .onStart {
+                        setState { copy(isLoading = true, student = null, error = null) }
+                    }
+                    .onEach { response ->
+                        when (response) {
+                            is Either.Left -> {
+                                setState {
+                                    copy(
+                                        isLoading = false,
+                                        error = response.value.toString(),
+                                        student = null
+                                    )
+                                }
+                            }
+
+                            is Either.Right -> {
+                                setState {
+                                    copy(
+                                        isLoading = false,
+                                        student = response.value,
+                                        error = null
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    .launchIn(viewModelScope)
+            }
+
             is StudentProfileContract.Event.GetStudentInfo -> {
                 repository.getStudentInfo(event.id)
                     .onStart {
@@ -26,23 +60,32 @@ class StudentProfileViewModel(
                             is Either.Left -> {
                                 setState {
                                     copy(
-                                        error = response.value.toString(),
                                         isLoading = false,
+                                        error = response.value.toString(),
                                         studentInfo = null
                                     )
                                 }
                             }
 
                             is Either.Right -> {
-                                setState { copy(isLoading = false, studentInfo = response.value) }
+                                setState {
+                                    copy(
+                                        isLoading = false,
+                                        studentInfo = response.value,
+                                        error = null,
+                                    )
+                                }
                             }
                         }
                     }
                     .launchIn(viewModelScope)
             }
-            is StudentProfileContract.Event.EditStudentInfo -> {
-                // TODO
+
+            is StudentProfileContract.Event.UpdateStudent -> {
+
             }
+
+            is StudentProfileContract.Event.UpdateStudentInfo -> {}
         }
     }
 

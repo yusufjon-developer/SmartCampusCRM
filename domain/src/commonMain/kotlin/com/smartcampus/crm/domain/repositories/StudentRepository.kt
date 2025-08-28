@@ -8,5 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface StudentRepository {
     fun getStudents(): Flow<PagingData<Student>>
+    fun getStudent(id: Int): RemoteWrapper<Student>
     fun getStudentInfo(id: Int): RemoteWrapper<StudentInfo>
+
+    fun updateStudent(student: Student): RemoteWrapper<String>
+    fun updateStudentInfo(studentInfo: StudentInfo): RemoteWrapper<String>
 }
