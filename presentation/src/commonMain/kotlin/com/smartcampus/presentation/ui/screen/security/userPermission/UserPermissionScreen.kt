@@ -41,7 +41,7 @@ fun UserPermissionScreen(
     val user = state.user
     val grantedPermission = remember { mutableStateListOf<Int>() }
     val revokedPermission = remember { mutableStateListOf<Int>() }
-    val isActive = remember { mutableStateOf(user.isActive) }
+    val isActive = remember { mutableStateOf(false) }
     val devices = remember { mutableStateListOf<UserDevice>() }
 
 
@@ -59,12 +59,19 @@ fun UserPermissionScreen(
                 }
 
                 is UserPermissionContract.Effect.ShowSuccessMessage -> {
-                    devices.addAll(user.userDevices)
-                    Logger.getAnonymousLogger().info("userDevices: ${user.userDevices}, devices: ${devices}")
+                    Logger.getLogger("UserPermissionScreen").info(effect.message)
                 }
             }
         }
     }
+
+    LaunchedEffect(state.user) {
+        isActive.value = state.user.isActive
+
+        devices.clear()
+        devices.addAll(state.user.userDevices)
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth().verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -88,7 +95,7 @@ fun UserPermissionScreen(
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
             )
             Text(
-                text = "Статус: ${if (user.isActive) "Активен" else "Неактивен"}",
+                text = "Статус: ${if (isActive.value) "Активен" else "Неактивен"}",
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(end = 16.dp, top = 8.dp, bottom = 8.dp)
             )
@@ -108,12 +115,15 @@ fun UserPermissionScreen(
                 Checkbox(
                     checked = checked,
                     onCheckedChange = { check ->
-                        devices.find { it.id == device.id }?.copy(isApprove = check)
+                        val index = devices.indexOfFirst { it == device }
+                        if (index >= 0) {
+                            devices[index] = devices[index].copy(isApprove = check)
+                        }
                     },
                     modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
                 )
                 Text(
-                    text = device.deviceUuid,
+                    text = device.registeredAt,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(end = 16.dp, top = 8.dp, bottom = 8.dp)
                 )
@@ -163,7 +173,7 @@ fun UserPermissionScreen(
                     UserPermissionContract.Event.UpdateUserPermission(
                         UpdateUserPermissions(
                             isActive = isActive.value,
-                            userDevices = devices.toSet(),
+                            userDevices = devices.filter { it.isApprove }.map { it -> it.id }.toSet(),
                             permissions = UpdatePermissionStatus(
                                 grantedPermission.toSet(),
                                 revokedPermission.toSet()
@@ -178,16 +188,5 @@ fun UserPermissionScreen(
             Text(text = "Сохранить", color = MaterialTheme.colorScheme.tertiary)
         }
 
-        OutlinedButton(
-            onClick = {
-                viewModel.setEvent(
-                    UserPermissionContract.Event.DeleteUser(userId)
-                )
-            },
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f)),
-            modifier = Modifier.padding(16.dp).fillMaxWidth()
-        ) {
-            Text(text = "Удалить", color = MaterialTheme.colorScheme.error)
-        }
     }
 }

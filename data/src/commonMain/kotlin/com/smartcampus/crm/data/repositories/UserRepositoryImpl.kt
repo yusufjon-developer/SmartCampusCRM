@@ -7,6 +7,7 @@ import com.smartcampus.crm.data.base.BaseRepository
 import com.smartcampus.crm.data.base.pagination.BasePagingSource
 import com.smartcampus.crm.data.base.pagination.PagingResponse
 import com.smartcampus.crm.data.remote.apiServices.UserApiService
+import com.smartcampus.crm.domain.models.security.UpdateUserPermissions
 import com.smartcampus.crm.domain.models.security.User
 import com.smartcampus.crm.domain.models.security.UserPermission
 import com.smartcampus.crm.domain.repositories.UserRepository
@@ -37,4 +38,13 @@ class UserRepositoryImpl(
 
     override suspend fun getUserById(id: Int): RemoteWrapper<UserPermission> =
         doRequest { apiService.getUserById(id) }
+
+    override suspend fun updateUserPermission(
+        userId: Int,
+        request: UpdateUserPermissions
+    ): RemoteWrapper<UserPermission> =
+        doRequest<UserPermission> {
+            apiService.updateUserPermission(userId, request)
+        }
+
 }

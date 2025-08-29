@@ -11,7 +11,6 @@ interface UserPermissionContract {
     sealed interface Event : UiEvent {
         data class LoadUser(val userId: Int) : Event
         data class UpdateUserPermission(val request: UpdateUserPermissions) : Event
-        data class DeleteUser(val userId: Int) : Event
     }
 
     sealed interface Effect : UiEffect {
