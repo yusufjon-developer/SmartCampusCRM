@@ -11,6 +11,7 @@ import com.smartcampus.crm.data.preferencesKeys.PREFERENCE_STORE
 import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
 import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
 import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.UserRepositoryImpl
 import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
 import com.smartcampus.crm.domain.models.managers.SessionManager
 import com.smartcampus.crm.domain.models.managers.SettingsManager
@@ -19,6 +20,7 @@ import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.RoleRepository
 import com.smartcampus.crm.domain.repositories.SecurityRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
+import com.smartcampus.crm.domain.repositories.UserRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -44,6 +46,7 @@ val DataModule = module {
     singleOf(::SecurityRepositoryImpl) bind SecurityRepository::class
 
     singleOf(::RoleRepositoryImpl) bind RoleRepository::class
+    singleOf(::UserRepositoryImpl) bind UserRepository::class
 
     singleOf(::StudentRepositoryImpl) bind StudentRepository::class
 }
