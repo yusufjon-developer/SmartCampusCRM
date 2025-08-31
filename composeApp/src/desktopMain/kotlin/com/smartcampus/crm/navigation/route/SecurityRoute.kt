@@ -7,5 +7,7 @@ sealed interface SecurityRoute {
     @Serializable data object Security
     @Serializable data object Role
     @Serializable data object Permission
-    @Serializable data class RoleItem(val roleId: Int)
+    @Serializable data object User
+    @Serializable data class UserPermission(val userId: Int)
+    @Serializable data class RolePermission(val roleId: Int)
 }

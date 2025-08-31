@@ -21,6 +21,7 @@ import smartcampuscrm.presentation.generated.resources.role
 fun SecurityScreen(
     navigateToRole: () -> Unit,
     navigateToPermission: () -> Unit,
+    navigateToUser: () -> Unit,
     viewModel: SecurityViewModel = koinViewModel()
 ) {
     LaunchedEffect(Unit) {
@@ -28,6 +29,7 @@ fun SecurityScreen(
             when (effect) {
                 SecurityContract.Effect.NavigateToRole -> navigateToRole()
                 SecurityContract.Effect.NavigateToPermission -> navigateToPermission()
+                SecurityContract.Effect.NavigateToUser -> navigateToUser()
             }
         }
     }
@@ -36,6 +38,15 @@ fun SecurityScreen(
         modifier = Modifier.padding(8.dp),
         columns = GridCells.Adaptive(minSize = 196.dp)
     ) {
+        item {
+            FeatureCard(
+                iconPainter = painterResource(Res.drawable.ic_role),
+                title = "Пользователи",
+                onClick = {
+                    viewModel.setEvent(SecurityContract.Event.NavigateToUser)
+                }
+            )
+        }
         item {
             FeatureCard(
                 iconPainter = painterResource(Res.drawable.ic_role),

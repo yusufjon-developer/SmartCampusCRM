@@ -1,17 +1,16 @@
-package com.smartcampus.presentation.ui.screen.security.roleItem
+package com.smartcampus.presentation.ui.screen.security.userPermission
 
-import com.smartcampus.crm.domain.models.security.RoleItem
-import com.smartcampus.crm.domain.models.security.UpdatePermissionStatus
+import com.smartcampus.crm.domain.models.security.UpdateUserPermissions
+import com.smartcampus.crm.domain.models.security.UserPermission
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
 import com.smartcampus.presentation.core.base.contract.UiState
 
-sealed interface RoleItemContract {
+interface UserPermissionContract {
     sealed interface Event : UiEvent {
-        data class LoadRole(val roleId: Int) : Event
-        data class UpdateRolePermission(val request: UpdatePermissionStatus) : Event
-        data class DeleteRole(val roleId: Int) : Event
+        data class LoadUser(val userId: Int) : Event
+        data class UpdateUserPermission(val request: UpdateUserPermissions) : Event
     }
 
     sealed interface Effect : UiEffect {
@@ -20,10 +19,11 @@ sealed interface RoleItemContract {
     }
 
     data class State(
-        val role: RoleItem = RoleItem(
-            roleId = 0,
-            name = "",
-            description = "",
+        val user: UserPermission = UserPermission(
+            userId = 0,
+            username = "",
+            isActive = false,
+            userDevices = emptyList(),
             permissions = emptyList()
         ),
         val isLoading: Boolean = false,

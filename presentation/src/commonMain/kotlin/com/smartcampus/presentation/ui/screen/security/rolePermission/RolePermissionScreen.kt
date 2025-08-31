@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.screen.security.roleItem
+package com.smartcampus.presentation.ui.screen.security.rolePermission
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,7 +29,7 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun RoleItemScreen(
     roleId: Int,
-    viewModel: RoleItemViewModel = koinViewModel(parameters = { parametersOf(roleId) })
+    viewModel: RolePermissionViewModel = koinViewModel(parameters = { parametersOf(roleId) })
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -38,14 +39,14 @@ fun RoleItemScreen(
 
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(RoleItemContract.Event.LoadRole(roleId))
+        viewModel.setEvent(RolePermissionContract.Event.LoadRole(roleId))
     }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is RoleItemContract.Effect.ShowError -> {}
-                is RoleItemContract.Effect.ShowSuccessMessage -> {}
+                is RolePermissionContract.Effect.ShowError -> {}
+                is RolePermissionContract.Effect.ShowSuccessMessage -> {}
             }
         }
     }
@@ -69,7 +70,7 @@ fun RoleItemScreen(
                 in revokedPermission -> false
                 else -> permission.hasPermission
             }
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
                     checked = checked,
                     onCheckedChange = { check ->
@@ -95,7 +96,7 @@ fun RoleItemScreen(
     OutlinedButton(
         onClick = {
             viewModel.setEvent(
-                RoleItemContract.Event.UpdateRolePermission(
+                RolePermissionContract.Event.UpdateRolePermission(
                     UpdatePermissionStatus(
                         grantedPermission.toSet(),
                         revokedPermission.toSet()
@@ -112,7 +113,7 @@ fun RoleItemScreen(
     OutlinedButton(
         onClick = {
             viewModel.setEvent(
-                RoleItemContract.Event.DeleteRole(roleId)
+                RolePermissionContract.Event.DeleteRole(roleId)
             )
         },
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f)),
