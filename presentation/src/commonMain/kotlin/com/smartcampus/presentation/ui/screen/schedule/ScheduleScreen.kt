@@ -24,7 +24,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.smartcampus.crm.domain.models.AuditoriumDto
+import com.smartcampus.crm.domain.models.GroupDto
 import com.smartcampus.crm.domain.models.ScheduleDto
+import com.smartcampus.crm.domain.models.TeacherDto
+import com.smartcampus.presentation.ui.widgets.groupDropdown.GroupDropdown
 import com.smartcampus.presentation.util.toServerFormat
 import org.koin.compose.viewmodel.koinViewModel
 import java.time.LocalDate
@@ -32,7 +36,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun ScheduleScreen(
-    viewModel: ScheduleViewModel = koinViewModel()
+    viewModel: ScheduleViewModel = koinViewModel(),
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -45,7 +49,7 @@ fun ScheduleScreen(
 @Composable
 fun ScheduleContent(
     state: ScheduleContract.State,
-    onEvent: (ScheduleContract.Event) -> Unit
+    onEvent: (ScheduleContract.Event) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -56,10 +60,23 @@ fun ScheduleContent(
             selectedGroup = state.selectedGroup,
             selectedTeacher = state.selectedTeacher,
             selectedAuditorium = state.selectedAuditorium,
-            onWeekSelected = { start, end -> onEvent(ScheduleContract.Event.SelectWeek(start, end)) },
+            onWeekSelected = { start, end ->
+                onEvent(
+                    ScheduleContract.Event.SelectWeek(
+                        start,
+                        end
+                    )
+                )
+            },
             onGroupSelected = { group -> onEvent(ScheduleContract.Event.SelectGroup(group)) },
             onTeacherSelected = { teacher -> onEvent(ScheduleContract.Event.SelectTeacher(teacher)) },
-            onAuditoriumSelected = { auditorium -> onEvent(ScheduleContract.Event.SelectAuditorium(auditorium)) }
+            onAuditoriumSelected = { auditorium ->
+                onEvent(
+                    ScheduleContract.Event.SelectAuditorium(
+                        auditorium
+                    )
+                )
+            }
         )
         Spacer(modifier = Modifier.height(16.dp))
         WeeklyScheduleList(
@@ -74,13 +91,13 @@ fun ScheduleContent(
 fun ScheduleHeader(
     startDay: LocalDate,
     endDay: LocalDate,
-    selectedGroup: com.smartcampus.crm.domain.models.GroupDto?,
-    selectedTeacher: com.smartcampus.crm.domain.models.TeacherDto?,
-    selectedAuditorium: com.smartcampus.crm.domain.models.AuditoriumDto?,
+    selectedGroup: GroupDto?,
+    selectedTeacher: TeacherDto?,
+    selectedAuditorium: AuditoriumDto?,
     onWeekSelected: (LocalDate, LocalDate) -> Unit,
-    onGroupSelected: (com.smartcampus.crm.domain.models.GroupDto) -> Unit,
-    onTeacherSelected: (com.smartcampus.crm.domain.models.TeacherDto) -> Unit,
-    onAuditoriumSelected: (com.smartcampus.crm.domain.models.AuditoriumDto) -> Unit
+    onGroupSelected: (GroupDto) -> Unit,
+    onTeacherSelected: (TeacherDto) -> Unit,
+    onAuditoriumSelected: (AuditoriumDto) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -109,11 +126,9 @@ fun ScheduleHeader(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            OutlinedTextField(
-                value = selectedGroup?.let { "${it.id}" } ?: "",
-                onValueChange = { /* Здесь логика выбора группы */ },
-                label = { Text("Group") },
-                modifier = Modifier.weight(1f)
+            GroupDropdown(
+                selectGroup = selectedGroup,
+                onGroupSelected = { onGroupSelected(it) }
             )
 
             OutlinedTextField(
@@ -137,7 +152,7 @@ fun ScheduleHeader(
 fun WeeklyScheduleList(
     schedules: List<List<ScheduleDto>>,
     startDay: LocalDate,
-    isLoading: Boolean
+    isLoading: Boolean,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -165,7 +180,7 @@ fun WeeklyScheduleList(
 @Composable
 fun DaySchedule(
     date: LocalDate,
-    schedules: List<ScheduleDto>
+    schedules: List<ScheduleDto>,
 ) {
     Card(
         modifier = Modifier.fillMaxWidth()
