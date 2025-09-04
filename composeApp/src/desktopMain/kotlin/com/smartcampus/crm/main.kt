@@ -21,9 +21,9 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.smartcampus.crm.di.AppModule
+import com.smartcampus.crm.domain.managers.SessionManager
+import com.smartcampus.crm.domain.managers.TokenManager
 import com.smartcampus.crm.domain.models.Theme
-import com.smartcampus.crm.domain.repositories.SessionManager
-import com.smartcampus.crm.domain.repositories.TokenManager
 import com.smartcampus.crm.domain.useCases.GetThemeUseCase
 import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.presentation.core.components.window.TopBar
@@ -36,7 +36,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.get
 import smartcampuscrm.presentation.generated.resources.Res
-import smartcampuscrm.presentation.generated.resources.logo
+import smartcampuscrm.presentation.generated.resources.icon
 import java.awt.Insets
 import java.awt.Toolkit
 
@@ -82,7 +82,7 @@ fun main() {
             Window(
                 onCloseRequest = ::exitApplication,
                 title = AppConfig.APP_NAME,
-                icon = painterResource(Res.drawable.logo),
+                icon = painterResource(Res.drawable.icon),
                 undecorated = true,
                 state = windowState,
                 transparent = true

@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Specialities(
     val id: Int,
-    val name: String
+    val name: String? = null
 )

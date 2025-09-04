@@ -1,7 +1,7 @@
 package com.smartcampus.crm.di
 
-import com.smartcampus.crm.domain.repositories.SessionManager
-import com.smartcampus.crm.domain.repositories.TokenManager
+import com.smartcampus.crm.domain.managers.SessionManager
+import com.smartcampus.crm.domain.managers.TokenManager
 import com.smartcampus.crm.domain.utils.AppConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -94,7 +94,7 @@ val KtorModule = module {
                 }
             }
 
-            expectSuccess = false
+            expectSuccess = true
 
             HttpResponseValidator {
                 handleResponseExceptionWithRequest { cause, _ ->

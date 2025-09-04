@@ -14,22 +14,24 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 abstract class BaseRepository {
-    protected inline fun <reified T: Any, S: Any> doRequest(
-        crossinline request: suspend () -> HttpResponse,
-        crossinline mapper: (T) -> S
-    ): Flow<Either<NetworkError, S>> = flow {
+
+    protected inline fun <reified T: Any> doRequest(
+        crossinline request: suspend () -> HttpResponse
+    ): Flow<Either<NetworkError, T>> = flow {
         request().let {
             val responseCode = it.status.value
             when {
                 it.status.isSuccess() -> {
                     val body = try { it.body<T>() } catch (_: Exception) { null }
                     if (body != null) {
-                        emit(Either.Right(mapper(body)))
+                        emit(Either.Right(body))
                     } else {
                         emit(Either.Left(NetworkError.ResponseDeserialization("Empty or malformed response")))
                     }
 
                 }
+                responseCode == 403 ->
+                    emit(Either.Left(NetworkError.AccessDenied))
                 responseCode >= 500 ->
                     emit(Either.Left(NetworkError.ServerIsNotAvailable))
                 else ->

@@ -1,7 +1,7 @@
 package com.smartcampus.presentation.ui.screen.settings
 
 import androidx.lifecycle.viewModelScope
-import com.smartcampus.crm.domain.repositories.SessionManager
+import com.smartcampus.crm.domain.managers.SessionManager
 import com.smartcampus.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.launch
 

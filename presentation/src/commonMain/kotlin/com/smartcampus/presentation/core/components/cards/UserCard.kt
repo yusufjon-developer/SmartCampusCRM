@@ -29,8 +29,8 @@ import coil3.compose.rememberAsyncImagePainter
 @Composable
 fun UserCard(
     modifier: Modifier = Modifier,
-    imageUrl: String,
-    title: String,
+    imageUrl: String?,
+    title: String? = "",
     role: String,
     isActive: Boolean,
     onClick: () -> Unit
@@ -68,11 +68,13 @@ fun UserCard(
                 )
 
                 Column {
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
+                    if (title != null) {
+                        Text(
+                            text = title,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                     Text(
                         text = role,
                         style = MaterialTheme.typography.bodyMedium,

@@ -5,13 +5,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Student(
-    val id: Int = 0,
-    val surname: String = "Абдушахидов",
-    val name: String = "Юсуфджон",
-    val lastname: String = "Шарафджонович",
-    val birthday: String = "02.01.2004",
-    val groups: Groups,
-    val email: String = "abdushakhidov@gmail.com",
-    val phoneNumber: String = "+992-919-19-19-19",
-    val photo: String = ""
+    val id: Int,
+    val surname: String? = null,
+    val name: String? = null,
+    val lastname: String? = null,
+    val birthday: String? = null,
+    val groups: Groups? = null,
+    val groupId: Int? = null,
+    val email: String? = null,
+    val phoneNumber: String? = null,
+    val photo: String? = null
 )

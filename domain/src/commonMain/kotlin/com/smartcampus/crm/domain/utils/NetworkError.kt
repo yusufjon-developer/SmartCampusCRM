@@ -5,6 +5,7 @@ sealed class NetworkError {
     class Api(val reason: String, val code: Int) : NetworkError()
     object NoInternetConnection : NetworkError()
     object ServerIsNotAvailable : NetworkError()
+    object AccessDenied : NetworkError()
     class ResponseDeserialization(val message: String) : NetworkError()
 
     override fun toString(): String = when(this) {
@@ -13,5 +14,5 @@ sealed class NetworkError {
         NoInternetConnection -> "NoInternetConnection[${this.hashCode()}]"
         ServerIsNotAvailable -> "ServerIsNotAvailable[${this.hashCode()}]"
         is ResponseDeserialization -> "ResponseDeserialization(message: $message)[${this.hashCode()}]"
-    }
+        AccessDenied -> "AccessDenied[${this.hashCode()}]"    }
 }
