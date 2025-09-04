@@ -11,15 +11,16 @@ import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
 import com.smartcampus.crm.domain.utils.Either
+import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.flow
 
 class LoginRepositoryImpl(
     private val loginApiService: LoginApiService
 ) : LoginRepository, BaseRepository(), StudentRepository {
-    override suspend fun login(request: LoginRequest) = doRequest<LoginResponse, LoginResponse>(
-        request = { loginApiService.login(request) },
-        mapper = { it }
-    )
+    override suspend fun login(request: LoginRequest): RemoteWrapper<LoginResponse> =
+        doRequest {
+            loginApiService.login(request)
+        }
 
     override fun getStudentInfo(id: Int) = flow {
         emit(

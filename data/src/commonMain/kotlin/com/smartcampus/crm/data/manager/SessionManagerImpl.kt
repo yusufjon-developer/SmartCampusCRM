@@ -1,7 +1,7 @@
 package com.smartcampus.crm.data.manager
 
-import com.smartcampus.crm.domain.models.managers.SessionManager
-import com.smartcampus.crm.domain.models.managers.TokenManager
+import com.smartcampus.crm.domain.managers.SessionManager
+import com.smartcampus.crm.domain.managers.TokenManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

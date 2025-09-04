@@ -11,6 +11,7 @@ import com.smartcampus.crm.domain.models.security.RolePermission
 import com.smartcampus.crm.domain.models.security.RoleRequest
 import com.smartcampus.crm.domain.models.security.UpdatePermissionStatus
 import com.smartcampus.crm.domain.repositories.RoleRepository
+import com.smartcampus.crm.domain.utils.RemoteWrapper
 
 class RoleRepositoryImpl(
     private val apiService: RoleApiService
@@ -24,36 +25,26 @@ class RoleRepositoryImpl(
         ),
         pagingSourceFactory = {
             BasePagingSource { pageNumber ->
-                doRequest<PagingResponse<Role>, PagingResponse<Role>>(
-                    request = {
-                        apiService.getRoleList(
-                            page = pageNumber,
-                            size = 20,
-                            sortedBy = sortBy
-                        )
-                    },
-                    mapper = { it }
-                )
+                doRequest<PagingResponse<Role>> {
+                    apiService.getRoleList(
+                        page = pageNumber,
+                        size = 20,
+                        sortedBy = sortBy
+                    )
+                }
             }
         }
     ).flow
 
-    override suspend fun getRoleById(id: Int) = doRequest<RolePermission> { apiService.getRoleById(id) }
+    override suspend fun getRoleById(id: Int): RemoteWrapper<RolePermission> =
+        doRequest { apiService.getRoleById(id) }
 
-    override suspend fun updateRolePermissions(id: Int, request: UpdatePermissionStatus) = doRequest<RolePermission, RolePermission>(
-        request = { apiService.updatePermissions(id, request) },
-        mapper = { it }
-    )
+    override suspend fun updateRolePermissions(id: Int, request: UpdatePermissionStatus): RemoteWrapper<RolePermission> =
+        doRequest { apiService.updatePermissions(id, request) }
 
-    override suspend fun createRole(request: RoleRequest) = doRequest<Role, Role>(
-        request = { apiService.createRole(request) },
-        mapper = { it }
-    )
+    override suspend fun createRole(request: RoleRequest): RemoteWrapper<Role> =
+        doRequest { apiService.createRole(request) }
 
-    override suspend fun deleteRole(id: Int) = doRequest<Boolean, Boolean>(
-        request = { apiService.deleteRole(id) },
-        mapper = { it }
-    )
-
-
+    override suspend fun deleteRole(id: Int): RemoteWrapper<Unit> =
+        doRequest { apiService.deleteRole(id) }
 }

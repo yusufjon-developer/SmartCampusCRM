@@ -1,7 +1,6 @@
 package com.smartcampus.crm.domain.models.teacher
 
 data class TeacherInfo(
-    val teachers: Teacher,
     val address: String = "г. Душанбе улица Пушкина дом 12",
     val passportNumber: String = "AB123456",
     val highSchool: String = "Филиал МГУ в городе Душанбе",
