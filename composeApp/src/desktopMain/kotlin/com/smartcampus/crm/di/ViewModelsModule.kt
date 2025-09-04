@@ -12,6 +12,7 @@ import com.smartcampus.presentation.ui.screen.security.userPermission.UserPermis
 import com.smartcampus.presentation.ui.screen.settings.SettingsViewModel
 import com.smartcampus.presentation.ui.screen.settings.theme.ThemeViewModel
 import com.smartcampus.presentation.ui.screen.student.studentProfile.StudentProfileViewModel
+import com.smartcampus.presentation.ui.widgets.groupDropdown.GroupDropdownViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -28,4 +29,5 @@ val ViewModelsModule = module {
     viewModelOf(::UserViewModel)
     viewModelOf(::UserPermissionViewModel)
     viewModelOf(::ScheduleViewModel)
+    viewModelOf(::GroupDropdownViewModel)
 }
