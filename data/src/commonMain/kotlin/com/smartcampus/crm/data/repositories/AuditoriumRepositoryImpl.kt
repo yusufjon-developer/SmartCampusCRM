@@ -7,7 +7,9 @@ import com.smartcampus.crm.data.base.BaseRepository
 import com.smartcampus.crm.data.base.pagination.BasePagingSource
 import com.smartcampus.crm.data.base.pagination.PagingResponse
 import com.smartcampus.crm.data.remote.apiServices.AuditoriumApiService
-import com.smartcampus.crm.domain.models.*
+import com.smartcampus.crm.domain.models.AuditoriumCreateRequest
+import com.smartcampus.crm.domain.models.AuditoriumDto
+import com.smartcampus.crm.domain.models.AuditoriumUpdateRequest
 import com.smartcampus.crm.domain.repositories.AuditoriumRepository
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.Flow

@@ -15,6 +15,7 @@ import com.smartcampus.crm.navigation.menu.MainDrawerMenu
 import com.smartcampus.crm.navigation.safelyPopBackStack
 import com.smartcampus.crm.navigator.EmployeeNavigator
 import com.smartcampus.crm.navigator.HomeNavigator
+import com.smartcampus.crm.navigator.ScheduleNavigator
 import com.smartcampus.crm.navigator.SecurityNavigator
 import com.smartcampus.crm.navigator.SettingsNavigator
 import com.smartcampus.crm.navigator.StudentNavigator
@@ -24,7 +25,7 @@ fun App() {
     val homeNavController = rememberNavController()
     val settingsNavController = rememberNavController()
     val profileNavController = rememberNavController()
-    val timetableNavController = rememberNavController()
+    val scheduleNavController = rememberNavController()
     val employeesNavController = rememberNavController()
     val securityNavController = rememberNavController()
 
@@ -34,7 +35,7 @@ fun App() {
         MainDrawerMenu.Home -> homeNavController
         MainDrawerMenu.Settings -> settingsNavController
         MainDrawerMenu.Profile -> profileNavController
-        MainDrawerMenu.Timetable -> timetableNavController
+        MainDrawerMenu.Schedule -> scheduleNavController
         MainDrawerMenu.Employees -> employeesNavController
         MainDrawerMenu.Security -> securityNavController
     }
@@ -58,7 +59,7 @@ fun App() {
                 MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
                 MainDrawerMenu.Employees -> EmployeeNavigator(employeesNavController)
                 MainDrawerMenu.Security -> SecurityNavigator(securityNavController)
-                else -> {}
+                MainDrawerMenu.Schedule -> ScheduleNavigator(scheduleNavController)
             }
         }
     }

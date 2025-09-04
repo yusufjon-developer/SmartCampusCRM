@@ -14,19 +14,21 @@ import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
 import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
 import com.smartcampus.crm.data.repositories.ScheduleRepositoryImpl
 import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.TeacherRepositoryImpl
 import com.smartcampus.crm.data.repositories.UserRepositoryImpl
 import com.smartcampus.crm.data.repositories.WorkloadRepositoryImpl
+import com.smartcampus.crm.domain.managers.SessionManager
+import com.smartcampus.crm.domain.managers.SettingsManager
+import com.smartcampus.crm.domain.managers.TokenManager
 import com.smartcampus.crm.domain.repositories.AuditoriumRepository
 import com.smartcampus.crm.domain.repositories.GroupRepository
 import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
-import com.smartcampus.crm.domain.models.managers.SessionManager
-import com.smartcampus.crm.domain.models.managers.SettingsManager
-import com.smartcampus.crm.domain.models.managers.TokenManager
 import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.RoleRepository
 import com.smartcampus.crm.domain.repositories.ScheduleRepository
 import com.smartcampus.crm.domain.repositories.SecurityRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
+import com.smartcampus.crm.domain.repositories.TeacherRepository
 import com.smartcampus.crm.domain.repositories.UserRepository
 import com.smartcampus.crm.domain.repositories.WorkloadRepository
 import org.koin.core.module.dsl.singleOf
@@ -63,4 +65,5 @@ val DataModule = module {
     singleOf(::WorkloadRepositoryImpl) bind WorkloadRepository::class
 
     singleOf(::StudentRepositoryImpl) bind StudentRepository::class
+    singleOf(::TeacherRepositoryImpl) bind TeacherRepository::class
 }

@@ -3,8 +3,8 @@ package com.smartcampus.crm.data.manager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.smartcampus.crm.data.preferencesKeys.THEME_KEY
-import com.smartcampus.crm.domain.models.Theme
 import com.smartcampus.crm.domain.managers.SettingsManager
+import com.smartcampus.crm.domain.models.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
