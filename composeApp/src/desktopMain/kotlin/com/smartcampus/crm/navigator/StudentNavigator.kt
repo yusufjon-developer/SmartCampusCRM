@@ -5,8 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.smartcampus.crm.domain.models.student.Student
-import com.smartcampus.crm.domain.models.student.StudentInfo
 import com.smartcampus.crm.navigation.route.ProfileRoute
 import com.smartcampus.presentation.ui.screen.student.StudentScreen
 import com.smartcampus.presentation.ui.screen.student.studentProfile.StudentProfileScreen
@@ -23,7 +21,7 @@ fun StudentNavigator(navController: NavHostController) {
                     navController.navigate(ProfileRoute.StudentProfile(id))
                 },
                 navigateToAddStudent = {
-                    navController.navigate(ProfileRoute.StudentProfile(4))
+                    navController.navigate(ProfileRoute.StudentProfile(null))
                 }
             )
         }
@@ -31,11 +29,7 @@ fun StudentNavigator(navController: NavHostController) {
         composable<ProfileRoute.StudentProfile> { backStackEntry ->
             val args = backStackEntry.toRoute<ProfileRoute.StudentProfile>()
             StudentProfileScreen(
-                id = args.studentId,
-                studentInfo = StudentInfo(Student(
-                    groupId = 1,
-                    groups = null
-                ))
+                id = args.studentId
             )
         }
 

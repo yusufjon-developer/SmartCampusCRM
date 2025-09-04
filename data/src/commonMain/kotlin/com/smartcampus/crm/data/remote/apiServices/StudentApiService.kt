@@ -1,11 +1,12 @@
 package com.smartcampus.crm.data.remote.apiServices
 
-import com.smartcampus.crm.domain.models.student.Student
-import com.smartcampus.crm.domain.models.student.StudentInfo
+import com.smartcampus.crm.domain.models.auth.RegisterRequest
+import com.smartcampus.crm.domain.models.student.StudentUpdateRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
+import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 
@@ -18,18 +19,22 @@ class StudentApiService(
     }
 
     suspend fun getStudentById(id: Int): HttpResponse {
-        return httpClient.get("/students/$id").body()
+        return httpClient.get("/students/$id")
     }
 
     suspend fun getStudentInfoById(id: Int): HttpResponse {
-        return httpClient.get("/students/$id/info").body()
+        return httpClient.get("/students/$id/info")
     }
 
-    suspend fun updateStudent(student: Student): HttpResponse {
-        return httpClient.post { setBody(student) }
+    suspend fun updateStudentProfile(id: Int, student: StudentUpdateRequest): HttpResponse {
+        return httpClient.put("/students/$id") {
+            setBody(student)
+        }.body()
     }
 
-    suspend fun updateStrudentInfo(studentInfo: StudentInfo): HttpResponse {
-        return httpClient.post { setBody(studentInfo) }
+    suspend fun registerStudent(request: RegisterRequest): HttpResponse {
+        return httpClient.post("/auth/student/signup") {
+            setBody(request)
+        }.body()
     }
 }

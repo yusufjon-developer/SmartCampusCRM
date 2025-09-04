@@ -14,6 +14,7 @@ import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
 import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
 import com.smartcampus.crm.data.repositories.ScheduleRepositoryImpl
 import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
 import com.smartcampus.crm.data.repositories.TeacherRepositoryImpl
 import com.smartcampus.crm.data.repositories.UserRepositoryImpl
 import com.smartcampus.crm.data.repositories.WorkloadRepositoryImpl
@@ -22,7 +23,6 @@ import com.smartcampus.crm.domain.managers.SettingsManager
 import com.smartcampus.crm.domain.managers.TokenManager
 import com.smartcampus.crm.domain.repositories.AuditoriumRepository
 import com.smartcampus.crm.domain.repositories.GroupRepository
-import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
 import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.RoleRepository
 import com.smartcampus.crm.domain.repositories.ScheduleRepository
@@ -52,7 +52,6 @@ val DataModule = module {
     singleOf(::SessionManagerImpl) bind SessionManager::class
 
     singleOf(::LoginRepositoryImpl) bind LoginRepository::class
-    singleOf(::LoginRepositoryImpl) bind StudentRepository::class
 
     singleOf(::SecurityRepositoryImpl) bind SecurityRepository::class
 

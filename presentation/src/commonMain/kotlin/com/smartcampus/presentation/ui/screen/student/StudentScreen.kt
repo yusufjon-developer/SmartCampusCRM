@@ -62,7 +62,7 @@ fun StudentScreen(
                 LoadingIndicatorDialog(isLoading = true)
             } else {
                 AddButton(
-                    onClick = { navigateToAddStudent },
+                    onClick = { viewModel.setEvent(StudentContract.Event.AddStudent) },
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
                     shape = RoundedCornerShape(12.dp)
                 )

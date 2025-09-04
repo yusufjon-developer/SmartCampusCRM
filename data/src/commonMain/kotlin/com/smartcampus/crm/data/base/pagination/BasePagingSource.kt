@@ -29,17 +29,18 @@ class BasePagingSource<T : Any, V : PagingItemList<T>>(
                                 LoadResult.Error(Exception(error.reason))
                             }
 
-                            NetworkError.NoInternetConnection -> {
+                            NetworkError.NoInternetConnection ->
                                 LoadResult.Error(Exception("Вероятно, соединение с интернетом прервано. Пожалуйста повторите попытку позже."))
-                            }
 
                             is NetworkError.ResponseDeserialization -> {
                                 LoadResult.Error(Exception("Ошибка парсинга ответа от сервера"))
                             }
 
-                            NetworkError.ServerIsNotAvailable -> {
+                            NetworkError.ServerIsNotAvailable ->
                                 LoadResult.Error(Exception("Сервис временно недоступен"))
-                            }
+
+                            NetworkError.AccessDenied ->
+                                LoadResult.Error(Exception("Доступ запрещен!!!"))
                         }
                     }
                 }

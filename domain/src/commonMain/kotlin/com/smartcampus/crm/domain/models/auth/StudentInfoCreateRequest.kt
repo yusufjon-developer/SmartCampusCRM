@@ -1,9 +1,10 @@
-package com.smartcampus.crm.domain.models.student
+package com.smartcampus.crm.domain.models.auth
+
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class StudentInfo(
+data class StudentInfoCreateRequest(
     val address: String? = null,
     val passportNumber: String? = null,
     val school: String? = null,
@@ -13,10 +14,10 @@ data class StudentInfo(
     val studyType: String? = null,
     val studyForm: String? = null,
     val status: String? = null,
-    val fatherFIO: String? = null,
+    val fatherFio: String? = null,
     val fatherPhone: String? = null,
     val fatherAddress: String? = null,
-    val motherFIO: String? = null,
+    val motherFio: String? = null,
     val motherPhone: String? = null,
     val motherAddress: String? = null
 )
