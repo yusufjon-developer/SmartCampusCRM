@@ -1,7 +1,9 @@
 package com.smartcampus.crm.domain.repositories
 
 import app.cash.paging.PagingData
-import com.smartcampus.crm.domain.models.*
+import com.smartcampus.crm.domain.models.AuditoriumCreateRequest
+import com.smartcampus.crm.domain.models.AuditoriumDto
+import com.smartcampus.crm.domain.models.AuditoriumUpdateRequest
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.Flow
 

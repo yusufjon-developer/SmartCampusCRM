@@ -2,6 +2,7 @@ package com.smartcampus.crm.di
 
 import com.smartcampus.presentation.ui.screen.employee.EmployeeViewModel
 import com.smartcampus.presentation.ui.screen.login.LoginViewModel
+import com.smartcampus.presentation.ui.screen.schedule.ScheduleViewModel
 import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
 import com.smartcampus.presentation.ui.screen.security.permission.PermissionViewModel
 import com.smartcampus.presentation.ui.screen.security.role.RoleViewModel
@@ -26,4 +27,5 @@ val ViewModelsModule = module {
     viewModelOf(::ThemeViewModel)
     viewModelOf(::UserViewModel)
     viewModelOf(::UserPermissionViewModel)
+    viewModelOf(::ScheduleViewModel)
 }

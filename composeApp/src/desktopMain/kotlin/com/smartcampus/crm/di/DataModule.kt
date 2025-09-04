@@ -14,6 +14,7 @@ import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
 import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
 import com.smartcampus.crm.data.repositories.ScheduleRepositoryImpl
 import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.TeacherRepositoryImpl
 import com.smartcampus.crm.data.repositories.UserRepositoryImpl
 import com.smartcampus.crm.data.repositories.WorkloadRepositoryImpl
 import com.smartcampus.crm.domain.managers.SessionManager
@@ -26,6 +27,7 @@ import com.smartcampus.crm.domain.repositories.RoleRepository
 import com.smartcampus.crm.domain.repositories.ScheduleRepository
 import com.smartcampus.crm.domain.repositories.SecurityRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
+import com.smartcampus.crm.domain.repositories.TeacherRepository
 import com.smartcampus.crm.domain.repositories.UserRepository
 import com.smartcampus.crm.domain.repositories.WorkloadRepository
 import org.koin.core.module.dsl.singleOf
@@ -60,4 +62,5 @@ val DataModule = module {
     singleOf(::GroupRepositoryImpl) bind GroupRepository::class
     singleOf(::AuditoriumRepositoryImpl) bind AuditoriumRepository::class
     singleOf(::WorkloadRepositoryImpl) bind WorkloadRepository::class
+    singleOf(::TeacherRepositoryImpl) bind TeacherRepository::class
 }

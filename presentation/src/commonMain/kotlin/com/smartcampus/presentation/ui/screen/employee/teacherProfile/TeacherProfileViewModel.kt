@@ -1,7 +1,7 @@
 package com.smartcampus.presentation.ui.screen.employee.teacherProfile
 
 import androidx.lifecycle.viewModelScope
-import com.smartcampus.crm.domain.useCases.GetTeacherInfoByIdUseCase
+import com.smartcampus.crm.domain.repositories.TeacherRepository
 import com.smartcampus.crm.domain.utils.Either
 import com.smartcampus.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class TeacherProfileViewModel(
-    private val getTeacherInfo: GetTeacherInfoByIdUseCase
+    private val repository: TeacherRepository
 ) : BaseViewModel<TeacherProfileContract.Event, TeacherProfileContract.Effect, TeacherProfileContract.State>() {
     override fun createInitialState() = TeacherProfileContract.State()
 
@@ -18,7 +18,7 @@ class TeacherProfileViewModel(
         viewModelScope.launch {
             when (event) {
                 is TeacherProfileContract.Event.GetTeacherInfo -> {
-                    getTeacherInfo(event.id)
+                    repository.getTeacherInfoById(event.id)
                         .onStart {
                             setState { copy(isLoading = true, teacherInfo = null, error = null) }
                         }

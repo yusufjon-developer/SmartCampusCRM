@@ -1,8 +1,8 @@
 package com.smartcampus.presentation.ui.screen.login
 
 import androidx.lifecycle.viewModelScope
-import com.smartcampus.crm.domain.models.managers.HardwareManager
-import com.smartcampus.crm.domain.models.managers.TokenManager
+import com.smartcampus.crm.domain.managers.HardwareManager
+import com.smartcampus.crm.domain.managers.TokenManager
 import com.smartcampus.crm.domain.useCases.LoginUseCase
 import com.smartcampus.crm.domain.utils.Either
 import com.smartcampus.presentation.core.base.BaseViewModel

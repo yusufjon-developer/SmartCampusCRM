@@ -1,7 +1,7 @@
 package com.smartcampus.presentation.ui.screen.student.studentProfile
 
 import androidx.lifecycle.viewModelScope
-import com.smartcampus.crm.domain.useCases.GetStudentInfoUseCase
+import com.smartcampus.crm.domain.repositories.StudentRepository
 import com.smartcampus.crm.domain.utils.Either
 import com.smartcampus.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 
 class StudentProfileViewModel(
-    private val getStudentInfo: GetStudentInfoUseCase
+    private val repository: StudentRepository
 ) : BaseViewModel<StudentProfileContract.Event, StudentProfileContract.Effect, StudentProfileContract.State>() {
     override fun createInitialState() = StudentProfileContract.State()
 
@@ -17,7 +17,7 @@ class StudentProfileViewModel(
 
         when (event) {
             is StudentProfileContract.Event.GetStudentInfo -> {
-                getStudentInfo(event.id)
+                repository.getStudentInfo(event.id)
                     .onStart {
                         setState { copy(isLoading = true, studentInfo = null, error = null) }
                     }
