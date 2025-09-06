@@ -21,9 +21,9 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.smartcampus.crm.di.AppModule
+import com.smartcampus.crm.domain.managers.SessionManager
+import com.smartcampus.crm.domain.managers.TokenManager
 import com.smartcampus.crm.domain.models.Theme
-import com.smartcampus.crm.domain.models.managers.SessionManager
-import com.smartcampus.crm.domain.models.managers.TokenManager
 import com.smartcampus.crm.domain.useCases.GetThemeUseCase
 import com.smartcampus.crm.domain.utils.AppConfig
 import com.smartcampus.presentation.core.components.window.TopBar

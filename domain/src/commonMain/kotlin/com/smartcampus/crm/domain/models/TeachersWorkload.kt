@@ -10,5 +10,5 @@ data class TeachersWorkload(
     val hours: Int,
     val academicYear: String,
     val controlType: String,
-    val group: Groups
+    val group: GroupDto
 )

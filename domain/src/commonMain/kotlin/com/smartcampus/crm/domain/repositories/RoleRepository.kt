@@ -13,5 +13,5 @@ interface RoleRepository {
     suspend fun getRoleById(id: Int): RemoteWrapper<RolePermission>
     suspend fun updateRolePermissions(id: Int, request: UpdatePermissionStatus): RemoteWrapper<RolePermission>
     suspend fun createRole(request: RoleRequest): RemoteWrapper<Role>
-    suspend fun deleteRole(id: Int): RemoteWrapper<Boolean>
+    suspend fun deleteRole(id: Int): RemoteWrapper<Unit>
 }

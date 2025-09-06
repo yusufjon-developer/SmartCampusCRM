@@ -1,6 +1,6 @@
 package com.smartcampus.presentation.ui.screen.employee.teacherProfile
 
-import com.smartcampus.crm.domain.models.teacher.TeacherInfo
+import com.smartcampus.crm.domain.models.TeacherSensitiveDto
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
 import com.smartcampus.presentation.core.base.contract.UiState
@@ -17,7 +17,7 @@ sealed interface TeacherProfileContract {
 
     data class State(
         val isLoading: Boolean = true,
-        val teacherInfo: TeacherInfo? = null,
+        val teacherInfo: TeacherSensitiveDto? = null,
         val error: String? = null
     ) : UiState
 }

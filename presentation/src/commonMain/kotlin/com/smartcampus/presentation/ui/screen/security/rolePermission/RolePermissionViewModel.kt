@@ -54,9 +54,7 @@ class RolePermissionViewModel(
     private suspend fun deleteRole(roleId: Int) {
         when (val result = repository.deleteRole(id = roleId).first()) {
             is Either.Right -> {
-                if (result.value) {
-                    setEffect { RolePermissionContract.Effect.ShowSuccessMessage("Роль успешно удалена") }
-                }
+                setEffect { RolePermissionContract.Effect.ShowSuccessMessage("Роль успешно удалена") }
             }
 
             is Either.Left -> {

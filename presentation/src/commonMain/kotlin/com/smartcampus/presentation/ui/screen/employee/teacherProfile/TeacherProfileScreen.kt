@@ -6,21 +6,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TeacherProfileScreen(
-    id: Int,
-    viewModel: TeacherProfileViewModel = koinViewModel(),
+    id: Int
 ) {
-    LaunchedEffect(id) {
-        viewModel.setEvent(TeacherProfileContract.Event.GetTeacherInfo(id))
-    }
-
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
-            when(effect) {
-                is TeacherProfileContract.Effect.NavigateToEdit -> { /*TODO*/ }
-            }
-        }
-    }
-
-
 
 }

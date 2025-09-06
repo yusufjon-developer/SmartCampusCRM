@@ -1,4 +1,4 @@
-package com.smartcampus.crm.domain.models.managers
+package com.smartcampus.crm.domain.managers
 
 import kotlinx.coroutines.flow.Flow
 

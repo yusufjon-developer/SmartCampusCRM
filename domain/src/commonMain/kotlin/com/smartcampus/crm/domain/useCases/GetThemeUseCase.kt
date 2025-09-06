@@ -1,6 +1,6 @@
 package com.smartcampus.crm.domain.useCases
 
-import com.smartcampus.crm.domain.models.managers.SettingsManager
+import com.smartcampus.crm.domain.managers.SettingsManager
 
 class GetThemeUseCase(
     private val manager: SettingsManager
