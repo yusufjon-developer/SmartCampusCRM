@@ -66,6 +66,7 @@ fun StudentScreen(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
                     shape = RoundedCornerShape(12.dp)
                 )
+
                 LazyVerticalGrid(
                     modifier = Modifier
                         .fillMaxSize()
@@ -80,7 +81,7 @@ fun StudentScreen(
                         val student = students[index]
                         if (student != null) {
                             UserCard(
-                                imageUrl = student.photo,
+                                imageUrl = null,
                                 title = student.name,
                                 role = "Student",
                                 isActive = true

@@ -1,7 +1,7 @@
 package com.smartcampus.presentation.ui.screen.student
 
 import app.cash.paging.PagingData
-import com.smartcampus.crm.domain.models.student.Student
+import com.smartcampus.crm.domain.models.StudentDetailsDto
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
 import com.smartcampus.presentation.core.base.contract.UiState
@@ -22,7 +22,7 @@ sealed interface StudentContract {
     }
 
     data class State(
-        val students: Flow<PagingData<Student>> = emptyFlow(),
+        val students: Flow<PagingData<StudentDetailsDto>> = emptyFlow(),
         val isLoading: Boolean = false,
         val searchQuery: String = ""
     ) : UiState

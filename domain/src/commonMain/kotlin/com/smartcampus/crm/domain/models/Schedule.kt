@@ -6,7 +6,7 @@ data class Schedule(
     val id: Int,
     val day: String,
     val time: String,
-    val groups: Groups,
+    val groups: GroupDto,
     val disciplines: Disciplines,
     val teachers: Teacher,
     val Auditoriums: Auditoriums,
