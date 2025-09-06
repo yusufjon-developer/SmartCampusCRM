@@ -4,7 +4,7 @@ import com.smartcampus.crm.domain.models.AuditoriumDto
 import com.smartcampus.crm.domain.models.GroupDto
 import com.smartcampus.crm.domain.models.ScheduleCreateRequest
 import com.smartcampus.crm.domain.models.ScheduleDto
-import com.smartcampus.crm.domain.models.TeacherDto
+import com.smartcampus.crm.domain.models.TeacherDetailsDto
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
@@ -23,7 +23,7 @@ interface ScheduleContract {
         ) : Event
         data class SelectGroup(val group: GroupDto) : Event
         data class SelectAuditorium(val auditorium: AuditoriumDto) : Event
-        data class SelectTeacher(val teacher: TeacherDto) : Event
+        data class SelectTeacher(val teacher: TeacherDetailsDto) : Event
         data class Validate(val schedule: ScheduleCreateRequest) : Event
         data class CreateSchedule(val schedule: ScheduleCreateRequest) : Event
         data class DeleteSchedule(val scheduleId: Int) : Event
@@ -44,7 +44,7 @@ interface ScheduleContract {
         val endDay: LocalDate = LocalDateTime.now().getEndDay(),
         val selectedGroup: GroupDto? = null,
         val selectedAuditorium: AuditoriumDto? = null,
-        val selectedTeacher: TeacherDto? = null,
+        val selectedTeacher: TeacherDetailsDto? = null,
         val weekDays: List<Map<String, String>> = emptyList(),
         val error: List<Map<String, NetworkError>> = emptyList()
     ) : UiState

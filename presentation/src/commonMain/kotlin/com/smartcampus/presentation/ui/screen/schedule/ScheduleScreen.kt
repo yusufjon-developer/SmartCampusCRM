@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.smartcampus.crm.domain.models.AuditoriumDto
 import com.smartcampus.crm.domain.models.GroupDto
 import com.smartcampus.crm.domain.models.ScheduleDto
-import com.smartcampus.crm.domain.models.TeacherDto
+import com.smartcampus.crm.domain.models.TeacherDetailsDto
 import com.smartcampus.presentation.ui.widgets.groupDropdown.GroupDropdown
 import com.smartcampus.presentation.util.toServerFormat
 import org.koin.compose.viewmodel.koinViewModel
@@ -92,11 +92,11 @@ fun ScheduleHeader(
     startDay: LocalDate,
     endDay: LocalDate,
     selectedGroup: GroupDto?,
-    selectedTeacher: TeacherDto?,
+    selectedTeacher: TeacherDetailsDto?,
     selectedAuditorium: AuditoriumDto?,
     onWeekSelected: (LocalDate, LocalDate) -> Unit,
     onGroupSelected: (GroupDto) -> Unit,
-    onTeacherSelected: (TeacherDto) -> Unit,
+    onTeacherSelected: (TeacherDetailsDto) -> Unit,
     onAuditoriumSelected: (AuditoriumDto) -> Unit,
 ) {
     Column(

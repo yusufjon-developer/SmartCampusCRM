@@ -1,6 +1,17 @@
-package com.smartcampus.crm.domain.models.student
+package com.smartcampus.crm.domain.models
 
 import kotlinx.serialization.Serializable
+
+@Serializable
+data class StudentListItemDto(
+    val id: Int,
+    val surname: String? = null,
+    val name: String? = null,
+    val lastname: String? = null,
+    val birthday: String? = null, // ISO date
+    val group: GroupDto? = null,
+    val phoneNumber: String? = null
+)
 
 @Serializable
 data class StudentSensitiveDto(
@@ -19,6 +30,17 @@ data class StudentSensitiveDto(
     val motherFio: String? = null,
     val motherPhone: String? = null,
     val motherAddress: String? = null
+)
+
+@Serializable
+data class StudentDetailsDto(
+    val id: Int,
+    val surname: String? = null,
+    val name: String? = null,
+    val lastname: String? = null,
+    val birthday: String? = null,
+    val group: GroupDto? = null,
+    val phoneNumber: String? = null,
 )
 
 @Serializable
@@ -61,3 +83,4 @@ data class StudentUpdateRequest(
     val photo: ByteArray? = null,
     val info: StudentSensitiveUpdateRequest? = null
 )
+

@@ -59,6 +59,7 @@ fun GroupDropdown(
                 }
             )
         },
+        modifier = modifier
     )
     DropdownMenu(
         expanded = expanded,

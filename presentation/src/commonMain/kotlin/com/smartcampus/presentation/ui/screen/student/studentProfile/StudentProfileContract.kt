@@ -1,9 +1,9 @@
 package com.smartcampus.presentation.ui.screen.student.studentProfile
 
+import com.smartcampus.crm.domain.models.StudentDetailsDto
 import com.smartcampus.crm.domain.models.auth.RegisterRequest
-import com.smartcampus.crm.domain.models.student.Student
-import com.smartcampus.crm.domain.models.student.StudentInfo
-import com.smartcampus.crm.domain.models.student.StudentUpdateRequest
+import com.smartcampus.crm.domain.models.StudentSensitiveDto
+import com.smartcampus.crm.domain.models.StudentUpdateRequest
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
@@ -21,11 +21,12 @@ class StudentProfileContract {
         data class ShowErrorStudent(val error: NetworkError) : Effect
         data class ShowErrorStudentInfo(val error: NetworkError) : Effect
         data class ShowSuccessMessage(val message: String) : Effect
+        data class AddStudent(val id: Int) : Effect
     }
 
     data class State(
         val isLoading: Boolean = false,
-        val student: Student? = null,
-        val studentInfo: StudentInfo? = null
+        val student: StudentDetailsDto? = null,
+        val studentInfo: StudentSensitiveDto? = null
     ) : UiState
 }

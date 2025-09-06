@@ -29,7 +29,15 @@ fun StudentNavigator(navController: NavHostController) {
         composable<ProfileRoute.StudentProfile> { backStackEntry ->
             val args = backStackEntry.toRoute<ProfileRoute.StudentProfile>()
             StudentProfileScreen(
-                id = args.studentId
+                id = args.studentId,
+                onAddStudent = { id ->
+                    navController.navigate(ProfileRoute.StudentProfile(id)) {
+                        popUpTo(navController.currentDestination?.route ?: return@navigate) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
         }
 
