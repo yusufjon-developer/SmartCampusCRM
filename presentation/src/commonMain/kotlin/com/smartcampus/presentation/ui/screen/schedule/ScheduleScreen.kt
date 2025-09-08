@@ -134,7 +134,7 @@ fun ScheduleHeader(
             OutlinedTextField(
                 value = selectedTeacher?.let { "${it.id}" } ?: "",
                 onValueChange = { /* Здесь логика выбора преподавателя */ },
-                label = { Text("Teacher") },
+                label = { Text("TeacherDetailsDto") },
                 modifier = Modifier.weight(1f)
             )
 
@@ -233,7 +233,7 @@ fun ScheduleItem(schedule: ScheduleDto) {
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Teacher ID: ${schedule.teacherId ?: "N/A"}",
+                text = "TeacherDetailsDto ID: ${schedule.teacherId ?: "N/A"}",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
