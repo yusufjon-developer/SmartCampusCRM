@@ -5,4 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface HomeRoute {
     @Serializable data object Home: HomeRoute
+    @Serializable data object Auditorium: HomeRoute
 }

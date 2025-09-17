@@ -24,7 +24,7 @@ class AuditoriumApiService(
     suspend fun getAuditoriumById(id: Int): HttpResponse = httpClient.get("/auditoriums/$id")
 
     suspend fun createAuditorium(request: AuditoriumCreateRequest): HttpResponse = httpClient
-        .post {
+        .post("/auditoriums") {
             setBody(request)
         }
 
