@@ -14,6 +14,7 @@ import com.smartcampus.crm.data.repositories.LoginRepositoryImpl
 import com.smartcampus.crm.data.repositories.RoleRepositoryImpl
 import com.smartcampus.crm.data.repositories.ScheduleRepositoryImpl
 import com.smartcampus.crm.data.repositories.SecurityRepositoryImpl
+import com.smartcampus.crm.data.repositories.SpecialityRepositoryImpl
 import com.smartcampus.crm.data.repositories.StudentRepositoryImpl
 import com.smartcampus.crm.data.repositories.TeacherRepositoryImpl
 import com.smartcampus.crm.data.repositories.UserRepositoryImpl
@@ -27,6 +28,7 @@ import com.smartcampus.crm.domain.repositories.LoginRepository
 import com.smartcampus.crm.domain.repositories.RoleRepository
 import com.smartcampus.crm.domain.repositories.ScheduleRepository
 import com.smartcampus.crm.domain.repositories.SecurityRepository
+import com.smartcampus.crm.domain.repositories.SpecialityRepository
 import com.smartcampus.crm.domain.repositories.StudentRepository
 import com.smartcampus.crm.domain.repositories.TeacherRepository
 import com.smartcampus.crm.domain.repositories.UserRepository
@@ -61,8 +63,10 @@ val DataModule = module {
     singleOf(::ScheduleRepositoryImpl) bind ScheduleRepository::class
     singleOf(::GroupRepositoryImpl) bind GroupRepository::class
     singleOf(::AuditoriumRepositoryImpl) bind AuditoriumRepository::class
+    singleOf(::SpecialityRepositoryImpl) bind SpecialityRepository::class
     singleOf(::WorkloadRepositoryImpl) bind WorkloadRepository::class
 
     singleOf(::StudentRepositoryImpl) bind StudentRepository::class
     singleOf(::TeacherRepositoryImpl) bind TeacherRepository::class
+
 }

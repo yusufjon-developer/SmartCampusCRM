@@ -8,9 +8,11 @@ import com.smartcampus.presentation.core.base.contract.UiState
 interface HomeContract {
     sealed interface Event : UiEvent {
         data object NavigateToAuditorium: Event
+        data object NavigateToGroup: Event
     }
     sealed interface Effect : UiEffect {
         data object NavigateToAuditorium: Effect
+        data object NavigateToGroup: Effect
     }
     data class State(
         val isLoading: Boolean = false,

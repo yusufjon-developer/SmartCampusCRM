@@ -12,6 +12,9 @@ class HomeViewModel(
             HomeContract.Event.NavigateToAuditorium -> {
                 setEffect { HomeContract.Effect.NavigateToAuditorium }
             }
+            HomeContract.Event.NavigateToGroup -> {
+                setEffect { HomeContract.Effect.NavigateToGroup }
+            }
         }
     }
 }

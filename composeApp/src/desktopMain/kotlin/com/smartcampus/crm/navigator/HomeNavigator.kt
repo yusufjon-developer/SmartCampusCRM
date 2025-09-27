@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.smartcampus.crm.navigation.route.HomeRoute
 import com.smartcampus.presentation.ui.screen.home.HomeScreen
 import com.smartcampus.presentation.ui.screen.home.auditorium.AuditoriumScreen
+import com.smartcampus.presentation.ui.screen.home.group.GroupScreen
 
 @Composable
 fun HomeNavigator(
@@ -20,11 +21,17 @@ fun HomeNavigator(
             HomeScreen(
                 onNavigatorToAuditorium = {
                     navController.navigate(HomeRoute.Auditorium)
+                },
+                onNavigatorToGroup = {
+                    navController.navigate(HomeRoute.Group)
                 }
             )
         }
         composable<HomeRoute.Auditorium> {
             AuditoriumScreen()
+        }
+        composable<HomeRoute.Group> {
+            GroupScreen()
         }
     }
 }
