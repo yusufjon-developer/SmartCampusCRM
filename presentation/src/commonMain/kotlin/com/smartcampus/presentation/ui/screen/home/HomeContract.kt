@@ -9,10 +9,12 @@ interface HomeContract {
     sealed interface Event : UiEvent {
         data object NavigateToAuditorium: Event
         data object NavigateToGroup: Event
+        data object NavigateToSpeciality: Event
     }
     sealed interface Effect : UiEffect {
         data object NavigateToAuditorium: Effect
         data object NavigateToGroup: Effect
+        data object NavigateToSpeciality: Effect
     }
     data class State(
         val isLoading: Boolean = false,

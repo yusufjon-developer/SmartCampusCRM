@@ -8,6 +8,7 @@ import com.smartcampus.crm.navigation.route.HomeRoute
 import com.smartcampus.presentation.ui.screen.home.HomeScreen
 import com.smartcampus.presentation.ui.screen.home.auditorium.AuditoriumScreen
 import com.smartcampus.presentation.ui.screen.home.group.GroupScreen
+import com.smartcampus.presentation.ui.screen.home.speciality.SpecialityScreen
 
 @Composable
 fun HomeNavigator(
@@ -22,6 +23,9 @@ fun HomeNavigator(
                 onNavigatorToAuditorium = {
                     navController.navigate(HomeRoute.Auditorium)
                 },
+                onNavigatorToSpeciality = {
+                    navController.navigate(HomeRoute.Speciality)
+                },
                 onNavigatorToGroup = {
                     navController.navigate(HomeRoute.Group)
                 }
@@ -32,6 +36,9 @@ fun HomeNavigator(
         }
         composable<HomeRoute.Group> {
             GroupScreen()
+        }
+        composable<HomeRoute.Speciality> {
+            SpecialityScreen()
         }
     }
 }

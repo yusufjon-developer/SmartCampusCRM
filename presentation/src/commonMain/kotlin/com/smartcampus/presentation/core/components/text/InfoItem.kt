@@ -38,7 +38,7 @@ fun InfoItem(
     modifier: Modifier = Modifier,
     infoName: String,
     infoSecondaryText: String = "",
-    infoDescription: String,
+    infoDescription: String = "",
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit
 ) {

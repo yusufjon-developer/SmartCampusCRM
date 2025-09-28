@@ -4,6 +4,7 @@ import com.smartcampus.presentation.ui.screen.employee.EmployeeViewModel
 import com.smartcampus.presentation.ui.screen.home.HomeViewModel
 import com.smartcampus.presentation.ui.screen.home.auditorium.AuditoriumViewModel
 import com.smartcampus.presentation.ui.screen.home.group.GroupViewModel
+import com.smartcampus.presentation.ui.screen.home.speciality.SpecialityViewModel
 import com.smartcampus.presentation.ui.screen.login.LoginViewModel
 import com.smartcampus.presentation.ui.screen.schedule.ScheduleViewModel
 import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
@@ -42,5 +43,5 @@ val ViewModelsModule = module {
     viewModelOf(::AuditoriumViewModel)
     viewModelOf(::GroupViewModel)
     viewModelOf(::SpecialityDropdownViewModel)
-
+    viewModelOf(::SpecialityViewModel)
 }

@@ -15,6 +15,9 @@ class HomeViewModel(
             HomeContract.Event.NavigateToGroup -> {
                 setEffect { HomeContract.Effect.NavigateToGroup }
             }
+            HomeContract.Event.NavigateToSpeciality -> {
+                setEffect { HomeContract.Effect.NavigateToSpeciality }
+            }
         }
     }
 }

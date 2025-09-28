@@ -16,6 +16,7 @@ import smartcampuscrm.presentation.generated.resources.ic_home
 @Composable
 fun HomeScreen(
     onNavigatorToAuditorium: () -> Unit,
+    onNavigatorToSpeciality: () -> Unit,
     onNavigatorToGroup: () -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ) {
@@ -24,6 +25,7 @@ fun HomeScreen(
             when (effect) {
                 HomeContract.Effect.NavigateToAuditorium -> onNavigatorToAuditorium()
                 HomeContract.Effect.NavigateToGroup -> onNavigatorToGroup()
+                HomeContract.Effect.NavigateToSpeciality -> onNavigatorToSpeciality()
             }
         }
     }
@@ -46,6 +48,15 @@ fun HomeScreen(
                 title = "Группы",
                 onClick = {
                     viewModel.setEvent(HomeContract.Event.NavigateToGroup)
+                }
+            )
+        }
+        item {
+            FeatureCard(
+                iconPainter = painterResource(Res.drawable.ic_home),
+                title = "Специальности",
+                onClick = {
+                    viewModel.setEvent(HomeContract.Event.NavigateToSpeciality)
                 }
             )
         }
