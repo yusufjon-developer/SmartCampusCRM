@@ -1,21 +1,31 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlinKsp)
 }
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-    }
-    dependencies {
-        implementation(libs.bundles.ktor.common)
 
-        implementation(libs.kotlinx.coroutinesCore)
-        implementation(libs.koin.annotations)
-        implementation(libs.koin.ksp.compiler)
-        implementation(libs.koin.core)
+kotlin {
+
+    jvm("desktop")
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(projects.domain)
+
+                implementation(libs.paging.common)
+                implementation(libs.bundles.ktor.common)
+
+                implementation(libs.kotlinx.coroutinesCore)
+                implementation(libs.koin.annotations)
+                implementation(libs.koin.ksp.compiler)
+                implementation(libs.koin.core)
+
+                implementation(libs.multiplatform.setting)
+                implementation(libs.multiplatform.setting.coroutines)
+            }
+        }
     }
+
 }
+

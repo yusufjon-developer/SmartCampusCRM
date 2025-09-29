@@ -1,58 +1,66 @@
 package com.smartcampus.crm
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.dp
-import com.smartcampus.presentationCore.components.TopBar
-import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import smartcampuscrm.composeapp.generated.resources.Res
-import smartcampuscrm.composeapp.generated.resources.icon
-import smartcampuscrm.composeapp.generated.resources.anta_regular
+import androidx.navigation.compose.rememberNavController
+import com.smartcampus.crm.navigation.menu.DrawerContent
+import com.smartcampus.crm.navigation.menu.MainDrawerMenu
+import com.smartcampus.crm.navigation.safelyPopBackStack
+import com.smartcampus.crm.navigator.EmployeeNavigator
+import com.smartcampus.crm.navigator.HomeNavigator
+import com.smartcampus.crm.navigator.ScheduleNavigator
+import com.smartcampus.crm.navigator.SecurityNavigator
+import com.smartcampus.crm.navigator.SettingsNavigator
+import com.smartcampus.crm.navigator.StudentNavigator
 
-@Preview
 @Composable
 fun App() {
-    MaterialTheme {
-        TopBar()
-//        Row(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .defaultMinSize(minWidth = 300.dp, minHeight = 200.dp),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.Center
-//        ) {
-//            Image(
-//                contentDescription = "Logo",
-//                painter = painterResource( Res.drawable.icon),
-//                contentScale = ContentScale.FillHeight,
-//                modifier = Modifier.fillMaxHeight(.15f).defaultMinSize(minHeight = 96.dp)
-//            )
-//            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-//            Column {
-//                Text(
-//                    "Smart Campus",
-//                    style = TextStyle(
-//                        fontFamily = FontFamily(Font(Res.font.anta_regular))
-//                    )
-//                )
-//            }
-//        }
+    val homeNavController = rememberNavController()
+    val settingsNavController = rememberNavController()
+    val profileNavController = rememberNavController()
+    val scheduleNavController = rememberNavController()
+    val employeesNavController = rememberNavController()
+    val securityNavController = rememberNavController()
+
+    var selectedTab by rememberSaveable { mutableStateOf<MainDrawerMenu>(MainDrawerMenu.Home) }
+
+    val navController = when (selectedTab) {
+        MainDrawerMenu.Home -> homeNavController
+        MainDrawerMenu.Settings -> settingsNavController
+        MainDrawerMenu.Profile -> profileNavController
+        MainDrawerMenu.Schedule -> scheduleNavController
+        MainDrawerMenu.Employees -> employeesNavController
+        MainDrawerMenu.Security -> securityNavController
+    }
+
+    val stateHolder = rememberSaveableStateHolder()
+
+    PermanentNavigationDrawer(
+        drawerContent = {
+            DrawerContent(
+                selectedTab = selectedTab,
+                onTabSelected = { tab -> tab?.let { selectedTab = it } },
+                onBackClick = navController::safelyPopBackStack
+            )
+        },
+        modifier = Modifier.fillMaxSize()
+    ) {
+        stateHolder.SaveableStateProvider(key = selectedTab) {
+            when (selectedTab) {
+                MainDrawerMenu.Home -> HomeNavigator(homeNavController)
+                MainDrawerMenu.Profile -> StudentNavigator(profileNavController)
+                MainDrawerMenu.Settings -> SettingsNavigator(settingsNavController)
+                MainDrawerMenu.Employees -> EmployeeNavigator(employeesNavController)
+                MainDrawerMenu.Security -> SecurityNavigator(securityNavController)
+                MainDrawerMenu.Schedule -> ScheduleNavigator(scheduleNavController)
+            }
+        }
     }
 }

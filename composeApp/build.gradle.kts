@@ -16,8 +16,9 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
+            implementation(projects.presentation)
+            implementation(projects.domain)
             implementation(projects.data)
-            implementation(projects.presentationCore)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -25,21 +26,28 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.materialIconsExtended)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.navigation.compose)
             implementation(libs.material3.windowsSizeClass)
 
+            implementation(libs.coil.network.ktor)
+
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.paging.common)
+
+            implementation(libs.kotlinx.coroutinesCore)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.annotations)
+            implementation(libs.koin.ksp.compiler)
             implementation(libs.koin.core)
 
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.ktor.client.json)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.serialization)
+            implementation(libs.multiplatform.setting)
+            implementation(libs.multiplatform.setting.coroutines)
 
+            implementation(libs.slf4j.simple)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -57,9 +65,18 @@ compose.desktop {
         mainClass = "com.smartcampus.crm.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.smartcampus.crm"
-            packageVersion = "1.0.0"
+            targetFormats(
+                TargetFormat.Msi,
+                TargetFormat.Exe
+            )
+            packageName = "Smart Campus CRM"
+            packageVersion = "0.0.1"
+
+            windows {
+                iconFile.set(project.file("icon.ico"))
+                menuGroup = ""
+                shortcut = true
+            }
         }
     }
 }
