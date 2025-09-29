@@ -49,4 +49,8 @@
     <string name="permission">Доступы</string>
     <string name="delete">Удалить</string>
 
+    <string name="teachers">Преподаватели</string>
+    <string name="administration">Администрация</string>
+    <string name="it_department">IT отдел</string>
+
 </resources>

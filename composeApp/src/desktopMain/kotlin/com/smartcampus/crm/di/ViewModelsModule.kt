@@ -1,6 +1,8 @@
 package com.smartcampus.crm.di
 
 import com.smartcampus.presentation.ui.screen.employee.EmployeeViewModel
+import com.smartcampus.presentation.ui.screen.employee.teachers.TeachersViewModel
+import com.smartcampus.presentation.ui.screen.employee.teachers.teacherProfile.TeacherProfileViewModel
 import com.smartcampus.presentation.ui.screen.login.LoginViewModel
 import com.smartcampus.presentation.ui.screen.schedule.ScheduleViewModel
 import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
@@ -38,4 +40,6 @@ val ViewModelsModule = module {
     viewModelOf(::GroupDropdownViewModel)
     viewModelOf(::AuditoriumDropdownViewModel)
     viewModelOf(::TeacherDropdownViewModel)
+    viewModelOf(::TeachersViewModel)
+    viewModelOf(::TeacherProfileViewModel)
 }
