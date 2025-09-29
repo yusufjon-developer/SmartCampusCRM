@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.widgets.groupDropdown
+package com.smartcampus.presentation.ui.widgets.auditoriumDropdown
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,41 +24,43 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paging.compose.collectAsLazyPagingItems
-import com.smartcampus.crm.domain.models.GroupDto
+import com.smartcampus.crm.domain.models.AuditoriumDto
 import com.smartcampus.presentation.core.extensions.pagingLoadStateIndicator
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun GroupDropdown(
-    initialSelection: GroupDto?,
-    onGroupSelected: (GroupDto) -> Unit,
+fun AuditoriumDropdown(
+    initialSelection: AuditoriumDto?,
+    onAuditoriumSelected: (AuditoriumDto) -> Unit,
+    isAvailable: Boolean,
+    day: String,
     modifier: Modifier = Modifier,
     expanded: Boolean = false,
     onExpandedChange: (Boolean) -> Unit = {},
-    viewModel: GroupDropdownViewModel = koinViewModel(),
+    viewModel: AuditoriumDropdownViewModel = koinViewModel(),
 ) {
 
     val state = viewModel.uiState.collectAsState()
-    val groups = state.value.groups.collectAsLazyPagingItems()
+    val auditoriums = state.value.auditoriums.collectAsLazyPagingItems()
     val dropDownIcon = if (expanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
-    val selectedGroup = state.value.selectedGroup
+    val selectedAuditorium = state.value.selectedAuditorium
 
     LaunchedEffect(initialSelection) {
-        viewModel.setEvent(GroupDropdownContract.Event.SelectGroup(initialSelection))
+        viewModel.setEvent(AuditoriumDropdownContract.Event.SelectAuditorium(initialSelection))
     }
 
     Box(modifier = modifier) {
         OutlinedTextField(
-            value = selectedGroup?.name ?: " ",
+            value = if (selectedAuditorium != null) "${selectedAuditorium.number}. ${selectedAuditorium.type}" else " ",
             onValueChange = { },
-            label = { Text(text = "Группа") },
+            label = { Text(text = "Аудитория") },
             singleLine = true,
             suffix = {
                 Icon(
                     imageVector = dropDownIcon,
                     contentDescription = null,
                     modifier = Modifier.clickable {
-                        if (!expanded) viewModel.setEvent(GroupDropdownContract.Event.LoadGroups)
+                        if (!expanded) viewModel.setEvent(AuditoriumDropdownContract.Event.LoadAuditoriums(isAvailable, day))
                         onExpandedChange(!expanded)
                     }
                 )
@@ -76,35 +78,33 @@ fun GroupDropdown(
                 text = {
                     LazyColumn(
                         modifier = Modifier.height(480.dp).width(300.dp),
-                        contentPadding = PaddingValues(vertical = 4.dp)
+                        contentPadding = PaddingValues(4.dp)
                     ) {
-                        items(groups.itemCount) { index ->
-                            groups[index]?.let { group ->
+                        items(auditoriums.itemCount) { index ->
+                            auditoriums[index]?.let { auditorium ->
                                 Column(
                                     modifier = Modifier.clickable {
-                                        onGroupSelected(group)
-                                        viewModel.setEvent(GroupDropdownContract.Event.SelectGroup(group))
+                                        onAuditoriumSelected(auditorium)
+                                        viewModel.setEvent(
+                                            AuditoriumDropdownContract.Event.SelectAuditorium(auditorium)
+                                        )
                                         onExpandedChange(false)
                                     }
                                 ) {
                                     Text(
-                                        text = "Группа: ${group.name ?: ""}",
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+                                        text = "№ ${auditorium.number ?: ""}",
+                                        modifier = Modifier.fillMaxWidth().padding(2.dp)
                                     )
                                     Text(
-                                        text = "Специализация: ${group.speciality?.name ?: ""}",
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
-                                    )
-                                    Text(
-                                        text = "Курс: ${group.course ?: ""}",
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+                                        text = "Тип: ${auditorium.type ?: ""}",
+                                        modifier = Modifier.fillMaxWidth().padding(2.dp)
                                     )
                                 }
                                 HorizontalDivider()
                             }
                         }
 
-                        pagingLoadStateIndicator(groups)
+                        pagingLoadStateIndicator(auditoriums)
                     }
                 },
                 onClick = { }

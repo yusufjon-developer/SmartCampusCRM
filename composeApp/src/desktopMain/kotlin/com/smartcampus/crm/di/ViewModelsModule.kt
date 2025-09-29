@@ -5,6 +5,8 @@ import com.smartcampus.presentation.ui.screen.home.HomeViewModel
 import com.smartcampus.presentation.ui.screen.home.auditorium.AuditoriumViewModel
 import com.smartcampus.presentation.ui.screen.home.group.GroupViewModel
 import com.smartcampus.presentation.ui.screen.home.speciality.SpecialityViewModel
+import com.smartcampus.presentation.ui.screen.employee.teachers.TeachersViewModel
+import com.smartcampus.presentation.ui.screen.employee.teachers.teacherProfile.TeacherProfileViewModel
 import com.smartcampus.presentation.ui.screen.login.LoginViewModel
 import com.smartcampus.presentation.ui.screen.schedule.ScheduleViewModel
 import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
@@ -17,8 +19,10 @@ import com.smartcampus.presentation.ui.screen.settings.SettingsViewModel
 import com.smartcampus.presentation.ui.screen.settings.theme.ThemeViewModel
 import com.smartcampus.presentation.ui.screen.student.StudentViewModel
 import com.smartcampus.presentation.ui.screen.student.studentProfile.StudentProfileViewModel
+import com.smartcampus.presentation.ui.widgets.auditoriumDropdown.AuditoriumDropdownViewModel
 import com.smartcampus.presentation.ui.widgets.groupDropdown.GroupDropdownViewModel
 import com.smartcampus.presentation.ui.widgets.specialityDropdown.SpecialityDropdownViewModel
+import com.smartcampus.presentation.ui.widgets.teacherDropdown.TeacherDropdownViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -44,4 +48,8 @@ val ViewModelsModule = module {
     viewModelOf(::GroupViewModel)
     viewModelOf(::SpecialityDropdownViewModel)
     viewModelOf(::SpecialityViewModel)
+    viewModelOf(::AuditoriumDropdownViewModel)
+    viewModelOf(::TeacherDropdownViewModel)
+    viewModelOf(::TeachersViewModel)
+    viewModelOf(::TeacherProfileViewModel)
 }

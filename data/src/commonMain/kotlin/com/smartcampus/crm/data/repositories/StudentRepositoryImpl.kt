@@ -8,9 +8,9 @@ import com.smartcampus.crm.data.base.pagination.BasePagingSource
 import com.smartcampus.crm.data.base.pagination.PagingResponse
 import com.smartcampus.crm.data.remote.apiServices.StudentApiService
 import com.smartcampus.crm.domain.models.StudentDetailsDto
-import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.models.StudentSensitiveDto
 import com.smartcampus.crm.domain.models.StudentUpdateRequest
+import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.models.auth.RegisterResponse
 import com.smartcampus.crm.domain.repositories.StudentRepository
 import com.smartcampus.crm.domain.utils.RemoteWrapper

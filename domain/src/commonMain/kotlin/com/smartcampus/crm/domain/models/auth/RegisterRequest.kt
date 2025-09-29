@@ -8,7 +8,7 @@ data class RegisterRequest(
     val password: String,
     val email: String? = null,
     val fullName: String? = null,
-    val roleName: String? = null, // "StudentDetailsDto" или "Teacher" или другой
+    val roleName: String? = null, // "StudentDetailsDto" или "TeacherDetailsDto" или другой
     val studentProfile: StudentCreateRequest? = null,
     val studentInfo: StudentInfoCreateRequest? = null,
     val teacherProfile: TeacherCreateRequest? = null,

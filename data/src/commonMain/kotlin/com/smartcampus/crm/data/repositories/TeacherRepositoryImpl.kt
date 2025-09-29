@@ -10,6 +10,8 @@ import com.smartcampus.crm.data.remote.apiServices.TeachersApiService
 import com.smartcampus.crm.domain.models.TeacherDetailsDto
 import com.smartcampus.crm.domain.models.TeacherSensitiveDto
 import com.smartcampus.crm.domain.models.TeacherUpdateRequest
+import com.smartcampus.crm.domain.models.auth.RegisterRequest
+import com.smartcampus.crm.domain.models.auth.RegisterResponse
 import com.smartcampus.crm.domain.repositories.TeacherRepository
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.Flow
@@ -38,6 +40,9 @@ class TeacherRepositoryImpl(
 
     override suspend fun getTeacherInfoById(id: Int): RemoteWrapper<TeacherSensitiveDto> =
         doRequest { apiService.getTeacherInfoById(id) }
+
+    override suspend fun registerTeacher(teacher: RegisterRequest): RemoteWrapper<RegisterResponse> =
+        doRequest { apiService.registerTeacher(teacher) }
 
     override suspend fun updateTeacher(id: Int, request: TeacherUpdateRequest): RemoteWrapper<TeacherDetailsDto> =
         doRequest { apiService.updateTeacher(id, request) }

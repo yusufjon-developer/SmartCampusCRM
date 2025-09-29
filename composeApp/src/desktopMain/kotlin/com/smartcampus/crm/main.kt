@@ -39,11 +39,16 @@ import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.icon
 import java.awt.Insets
 import java.awt.Toolkit
+import java.io.PrintStream
+import java.nio.charset.StandardCharsets
 
 fun main() {
     startKoin {
         modules(AppModule)
     }
+
+    System.setOut(PrintStream(System.out, true, StandardCharsets.UTF_8))
+    System.setErr(PrintStream(System.err, true, StandardCharsets.UTF_8))
 
     application {
 

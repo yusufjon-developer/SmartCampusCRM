@@ -1,14 +1,12 @@
 package com.smartcampus.crm.domain.models
 
-import com.smartcampus.crm.domain.models.teacher.Teacher
-
 data class Grades(
     val id: Int,
     val date: String,
     val time: String,
     val student: StudentDetailsDto,
     val disciplines: Disciplines,
-    val teachers: Teacher,
+    val teachers: TeacherDetailsDto,
     val round: String,
     val mark: String
 )

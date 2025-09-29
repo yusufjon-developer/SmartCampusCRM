@@ -1,10 +1,8 @@
 package com.smartcampus.crm.domain.models
 
-import com.smartcampus.crm.domain.models.teacher.Teacher
-
 data class TeachersWorkload(
     val id: Int,
-    val teachers: Teacher,
+    val teachers: TeacherDetailsDto,
     val disciplines: Disciplines,
     val type: String,
     val hours: Int,

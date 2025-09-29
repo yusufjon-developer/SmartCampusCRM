@@ -5,6 +5,8 @@ import com.smartcampus.crm.domain.models.GroupDto
 import com.smartcampus.crm.domain.models.ScheduleCreateRequest
 import com.smartcampus.crm.domain.models.ScheduleDto
 import com.smartcampus.crm.domain.models.TeacherDetailsDto
+import com.smartcampus.crm.domain.models.WeeklyFreeSlotsRequest
+import com.smartcampus.crm.domain.models.WeeklyScheduleResponse
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent
@@ -24,12 +26,13 @@ interface ScheduleContract {
         data class SelectGroup(val group: GroupDto) : Event
         data class SelectAuditorium(val auditorium: AuditoriumDto) : Event
         data class SelectTeacher(val teacher: TeacherDetailsDto) : Event
-        data class Validate(val schedule: ScheduleCreateRequest) : Event
+        data class ValidateWeek(val request: WeeklyFreeSlotsRequest) : Event
         data class CreateSchedule(val schedule: ScheduleCreateRequest) : Event
         data class DeleteSchedule(val scheduleId: Int) : Event
         data class UpdateSchedule(val schedule: ScheduleDto) : Event
         object LoadWeeklySchedules : Event
         data class LoadSchedule(val index: Int, val day: String, val groupId: Int) : Event
+        data object ClearFilters : Event
     }
 
     sealed interface Effect : UiEffect {
@@ -46,6 +49,7 @@ interface ScheduleContract {
         val selectedAuditorium: AuditoriumDto? = null,
         val selectedTeacher: TeacherDetailsDto? = null,
         val weekDays: List<Map<String, String>> = emptyList(),
+        val weeklySchedule: WeeklyScheduleResponse = WeeklyScheduleResponse(emptyList()),
         val error: List<Map<String, NetworkError>> = emptyList()
     ) : UiState
 }

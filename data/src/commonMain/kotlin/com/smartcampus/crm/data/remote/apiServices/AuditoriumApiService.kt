@@ -13,10 +13,14 @@ import io.ktor.client.statement.HttpResponse
 class AuditoriumApiService(
     private val httpClient: HttpClient
 ) {
-    suspend fun getAuditoriums(page: Int, size: Int, sortedBy: String?): HttpResponse {
+    suspend fun getAuditoriums(page: Int, size: Int, sortedBy: String?, isAvailable: Boolean?, day: String): HttpResponse {
         val url = buildString {
             append("/auditoriums?page=$page&size=$size")
             sortedBy?.let { append("&sortedBy=$it") }
+            isAvailable?.let {
+                append("&isAvailable=$it")
+                append("&day=$day")
+            }
         }
         return httpClient.get(url)
     }
