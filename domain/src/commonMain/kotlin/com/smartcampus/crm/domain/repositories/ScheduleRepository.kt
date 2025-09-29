@@ -3,6 +3,8 @@ package com.smartcampus.crm.domain.repositories
 import com.smartcampus.crm.domain.models.ScheduleCreateRequest
 import com.smartcampus.crm.domain.models.ScheduleDto
 import com.smartcampus.crm.domain.models.ScheduleUpdateRequest
+import com.smartcampus.crm.domain.models.WeeklyFreeSlotsRequest
+import com.smartcampus.crm.domain.models.WeeklyScheduleResponse
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 
 interface ScheduleRepository {
@@ -22,4 +24,6 @@ interface ScheduleRepository {
     suspend fun deleteSchedule(id: Int): RemoteWrapper<Unit>
 
     suspend fun validateRequest(request: ScheduleCreateRequest): RemoteWrapper<List<ScheduleDto>>
+
+    suspend fun validateWeek(request: WeeklyFreeSlotsRequest): RemoteWrapper<WeeklyScheduleResponse>
 }

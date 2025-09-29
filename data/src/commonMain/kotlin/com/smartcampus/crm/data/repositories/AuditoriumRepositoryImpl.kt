@@ -18,7 +18,7 @@ class AuditoriumRepositoryImpl(
     private val apiService: AuditoriumApiService
 ) : AuditoriumRepository, BaseRepository() {
 
-    override suspend fun getAuditoriumList(sortBy: String?): Flow<PagingData<AuditoriumDto>> = Pager(
+    override suspend fun getAuditoriumList(sortBy: String?, isAvailable: Boolean?, day: String): Flow<PagingData<AuditoriumDto>> = Pager(
         config = PagingConfig(pageSize = 20, initialLoadSize = 20, prefetchDistance = 10),
         pagingSourceFactory = {
             BasePagingSource { pageNumber ->
@@ -26,7 +26,9 @@ class AuditoriumRepositoryImpl(
                     apiService.getAuditoriums(
                         page = pageNumber,
                         size = 20,
-                        sortedBy = sortBy
+                        sortedBy = sortBy,
+                        isAvailable = isAvailable,
+                        day = day
                     )
                 }
             }
