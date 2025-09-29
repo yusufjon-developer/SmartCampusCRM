@@ -1,7 +1,7 @@
 package com.smartcampus.crm.data.remote.apiServices
 
-import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.models.StudentUpdateRequest
+import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

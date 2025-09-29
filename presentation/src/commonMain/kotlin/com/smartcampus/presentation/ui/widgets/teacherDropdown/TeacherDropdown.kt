@@ -1,4 +1,4 @@
-package com.smartcampus.presentation.ui.widgets.groupDropdown
+package com.smartcampus.presentation.ui.widgets.teacherDropdown
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,87 +24,92 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paging.compose.collectAsLazyPagingItems
-import com.smartcampus.crm.domain.models.GroupDto
+import app.cash.paging.compose.itemKey
+import com.smartcampus.crm.domain.models.TeacherDetailsDto
 import com.smartcampus.presentation.core.extensions.pagingLoadStateIndicator
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun GroupDropdown(
-    initialSelection: GroupDto?,
-    onGroupSelected: (GroupDto) -> Unit,
+fun TeacherDropdown(
+    initialSelection: TeacherDetailsDto?,
+    onTeacherSelected: (TeacherDetailsDto) -> Unit,
     modifier: Modifier = Modifier,
     expanded: Boolean = false,
     onExpandedChange: (Boolean) -> Unit = {},
-    viewModel: GroupDropdownViewModel = koinViewModel(),
+    viewModel: TeacherDropdownViewModel = koinViewModel(),
 ) {
 
     val state = viewModel.uiState.collectAsState()
-    val groups = state.value.groups.collectAsLazyPagingItems()
+    val teachers = state.value.teachers.collectAsLazyPagingItems()
     val dropDownIcon = if (expanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
-    val selectedGroup = state.value.selectedGroup
+    val selectedTeacher = state.value.selectedTeacher
 
     LaunchedEffect(initialSelection) {
-        viewModel.setEvent(GroupDropdownContract.Event.SelectGroup(initialSelection))
+        viewModel.setEvent(TeacherDropdownContract.Event.SelectTeacher(initialSelection))
     }
 
     Box(modifier = modifier) {
         OutlinedTextField(
-            value = selectedGroup?.name ?: " ",
+            value = selectedTeacher?.let {
+                "${it.surname} ${it.name?.firstOrNull() ?: ""}. ${it.lastname?.firstOrNull() ?: ""}."
+            } ?: " ",
             onValueChange = { },
-            label = { Text(text = "Группа") },
+            label = { Text(text = "Преподаватель") },
             singleLine = true,
             suffix = {
                 Icon(
                     imageVector = dropDownIcon,
                     contentDescription = null,
                     modifier = Modifier.clickable {
-                        if (!expanded) viewModel.setEvent(GroupDropdownContract.Event.LoadGroups)
+                        if (!expanded) viewModel.setEvent(TeacherDropdownContract.Event.LoadTeachers)
                         onExpandedChange(!expanded)
                     }
                 )
             },
             modifier = modifier
         )
+
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = {
                 onExpandedChange(false)
             },
-            modifier = Modifier.height(480.dp).width(300.dp),
+            modifier = Modifier.height(480.dp).width(600.dp),
         ) {
             DropdownMenuItem(
                 text = {
                     LazyColumn(
-                        modifier = Modifier.height(480.dp).width(300.dp),
+                        modifier = Modifier.height(480.dp).width(600.dp),
                         contentPadding = PaddingValues(vertical = 4.dp)
                     ) {
-                        items(groups.itemCount) { index ->
-                            groups[index]?.let { group ->
+                        items(
+                            count = teachers.itemCount,
+                            key = teachers.itemKey { it.id }
+                        ) { index ->
+                            val teacher = teachers[index]
+                            if (teacher != null) {
                                 Column(
                                     modifier = Modifier.clickable {
-                                        onGroupSelected(group)
-                                        viewModel.setEvent(GroupDropdownContract.Event.SelectGroup(group))
+                                        viewModel.setEvent(TeacherDropdownContract.Event.SelectTeacher(teacher))
+                                        onTeacherSelected(teacher)
                                         onExpandedChange(false)
                                     }
                                 ) {
+                                    val fullName = buildString {
+                                        teacher.surname?.let { append("${teacher.id}. $it") }
+                                        teacher.name?.let { append(" $it") }
+                                        teacher.lastname?.let { append(" $it") }
+                                    }
                                     Text(
-                                        text = "Группа: ${group.name ?: ""}",
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
-                                    )
-                                    Text(
-                                        text = "Специализация: ${group.speciality?.name ?: ""}",
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
-                                    )
-                                    Text(
-                                        text = "Курс: ${group.course ?: ""}",
-                                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+                                        text = fullName.ifEmpty { "Фамилия: ${teacher.surname ?: ""}, Имя: ${teacher.name?.firstOrNull() ?: ""}., Отчество: ${teacher.lastname?.firstOrNull() ?: ""}." },
+                                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
                                     )
                                 }
                                 HorizontalDivider()
                             }
                         }
 
-                        pagingLoadStateIndicator(groups)
+                        pagingLoadStateIndicator(teachers)
                     }
                 },
                 onClick = { }
