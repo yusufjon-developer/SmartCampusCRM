@@ -5,6 +5,8 @@ import com.smartcampus.crm.data.remote.apiServices.ScheduleApiService
 import com.smartcampus.crm.domain.models.ScheduleCreateRequest
 import com.smartcampus.crm.domain.models.ScheduleDto
 import com.smartcampus.crm.domain.models.ScheduleUpdateRequest
+import com.smartcampus.crm.domain.models.WeeklyFreeSlotsRequest
+import com.smartcampus.crm.domain.models.WeeklyScheduleResponse
 import com.smartcampus.crm.domain.repositories.ScheduleRepository
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 
@@ -48,5 +50,10 @@ class ScheduleRepositoryImpl(
     override suspend fun validateRequest(request: ScheduleCreateRequest): RemoteWrapper<List<ScheduleDto>> =
         doRequest {
             apiService.validateRequest(request)
+        }
+
+    override suspend fun validateWeek(request: WeeklyFreeSlotsRequest): RemoteWrapper<WeeklyScheduleResponse> =
+        doRequest {
+            apiService.validateWeek(request)
         }
 }

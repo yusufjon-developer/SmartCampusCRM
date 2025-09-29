@@ -8,7 +8,7 @@ import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.Flow
 
 interface AuditoriumRepository {
-    suspend fun getAuditoriumList(sortBy: String?): Flow<PagingData<AuditoriumDto>>
+    suspend fun getAuditoriumList(sortBy: String?, isAvailable: Boolean?, day: String): Flow<PagingData<AuditoriumDto>>
     suspend fun getAuditoriumById(id: Int): RemoteWrapper<AuditoriumDto>
     suspend fun createAuditorium(request: AuditoriumCreateRequest): RemoteWrapper<AuditoriumDto>
     suspend fun updateAuditorium(id: Int, request: AuditoriumUpdateRequest): RemoteWrapper<AuditoriumDto>

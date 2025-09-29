@@ -2,10 +2,12 @@ package com.smartcampus.crm.data.remote.apiServices
 
 import com.smartcampus.crm.domain.models.ScheduleCreateRequest
 import com.smartcampus.crm.domain.models.ScheduleUpdateRequest
+import com.smartcampus.crm.domain.models.WeeklyFreeSlotsRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
+import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 
@@ -43,7 +45,7 @@ class ScheduleApiService(
         }
 
     suspend fun updateSchedule(id: Int, request: ScheduleUpdateRequest) = httpClient
-        .post("/crm/schedule/$id") {
+        .put("/crm/schedule/$id") {
             setBody(request)
         }
 
@@ -51,6 +53,11 @@ class ScheduleApiService(
 
     suspend fun validateRequest(request: ScheduleCreateRequest): HttpResponse = httpClient
         .post("/crm/schedule/validate") {
+            setBody(request)
+        }
+
+    suspend fun validateWeek(request: WeeklyFreeSlotsRequest): HttpResponse = httpClient
+        .post("/crm/schedule/validate/week") {
             setBody(request)
         }
 }

@@ -1,33 +1,33 @@
-package com.smartcampus.presentation.ui.widgets.groupDropdown
+package com.smartcampus.presentation.ui.widgets.teacherDropdown
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.smartcampus.crm.domain.repositories.GroupRepository
+import com.smartcampus.crm.domain.repositories.TeacherRepository
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class GroupDropdownViewModel(
-    private val groupRepository: GroupRepository
-) : BaseViewModel<GroupDropdownContract.Event, GroupDropdownContract.Effect, GroupDropdownContract.State>() {
+class TeacherDropdownViewModel(
+    private val teacherRepository: TeacherRepository
+) : BaseViewModel<TeacherDropdownContract.Event, TeacherDropdownContract.Effect, TeacherDropdownContract.State>() {
 
-    override fun createInitialState() = GroupDropdownContract.State()
+    override fun createInitialState() = TeacherDropdownContract.State()
 
-    override fun handleEvent(event: GroupDropdownContract.Event) {
+    override fun handleEvent(event: TeacherDropdownContract.Event) {
         when (event) {
-            is GroupDropdownContract.Event.LoadGroups -> {
-                loadGroups()
+            is TeacherDropdownContract.Event.LoadTeachers -> {
+                loadTeachers()
             }
 
-            is GroupDropdownContract.Event.SelectGroup -> {
-                setState { copy(selectedGroup = event.group) }
+            is TeacherDropdownContract.Event.SelectTeacher -> {
+                setState { copy(selectedTeacher = event.teacher) }
             }
         }
     }
 
-    private fun loadGroups() {
+    private fun loadTeachers() {
         viewModelScope.launch(Dispatchers.IO) {
             setState {
                 copy(
@@ -37,35 +37,36 @@ class GroupDropdownViewModel(
             }
 
             try {
-                val groupsFlow = groupRepository.getGroupList(null)
+                // Предполагается, что TeacherRepository имеет метод getTeacherList(sortBy: String?)
+                val teachersFlow = teacherRepository.getTeacherList(null)
                     .cachedIn(viewModelScope)
                     .catch { exception ->
-                        val error = NetworkError.Unexpected(exception.message.toString())
+                        val error = NetworkError.Unexpected(exception.message ?: "Unknown error")
                         setState {
                             copy(
                                 isLoading = false,
                                 error = error
                             )
                         }
-                        setEffect { GroupDropdownContract.Effect.ShowError(error) }
+                        setEffect { TeacherDropdownContract.Effect.ShowError(error) }
                     }
 
                 setState {
                     copy(
                         isLoading = false,
-                        groups = groupsFlow,
+                        teachers = teachersFlow,
                         error = null
                     )
                 }
             } catch (e: Exception) {
-                val error = NetworkError.Unexpected(e.message.toString())
+                val error = NetworkError.Unexpected(e.message ?: "Unknown error")
                 setState {
                     copy(
                         isLoading = false,
                         error = error
                     )
                 }
-                setEffect { GroupDropdownContract.Effect.ShowError(error) }
+                setEffect { TeacherDropdownContract.Effect.ShowError(error) }
             }
         }
     }

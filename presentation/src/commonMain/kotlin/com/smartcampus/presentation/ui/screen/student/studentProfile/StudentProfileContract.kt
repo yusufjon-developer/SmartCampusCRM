@@ -1,9 +1,9 @@
 package com.smartcampus.presentation.ui.screen.student.studentProfile
 
 import com.smartcampus.crm.domain.models.StudentDetailsDto
-import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.models.StudentSensitiveDto
 import com.smartcampus.crm.domain.models.StudentUpdateRequest
+import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.utils.NetworkError
 import com.smartcampus.presentation.core.base.contract.UiEffect
 import com.smartcampus.presentation.core.base.contract.UiEvent

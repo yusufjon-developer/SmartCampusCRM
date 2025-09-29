@@ -407,15 +407,12 @@ private fun NewStudentCredentialsBlock(
             Spacer(modifier = Modifier.width(8.dp))
 
             GroupDropdown(
-                selectGroup = null,
+                initialSelection = null,
                 onGroupSelected = { group ->
                     onGroupSelected(group)
                     groupState.value = group.name.toString()
-
-                    Logger.getAnonymousLogger().info("2222222222222222222222222222222222222222222222")
-                    Logger.getAnonymousLogger().info("Selected group: ${groupState.value}")
                 },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).fillMaxWidth()
             )
         }
     }

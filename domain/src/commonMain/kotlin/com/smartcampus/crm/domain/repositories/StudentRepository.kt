@@ -2,9 +2,9 @@ package com.smartcampus.crm.domain.repositories
 
 import app.cash.paging.PagingData
 import com.smartcampus.crm.domain.models.StudentDetailsDto
-import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.models.StudentSensitiveDto
 import com.smartcampus.crm.domain.models.StudentUpdateRequest
+import com.smartcampus.crm.domain.models.auth.RegisterRequest
 import com.smartcampus.crm.domain.models.auth.RegisterResponse
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.Flow
