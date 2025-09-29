@@ -44,7 +44,7 @@ class AuditoriumViewModel(
     private fun getAuditoriums() {
         viewModelScope.launch {
             setState { copy(isLoading = true) }
-            val auditoriumFlow = repository.getAuditoriumList(sortBy = null).cachedIn(viewModelScope)
+            val auditoriumFlow = repository.getAuditoriumList(sortBy = null, null, "1971-01-01").cachedIn(viewModelScope)
             setState { copy(isLoading = false, auditoriums = auditoriumFlow) }
         }
     }
