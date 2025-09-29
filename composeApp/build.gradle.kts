@@ -70,7 +70,7 @@ compose.desktop {
                 TargetFormat.Exe
             )
             packageName = "Smart Campus CRM"
-            packageVersion = "1.0.0"
+            packageVersion = "0.0.1"
 
             windows {
                 iconFile.set(project.file("icon.ico"))
