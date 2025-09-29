@@ -37,7 +37,8 @@ import androidx.compose.ui.unit.dp
 fun InfoItem(
     modifier: Modifier = Modifier,
     infoName: String,
-    infoDescription: String,
+    infoSecondaryText: String = "",
+    infoDescription: String = "",
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit
 ) {
@@ -91,6 +92,20 @@ fun InfoItem(
 
                 if (!expanded) {
                     Spacer(modifier = Modifier.width(12.dp))
+
+                    if (infoSecondaryText != "") {
+                        Text(
+                            text = infoSecondaryText,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = textColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(0.5f) // Уменьшаем вес для курса
+                        )
+
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+
                     Text(
                         text = infoDescription,
                         style = MaterialTheme.typography.bodyMedium,
@@ -99,6 +114,7 @@ fun InfoItem(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(2f)
                     )
+
                     Spacer(modifier = Modifier.width(8.dp))
                 }
 
@@ -111,11 +127,23 @@ fun InfoItem(
                         thickness = DividerDefaults.Thickness,
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
                     )
+
+                    if (infoSecondaryText != "") {
+                        Text(
+                            text = infoSecondaryText,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = textColor
+                        )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+                    }
+
                     Text(
                         text = infoDescription,
                         style = MaterialTheme.typography.bodyMedium,
                         color = textColor
                     )
+
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }

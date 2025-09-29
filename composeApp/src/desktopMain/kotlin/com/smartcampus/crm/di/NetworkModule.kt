@@ -6,6 +6,7 @@ import com.smartcampus.crm.data.remote.apiServices.LoginApiService
 import com.smartcampus.crm.data.remote.apiServices.RoleApiService
 import com.smartcampus.crm.data.remote.apiServices.ScheduleApiService
 import com.smartcampus.crm.data.remote.apiServices.SecurityApiService
+import com.smartcampus.crm.data.remote.apiServices.SpecialityApiService
 import com.smartcampus.crm.data.remote.apiServices.StudentApiService
 import com.smartcampus.crm.data.remote.apiServices.TeachersApiService
 import com.smartcampus.crm.data.remote.apiServices.UserApiService
@@ -25,4 +26,5 @@ val NetworkModule = module {
     singleOf(::TeachersApiService)
     singleOf(::UserApiService)
     singleOf(::WorkloadApiService)
+    singleOf(::SpecialityApiService)
 }

@@ -45,4 +45,7 @@ data class DisciplineUpdateRequest(
 )
 
 @Serializable
-data class SpecialityDto(val id: Int, val name: String? = null)
+data class SpecialityDto(
+    val id: Int,
+    val name: String? = null
+)
