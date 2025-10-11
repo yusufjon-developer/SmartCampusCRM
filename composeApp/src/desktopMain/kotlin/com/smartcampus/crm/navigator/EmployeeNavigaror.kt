@@ -64,8 +64,6 @@ fun EmployeeNavigator(
                     navController.popBackStack()
                 }
             )
-
         }
-
     }
 }

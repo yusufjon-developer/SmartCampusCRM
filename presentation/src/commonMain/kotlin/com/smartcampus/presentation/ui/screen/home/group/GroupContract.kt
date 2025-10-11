@@ -15,14 +15,16 @@ interface GroupContract {
     sealed interface Event : UiEvent {
         data object GetGroups : Event
         data class ShowAddDialog(val show: Boolean) : Event
+        data class NavigateToStudentGroup(val groupId: Int) : Event
         data class AddGroup(val request: GroupCreateRequest) : Event
         data class UpdateGroup(val id: Int, val request: GroupUpdateRequest) : Event
     }
 
     sealed interface Effect : UiEffect {
+        data class ShowAddDialog(val show: Boolean) : Effect
         data class ShowError(val error: NetworkError) : Effect
         data class ShowSuccessMessage(val message: String) : Effect
-        data class ShowAddDialog(val show: Boolean) : Effect
+        data class NavigateToStudentGroupWithId(val groupId: Int) : Effect
     }
 
     data class State(

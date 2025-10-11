@@ -10,6 +10,7 @@ import com.smartcampus.crm.data.remote.apiServices.GroupApiService
 import com.smartcampus.crm.domain.models.GroupCreateRequest
 import com.smartcampus.crm.domain.models.GroupDto
 import com.smartcampus.crm.domain.models.GroupUpdateRequest
+import com.smartcampus.crm.domain.models.StudentDetailsDto
 import com.smartcampus.crm.domain.repositories.GroupRepository
 import com.smartcampus.crm.domain.utils.RemoteWrapper
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +36,9 @@ class GroupRepositoryImpl(
 
     override suspend fun getGroupById(id: Int): RemoteWrapper<GroupDto> =
         doRequest { apiService.getGroupById(id) }
+
+    override suspend fun getStudentsByGroup(groupId: Int): RemoteWrapper<List<StudentDetailsDto>> =
+        doRequest { apiService.getStudentsByGroup(groupId) }
 
     override suspend fun createGroup(request: GroupCreateRequest): RemoteWrapper<GroupDto> =
         doRequest { apiService.createGroup(request) }

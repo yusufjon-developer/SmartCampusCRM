@@ -11,7 +11,9 @@ import com.smartcampus.presentation.core.components.cards.FeatureCard
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import smartcampuscrm.presentation.generated.resources.Res
-import smartcampuscrm.presentation.generated.resources.ic_home
+import smartcampuscrm.presentation.generated.resources.ic_auditorium
+import smartcampuscrm.presentation.generated.resources.ic_group
+import smartcampuscrm.presentation.generated.resources.ic_speciality
 
 @Composable
 fun HomeScreen(
@@ -35,7 +37,7 @@ fun HomeScreen(
     ) {
         item {
             FeatureCard(
-                iconPainter = painterResource(Res.drawable.ic_home),
+                iconPainter = painterResource(Res.drawable.ic_auditorium),
                 title = "Аудитории",
                 onClick = {
                     viewModel.setEvent(HomeContract.Event.NavigateToAuditorium)
@@ -44,7 +46,7 @@ fun HomeScreen(
         }
         item {
             FeatureCard(
-                iconPainter = painterResource(Res.drawable.ic_home),
+                iconPainter = painterResource(Res.drawable.ic_group),
                 title = "Группы",
                 onClick = {
                     viewModel.setEvent(HomeContract.Event.NavigateToGroup)
@@ -53,7 +55,7 @@ fun HomeScreen(
         }
         item {
             FeatureCard(
-                iconPainter = painterResource(Res.drawable.ic_home),
+                iconPainter = painterResource(Res.drawable.ic_speciality),
                 title = "Специальности",
                 onClick = {
                     viewModel.setEvent(HomeContract.Event.NavigateToSpeciality)

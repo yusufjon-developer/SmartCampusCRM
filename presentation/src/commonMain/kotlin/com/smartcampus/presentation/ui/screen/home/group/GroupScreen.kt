@@ -1,6 +1,8 @@
 package com.smartcampus.presentation.ui.screen.home.group
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,7 +43,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun GroupScreen(
-    viewModel: GroupViewModel = koinViewModel()
+    viewModel: GroupViewModel = koinViewModel(),
+    onNavigatorToStudentGroup: (groupId: Int) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val groups = uiState.groups.collectAsLazyPagingItems()
@@ -69,6 +72,10 @@ fun GroupScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
+                is GroupContract.Effect.NavigateToStudentGroupWithId -> {
+                    onNavigatorToStudentGroup(effect.groupId)
+                }
+
                 is GroupContract.Effect.ShowError -> {
                     snackbarHostState.showSnackbar(effect.error.toString())
                 }
@@ -114,20 +121,21 @@ fun GroupScreen(
                     if (group != null) {
                         val isExpanded = expandedState[group.id] ?: false
 
-                        InfoItem(
-                            infoName = group.name.toString(),
-                            infoSecondaryText = "Курс:  ${group.course?.toString().orEmpty()}",
-                            infoDescription = "Специальность:  ${group.speciality?.name.toString()}",
-                            expanded = isExpanded,
-                            onExpandedChange = { newExpandedState ->
-                                if (newExpandedState) {
-                                    expandedState.keys.forEach { id ->
-                                        if (id != group.id) expandedState[id] = false
-                                    }
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    viewModel.setEvent(GroupContract.Event.NavigateToStudentGroup(group.id))
                                 }
-                                expandedState[group.id] = newExpandedState
-                            }
-                        )
+                        ) {
+                            InfoItem(
+                                infoName = group.name.toString(),
+                                infoSecondaryText = "Курс:  ${group.course?.toString().orEmpty()}",
+                                infoDescription = "Специальность:  ${group.speciality?.name.toString()}",
+                                expanded = isExpanded,
+                                onExpandedChange = { onNavigatorToStudentGroup(group.id) }
+                            )
+                        }
                     }
                 }
 
