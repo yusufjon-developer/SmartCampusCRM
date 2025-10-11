@@ -24,6 +24,8 @@ class GroupApiService(
 
     suspend fun getGroupById(id: Int): HttpResponse = httpClient.get("/groups/$id")
 
+    suspend fun getStudentsByGroup(groupId: Int): HttpResponse = httpClient.get("/groups/$groupId/students")
+
     suspend fun createGroup(request: GroupCreateRequest): HttpResponse = httpClient
         .post("/groups") {
             setBody(request)

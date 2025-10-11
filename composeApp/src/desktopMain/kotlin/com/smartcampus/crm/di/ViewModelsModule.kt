@@ -1,12 +1,13 @@
 package com.smartcampus.crm.di
 
 import com.smartcampus.presentation.ui.screen.employee.EmployeeViewModel
+import com.smartcampus.presentation.ui.screen.employee.teachers.TeachersViewModel
+import com.smartcampus.presentation.ui.screen.employee.teachers.teacherProfile.TeacherProfileViewModel
 import com.smartcampus.presentation.ui.screen.home.HomeViewModel
 import com.smartcampus.presentation.ui.screen.home.auditorium.AuditoriumViewModel
 import com.smartcampus.presentation.ui.screen.home.group.GroupViewModel
+import com.smartcampus.presentation.ui.screen.home.group.studentGroup.StudentGroupViewModel
 import com.smartcampus.presentation.ui.screen.home.speciality.SpecialityViewModel
-import com.smartcampus.presentation.ui.screen.employee.teachers.TeachersViewModel
-import com.smartcampus.presentation.ui.screen.employee.teachers.teacherProfile.TeacherProfileViewModel
 import com.smartcampus.presentation.ui.screen.login.LoginViewModel
 import com.smartcampus.presentation.ui.screen.schedule.ScheduleViewModel
 import com.smartcampus.presentation.ui.screen.security.SecurityViewModel
@@ -37,7 +38,10 @@ val ViewModelsModule = module {
     viewModelOf(::RoleViewModel)
     viewModelOf(::SecurityViewModel)
     viewModelOf(::SettingsViewModel)
+    viewModelOf(::ScheduleViewModel)
     viewModelOf(::StudentProfileViewModel)
+    viewModelOf(::StudentViewModel)
+    viewModelOf(::StudentGroupViewModel)
     viewModelOf(::ThemeViewModel)
     viewModelOf(::UserViewModel)
     viewModelOf(::UserPermissionViewModel)

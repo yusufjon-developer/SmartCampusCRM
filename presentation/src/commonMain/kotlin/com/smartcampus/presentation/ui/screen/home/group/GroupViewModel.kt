@@ -26,6 +26,10 @@ class GroupViewModel(
                     getGroups()
                 }
 
+                is GroupContract.Event.NavigateToStudentGroup -> {
+                    setEffect { GroupContract.Effect.NavigateToStudentGroupWithId(event.groupId) }
+                }
+
                 is GroupContract.Event.AddGroup -> {
                     createGroup(request = event.request)
                 }

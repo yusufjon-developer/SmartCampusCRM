@@ -14,6 +14,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import smartcampuscrm.presentation.generated.resources.Res
 import smartcampuscrm.presentation.generated.resources.administration
 import smartcampuscrm.presentation.generated.resources.employees
+import smartcampuscrm.presentation.generated.resources.ic_admin
 import smartcampuscrm.presentation.generated.resources.ic_employees
 import smartcampuscrm.presentation.generated.resources.ic_it_department
 import smartcampuscrm.presentation.generated.resources.ic_teacher
@@ -48,7 +49,7 @@ fun EmployeeScreen(
         }
         item {
             FeatureCard(
-                iconPainter = painterResource(Res.drawable.ic_teacher),
+                iconPainter = painterResource(Res.drawable.ic_admin),
                 title = stringResource(Res.string.administration),
                 onClick = {
                     viewModel.setEvent(EmployeeContract.Event.NavigatToTeacher)

@@ -13,9 +13,9 @@ import com.smartcampus.presentation.ui.screen.student.studentProfile.StudentProf
 fun StudentNavigator(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = ProfileRoute.Profile
+        startDestination = ProfileRoute.Students
     ) {
-        composable<ProfileRoute.Profile> {
+        composable<ProfileRoute.Students> {
             StudentScreen(
                 navigateToStudentProfile = { id ->
                     navController.navigate(ProfileRoute.StudentProfile(id))
